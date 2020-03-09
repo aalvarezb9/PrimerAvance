@@ -1,0 +1,26 @@
+<html>
+
+    <head>
+        <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js">
+        </script>
+        <script type="text/javascript">
+            var mapa;
+            function holaMapa() {
+                mapa = new OpenLayers.Map('capaMapa');
+                var capaWMS = new OpenLayers.Layer.WMS(
+                    "OpenLayers WMS",
+                    "http://vmap0.tiles.osgeo.org/wms/vmap0",
+                    { layers: "basic" });
+                mapa.addLayer(capaWMS);
+                mapa.zoomToMaxExtent();
+            }
+        </script>
+    </head>
+
+    <body onload="holaMapa()">
+        <div id='capaMapa' style="top: 0px; width: 700px; height:
+        400px;">
+        </div>
+    </body>
+
+</html>

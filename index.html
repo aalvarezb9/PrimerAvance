@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BUSE - Buy and Sell at the best price</title>
+  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap/estilos.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">BUSE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a id="quienes-somos" class="nav-link" href="#" onclick="mostrarDiv2()">¿Quiénes somos? <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" data-toggle="modal" data-target="#exampleModalProductos">Ver productos</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Regístrate</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Cliente</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalEmpresa1" data-whatever="@mdo">Empresa</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Lo que sea..." aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button">Buscar</button>
+      </form>
+    </div>
+  </nav>
+  
+  <main role="main">
+  
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <div id="logo-buse">
+          <img src="img/logo.png" alt="logo">
+        </div>
+        <p>Plataforma web bifacética, donde compradores y vendedores podrán sacarle el máximo provecho para satisfacer sus respectivas necesidades.</p>
+        <!-- <p id="primer-boton"><a class="btn btn-primary btn-lg" role="button" href="#">Únete &raquo;</a></p> -->
+      </div>
+    </div>
+  
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2><img src="img/cliente.png" alt=""></h2>
+          <p>En esta sección tienes la posiblidad de registrarte como cliente para ver los productos que tienen disponibles las empresas registradas en la plataforma. </p>
+          <p><a class="btn btn-secondary" href="#" role="button"  data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Únete como cliente &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2><img src="img/empresa.png" alt=""></h2>
+          <p>Aquí puedes registrarte como empresa, para ofrecer tus productos en promoción a los numerosos usuarios que hay en la web buscando qué comprar al mejor precio. </p>
+          <p><a class="btn btn-secondary" href="#" role="button" data-toggle="modal" data-target="#exampleModalEmpresa1" data-whatever="@mdo">Únete como empresa &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2><img src="img/carrito.png" alt=""></h2>
+          <p>¡Mira todos los productos en grandes, útiles y numerosas promociones que tienen las empresas que forman parte de este gran proyecto elaborado para ti!</p>
+          <p><a class="btn btn-secondary" href="#" role="button" data-toggle="modal" data-target="#exampleModalProductos">Ver productos &raquo;</a></p>
+        </div>
+      </div>
+<!-- MODAL 1 REGISTRO -->
+      <div class="modal fade modal-registro-1" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Regístrate como cliente</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="contenedor" style="padding: 30px;">
+              <form>
+                  <div class="form-group">
+                      <label for="email-registro">Correo electrónico</label>
+                      <input type="email" class="form-control" id="email-registro" aria-describedby="email-r">
+                      <small id="emailHelp" class="form-text text-muted">Tu correo está a salvo con nosotros.</small>
+                  </div>
+                  <div class="form-group">
+                      <label for="usuario-registro">Nombre de usuario</label>
+                      <input type="text" class="form-control" id="usuario-registro" aria-describedby="usuario-r">
+                      <!-- <small id="nombre-empresa" class="form-text text-muted">Tu correo está a salvo con nosotros.</small> -->
+                      </div>
+                  <div class="form-group">
+                      <label for="contra-registro">Contraseña</label>
+                      <input type="password" class="form-control" id="contra-registro">
+                  </div>
+                  <div class="form-group">
+                      <label for="contra-registro-repetir">Repita su contraseña</label>
+                      <input type="password" class="form-control" id="contra-registro-repetir">
+                  </div>
+                  <div class="form-group">
+                      <input type="radio" id="male" name="gender" value="male">
+                      <label for="male">Hombre</label>
+                      <input type="radio" id="female" name="gender" value="female">
+                      <label for="female">Mujer</label>
+                  </div>
+                  <div class="registrado" style="margin-bottom: 17px;">
+                      <a id="registro" href="" data-toggle="modal" data-target="#exampleModal3" data-whatever="@mdo" data-dismiss="modal">Ya tengo una cuenta</a>
+                  </div>
+                  <!-- <button type="button" class="btn btn-primary">Registrarme</button> -->
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button onclick="mostrarSiguiente()" data-dismiss="modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- FIN DE MODAL REGISTRO 1 -->
+
+<!-- MODAL REGISTRO 2 -->
+      <div class="modal fade modal-registro-2" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Selecciona tus gustos</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="contenedor2" style="padding: 30px;">
+              <form>
+                            
+                <div class="form-group">
+                    <div class="checkbox">
+                    
+                        <input type="checkbox" id="deporte" name="deporte" value="deporte">
+                        <label for="deporte">Deporte</label><br>
+                    
+                    
+                        <input type="checkbox" id="ropa" name="ropa" value="ropa">
+                        <label for="ropa">Ropa</label><br>
+                    
+                    
+                        <input type="checkbox" id="electronica" name="electronica" value="electronica">
+                        <label for="electronica">Electrónica</label><br>
+
+                        <input type="checkbox" id="electrodomesticos" name="electrodomesticos" value="electrodomesticos">
+                        <label for="electrodomesticos">Electrodomésticos</label><br>
+                    
+                    </div>
+                </div>
+                <hr id="separador">
+                <div class="form-group">
+                    <!-- <label for="imagen">Agregar imagen</label>
+                    <input id="imagen" type="file" src="" alt=""> -->
+                    <p>¡Pon una imagen que te identifique!</p>
+                    <div id="div_file">
+                        <p id="texto">Agregar</p>
+                        <input type="file" id="btn_enviar">
+                    </div>
+                </div>
+            </form>
+          </div>
+            <div class="modal-footer">
+              <button onclick="mostrarAnterior()" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" class="btn btn-secondary" data-dismiss="modal">Atrás</button>
+              <a href="inicioCliente.html"><button type="button" class="btn btn-primary">Fin</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- FIN DE MODAL REGISTRO 2 -->
+  
+
+<!-- MODAL INICIO SESIÓN -->
+      <div class="modal fade modal-inicio-sesion" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Inicia sesión - Cliente</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="contenedor3" style="padding: 45px;">
+              <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Correo electrónico</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <!-- <small id="emailHelp" class="form-text text-muted">Tu correo está a salvo con nosotros.</small> -->
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Contraseña</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+            
+                <button id="boton-entrar-cliente" type="button" class="btn btn-primary" style="width: 30%;">Entrar</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Fin</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- FIN DE MODAL DE INICIO DE SESIÓN -->
+
+<!-- MODAL INICIO SESIÓN EMPRESA -->
+<div class="modal fade modal-inicio-sesion-empresa" id="exampleModal10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Inicia sesión - Empresa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="contenedor3" style="padding: 45px;">
+        <form>
+          <div class="form-group">
+              <label for="exampleInputEmail1">Correo electrónico</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <!-- <small id="emailHelp" class="form-text text-muted">Tu correo está a salvo con nosotros.</small> -->
+          </div>
+          <div class="form-group">
+              <label for="exampleInputPassword1">Contraseña</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+      
+          <a href="inicioEmpresa.html"><button id="boton-entrar-empresa" type="button" class="btn btn-primary" style="width: 30%;">Entrar</button></a>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!-- FIN DE MODAL INICIO SESIÓN EMRPESA -->
+
+      
+<!-- MODAL EMPRESA 1 -->
+      <div class="modal fade modal-empresa-1" id="exampleModalEmpresa1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Regístrate como empresa</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="contenedor4" style="padding: 30px;">
+              <form>
+                  <div class="form-group">
+                      <label for="email-registro-empresa">Correo electrónico</label>
+                      <input type="email" class="form-control" id="email-registro" aria-describedby="email-empresa-r">
+                      <small id="emailHelp" class="form-text text-muted">Tu correo está a salvo con nosotros.</small>
+                  </div>
+                  <div class="form-group">
+                      <label for="usuario-registro">Nombre de empresa</label>
+                      <input type="text" class="form-control" id="empresa-registro" aria-describedby="empresa-r">
+                      <!-- <small id="nombre-empresa" class="form-text text-muted">Tu correo está a salvo con nosotros.</small> -->
+                      </div>
+                  <div class="form-group">
+                      <label for="contra-registro">Contraseña</label>
+                      <input type="password" class="form-control" id="contra-registro-empresa">
+                  </div>
+                  <div class="form-group">
+                      <label for="contra-registro-repetir">Repita su contraseña</label>
+                      <input type="password" class="form-control" id="contra-registro-repetir-empresa">
+                  </div>
+                  
+                  <div class="registrado" style="margin-bottom: 17px;">
+                      <a id="registro" href="" data-toggle="modal" data-target="#exampleModal10" data-whatever="@mdo" data-dismiss="modal">Ya tengo una cuenta</a>
+                  </div>
+                  <!-- <button type="button" class="btn btn-primary">Registrarme</button> -->
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalEmpresa2" data-whatever="@mdo">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DE MODAL EMPRESA 2 -->
+
+<!-- MODAL PARTE 2 REGISTRO EMRPESA -->
+      <div class="modal fade modal-registro-empresa-2" id="exampleModalEmpresa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Seleccione su oferta</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="contenedor5" style="padding: 30px;">
+              <form>
+                            
+                <div class="form-group">
+                    <div class="checkbox">
+                    
+                        <input type="checkbox" id="deporte" name="deporte" value="deporte">
+                        <label for="deporte">Deporte</label><br>
+                    
+                    
+                        <input type="checkbox" id="ropa" name="ropa" value="ropa">
+                        <label for="ropa">Ropa</label><br>
+                    
+                    
+                        <input type="checkbox" id="electronica" name="electronica" value="electronica">
+                        <label for="electronica">Electrónica</label><br>
+
+                        <input type="checkbox" id="electrodomesticos" name="electrodomesticos" value="electrodomesticos">
+                        <label for="electrodomesticos">Electrodomésticos</label><br>
+
+                        <input type="checkbox" id="otros" name="otros" value="otros">
+                        <label for="otros">Otros</label><br>          
+                    
+                    </div>
+                </div>
+                <hr id="separador">
+                <div class="form-group">
+                    <!-- <label for="imagen">Agregar imagen</label>
+                    <input id="imagen" type="file" src="" alt=""> -->
+                    <p>¡Pon una imagen que identifique a tu empresa!</p>
+                    <div id="div_file">
+                        <p id="texto">Agregar</p>
+                        <input type="file" id="btn_enviar">
+                    </div>
+                </div>
+            </form>
+          </div>
+            <div class="modal-footer">
+              <button type="button" data-toggle="modal" data-target="#exampleModalEmpresa1" data-whatever="@mdo" class="btn btn-secondary" data-dismiss="modal">Atrás</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalEmpresa3" data-whatever="@mdo">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>    
+      <!-- FIN DE MODAL DE REGISTRO EMPRESA 2 -->
+
+      <!-- MODAL DE REGISTRO EMPRESA 3 -->
+      <div class="modal fade modal-empresa-3" id="exampleModalEmpresa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Regístrate como empresa</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="contenedor6" style="padding: 30px;">
+              <form>
+                  <div class="form-group">
+                      <label for="direccion-registro-empresa">Longitud - Latitud</label>
+                      <input type="text" class="form-control" id="direccion-registro" aria-describedby="direccion-empresa-r">
+                      <small id="direcHelp" class="form-text text-muted">Con fines de facilitar su localización.</small>
+                  </div>
+                  <div class="form-group">
+                      <!-- <label for="usuario-registro">Nombre de empresa</label>
+                      <input type="text" class="form-control" id="empresa-registro" aria-describedby="empresa-r"> -->
+                      <!-- <small id="nombre-empresa" class="form-text text-muted">Tu correo está a salvo con nosotros.</small> -->
+                      <label for="pais">Escoja el país</label>
+                      <select id="pais" name="pais">
+                        <option value="AF">Afganistán</option>
+                        <option value="AL">Albania</option>
+                        <option value="DE">Alemania</option>
+                        <option value="AD">Andorra</option>
+                        <option value="AO">Angola</option>
+                        <option value="AI">Anguilla</option>
+                        <option value="AQ">Antártida</option>
+                        <option value="AG">Antigua y Barbuda</option>
+                        <option value="AN">Antillas Holandesas</option>
+                        <option value="SA">Arabia Saudí</option>
+                        <option value="DZ">Argelia</option>
+                        <option value="AR">Argentina</option>
+                        <option value="AM">Armenia</option>
+                        <option value="AW">Aruba</option>
+                        <option value="AU">Australia</option>
+                        <option value="AT">Austria</option>
+                        <option value="AZ">Azerbaiyán</option>
+                        <option value="BS">Bahamas</option>
+                        <option value="BH">Bahrein</option>
+                        <option value="BD">Bangladesh</option>
+                        <option value="BB">Barbados</option>
+                        <option value="BE">Bélgica</option>
+                        <option value="BZ">Belice</option>
+                        <option value="BJ">Benin</option>
+                        <option value="BM">Bermudas</option>
+                        <option value="BY">Bielorrusia</option>
+                        <option value="MM">Birmania</option>
+                        <option value="BO">Bolivia</option>
+                        <option value="BA">Bosnia y Herzegovina</option>
+                        <option value="BW">Botswana</option>
+                        <option value="BR">Brasil</option>
+                        <option value="BN">Brunei</option>
+                        <option value="BG">Bulgaria</option>
+                        <option value="BF">Burkina Faso</option>
+                        <option value="BI">Burundi</option>
+                        <option value="BT">Bután</option>
+                        <option value="CV">Cabo Verde</option>
+                        <option value="KH">Camboya</option>
+                        <option value="CM">Camerún</option>
+                        <option value="CA">Canadá</option>
+                        <option value="TD">Chad</option>
+                        <option value="CL">Chile</option>
+                        <option value="CN">China</option>
+                        <option value="CY">Chipre</option>
+                        <option value="VA">Ciudad del Vaticano (Santa Sede)</option>
+                        <option value="CO">Colombia</option>
+                        <option value="KM">Comores</option>
+                        <option value="CG">Congo</option>
+                        <option value="CD">Congo, República Democrática del</option>
+                        <option value="KR">Corea</option>
+                        <option value="KP">Corea del Norte</option>
+                        <option value="CI">Costa de Marfíl</option>
+                        <option value="CR">Costa Rica</option>
+                        <option value="HR">Croacia (Hrvatska)</option>
+                        <option value="CU">Cuba</option>
+                        <option value="DK">Dinamarca</option>
+                        <option value="DJ">Djibouti</option>
+                        <option value="DM">Dominica</option>
+                        <option value="EC">Ecuador</option>
+                        <option value="EG">Egipto</option>
+                        <option value="SV">El Salvador</option>
+                        <option value="AE">Emiratos Árabes Unidos</option>
+                        <option value="ER">Eritrea</option>
+                        <option value="SI">Eslovenia</option>
+                        <option value="ES" selected>España</option>
+                        <option value="US">Estados Unidos</option>
+                        <option value="EE">Estonia</option>
+                        <option value="ET">Etiopía</option>
+                        <option value="FJ">Fiji</option>
+                        <option value="PH">Filipinas</option>
+                        <option value="FI">Finlandia</option>
+                        <option value="FR">Francia</option>
+                        <option value="GA">Gabón</option>
+                        <option value="GM">Gambia</option>
+                        <option value="GE">Georgia</option>
+                        <option value="GH">Ghana</option>
+                        <option value="GI">Gibraltar</option>
+                        <option value="GD">Granada</option>
+                        <option value="GR">Grecia</option>
+                        <option value="GL">Groenlandia</option>
+                        <option value="GP">Guadalupe</option>
+                        <option value="GU">Guam</option>
+                        <option value="GT">Guatemala</option>
+                        <option value="GY">Guayana</option>
+                        <option value="GF">Guayana Francesa</option>
+                        <option value="GN">Guinea</option>
+                        <option value="GQ">Guinea Ecuatorial</option>
+                        <option value="GW">Guinea-Bissau</option>
+                        <option value="HT">Haití</option>
+                        <option value="HN">Honduras</option>
+                        <option value="HU">Hungría</option>
+                        <option value="IN">India</option>
+                        <option value="ID">Indonesia</option>
+                        <option value="IQ">Irak</option>
+                        <option value="IR">Irán</option>
+                        <option value="IE">Irlanda</option>
+                        <option value="BV">Isla Bouvet</option>
+                        <option value="CX">Isla de Christmas</option>
+                        <option value="IS">Islandia</option>
+                        <option value="KY">Islas Caimán</option>
+                        <option value="CK">Islas Cook</option>
+                        <option value="CC">Islas de Cocos o Keeling</option>
+                        <option value="FO">Islas Faroe</option>
+                        <option value="HM">Islas Heard y McDonald</option>
+                        <option value="FK">Islas Malvinas</option>
+                        <option value="MP">Islas Marianas del Norte</option>
+                        <option value="MH">Islas Marshall</option>
+                        <option value="UM">Islas menores de Estados Unidos</option>
+                        <option value="PW">Islas Palau</option>
+                        <option value="SB">Islas Salomón</option>
+                        <option value="SJ">Islas Svalbard y Jan Mayen</option>
+                        <option value="TK">Islas Tokelau</option>
+                        <option value="TC">Islas Turks y Caicos</option>
+                        <option value="VI">Islas Vírgenes (EEUU)</option>
+                        <option value="VG">Islas Vírgenes (Reino Unido)</option>
+                        <option value="WF">Islas Wallis y Futuna</option>
+                        <option value="IL">Israel</option>
+                        <option value="IT">Italia</option>
+                        <option value="JM">Jamaica</option>
+                        <option value="JP">Japón</option>
+                        <option value="JO">Jordania</option>
+                        <option value="KZ">Kazajistán</option>
+                        <option value="KE">Kenia</option>
+                        <option value="KG">Kirguizistán</option>
+                        <option value="KI">Kiribati</option>
+                        <option value="KW">Kuwait</option>
+                        <option value="LA">Laos</option>
+                        <option value="LS">Lesotho</option>
+                        <option value="LV">Letonia</option>
+                        <option value="LB">Líbano</option>
+                        <option value="LR">Liberia</option>
+                        <option value="LY">Libia</option>
+                        <option value="LI">Liechtenstein</option>
+                        <option value="LT">Lituania</option>
+                        <option value="LU">Luxemburgo</option>
+                        <option value="MK">Macedonia, Ex-República Yugoslava de</option>
+                        <option value="MG">Madagascar</option>
+                        <option value="MY">Malasia</option>
+                        <option value="MW">Malawi</option>
+                        <option value="MV">Maldivas</option>
+                        <option value="ML">Malí</option>
+                        <option value="MT">Malta</option>
+                        <option value="MA">Marruecos</option>
+                        <option value="MQ">Martinica</option>
+                        <option value="MU">Mauricio</option>
+                        <option value="MR">Mauritania</option>
+                        <option value="YT">Mayotte</option>
+                        <option value="MX">México</option>
+                        <option value="FM">Micronesia</option>
+                        <option value="MD">Moldavia</option>
+                        <option value="MC">Mónaco</option>
+                        <option value="MN">Mongolia</option>
+                        <option value="MS">Montserrat</option>
+                        <option value="MZ">Mozambique</option>
+                        <option value="NA">Namibia</option>
+                        <option value="NR">Nauru</option>
+                        <option value="NP">Nepal</option>
+                        <option value="NI">Nicaragua</option>
+                        <option value="NE">Níger</option>
+                        <option value="NG">Nigeria</option>
+                        <option value="NU">Niue</option>
+                        <option value="NF">Norfolk</option>
+                        <option value="NO">Noruega</option>
+                        <option value="NC">Nueva Caledonia</option>
+                        <option value="NZ">Nueva Zelanda</option>
+                        <option value="OM">Omán</option>
+                        <option value="NL">Países Bajos</option>
+                        <option value="PA">Panamá</option>
+                        <option value="PG">Papúa Nueva Guinea</option>
+                        <option value="PK">Paquistán</option>
+                        <option value="PY">Paraguay</option>
+                        <option value="PE">Perú</option>
+                        <option value="PN">Pitcairn</option>
+                        <option value="PF">Polinesia Francesa</option>
+                        <option value="PL">Polonia</option>
+                        <option value="PT">Portugal</option>
+                        <option value="PR">Puerto Rico</option>
+                        <option value="QA">Qatar</option>
+                        <option value="UK">Reino Unido</option>
+                        <option value="CF">República Centroafricana</option>
+                        <option value="CZ">República Checa</option>
+                        <option value="ZA">República de Sudáfrica</option>
+                        <option value="DO">República Dominicana</option>
+                        <option value="SK">República Eslovaca</option>
+                        <option value="RE">Reunión</option>
+                        <option value="RW">Ruanda</option>
+                        <option value="RO">Rumania</option>
+                        <option value="RU">Rusia</option>
+                        <option value="EH">Sahara Occidental</option>
+                        <option value="KN">Saint Kitts y Nevis</option>
+                        <option value="WS">Samoa</option>
+                        <option value="AS">Samoa Americana</option>
+                        <option value="SM">San Marino</option>
+                        <option value="VC">San Vicente y Granadinas</option>
+                        <option value="SH">Santa Helena</option>
+                        <option value="LC">Santa Lucía</option>
+                        <option value="ST">Santo Tomé y Príncipe</option>
+                        <option value="SN">Senegal</option>
+                        <option value="SC">Seychelles</option>
+                        <option value="SL">Sierra Leona</option>
+                        <option value="SG">Singapur</option>
+                        <option value="SY">Siria</option>
+                        <option value="SO">Somalia</option>
+                        <option value="LK">Sri Lanka</option>
+                        <option value="PM">St Pierre y Miquelon</option>
+                        <option value="SZ">Suazilandia</option>
+                        <option value="SD">Sudán</option>
+                        <option value="SE">Suecia</option>
+                        <option value="CH">Suiza</option>
+                        <option value="SR">Surinam</option>
+                        <option value="TH">Tailandia</option>
+                        <option value="TW">Taiwán</option>
+                        <option value="TZ">Tanzania</option>
+                        <option value="TJ">Tayikistán</option>
+                        <option value="TF">Territorios franceses del Sur</option>
+                        <option value="TP">Timor Oriental</option>
+                        <option value="TG">Togo</option>
+                        <option value="TO">Tonga</option>
+                        <option value="TT">Trinidad y Tobago</option>
+                        <option value="TN">Túnez</option>
+                        <option value="TM">Turkmenistán</option>
+                        <option value="TR">Turquía</option>
+                        <option value="TV">Tuvalu</option>
+                        <option value="UA">Ucrania</option>
+                        <option value="UG">Uganda</option>
+                        <option value="UY">Uruguay</option>
+                        <option value="UZ">Uzbekistán</option>
+                        <option value="VU">Vanuatu</option>
+                        <option value="VE">Venezuela</option>
+                        <option value="VN">Vietnam</option>
+                        <option value="YE">Yemen</option>
+                        <option value="YU">Yugoslavia</option>
+                        <option value="ZM">Zambia</option>
+                        <option value="ZW">Zimbabue</option>
+                        </select>  
+                  </div>
+                  <div class="form-group">
+                    <div class="form-group">
+                      <!-- <label for="imagen">Agregar imagen</label>
+                      <input id="imagen" type="file" src="" alt=""> -->
+                      <p>Selecciona un banner</p>
+                      <div id="div_file">
+                          <p id="texto">Agregar</p>
+                          <input type="file" id="btn_enviar">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <!-- <button type="button" class="btn btn-primary">Registrarme</button> -->
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalEmpresa2" data-whatever="@mdo">Atrás</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalEmpresa4" data-whatever="@mdo">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DE MODAL DE REGISTRO EMPRESA 3 -->
+
+      <!-- MODAL REGISTRO EMPRESA 4 -->
+      <div class="modal fade modal-empresa-4" id="exampleModalEmpresa4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Selecciona tus redes sociales</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="contenedor7" style="padding: 30px;">
+              <form>
+                  <div class="form-group">
+                      <!-- <label for="email-registro-empresa">Correo electrónico</label>
+                      <input type="email" class="form-control" id="email-registro" aria-describedby="email-empresa-r">
+                      <small id="emailHelp" class="form-text text-muted">Tu correo está a salvo con nosotros.</small> -->
+                      <table style="padding: 5px;">
+                        <tr style="margin: 10px;">
+                          <td><i class="fab fa-facebook"></i></td>
+                          <td><input id="fb" type="text"></td>
+                        </tr>
+                        <tr>
+                          <td><i class="fab fa-instagram"></i></td>
+                          <td><input id="ig" type="text"></td>
+                        </tr>
+                        <tr>
+                          <td><i class="fab fa-youtube"></i></td>
+                          <td><input id="yt" type="text"></td>
+                        </tr>
+                        <tr>
+                          <td><i class="fab fa-snapchat"></i></td>
+                          <td><input id="sc" type="text"></td>
+                        </tr>
+                      </table>
+                  </div>
+                  
+                  <!-- <button type="button" class="btn btn-primary">Registrarme</button> -->
+              </form>
+            </div>
+            
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalEmpresa3" data-whatever="@mdo">Atrás</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Fin</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DE MODAL REGISTRO EMPRESA 4 -->
+
+      <!-- MODAL PARA VER PRODUCTOS -->
+      <div class="modal fade modal-ver-productos" id="exampleModalProductos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Algunos de nuestros productos</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="card" style="width: 18rem;">
+                <img src="img/pruebaproducto1.jpg" class="card-img-top" alt="..." style="width: 200px;">
+                <div class="card-body">
+                  <h5 class="card-title">Nombre</h5>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam aliquid quidem mollitia atque rerum deserunt provident omnis quos illo expedita!</p>
+                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="exampleModal3" data-whatever="@mdo" data-dismiss="modal">Comprar</a>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Ver más productos</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DE MODAL PARA VER PRODUCTOS -->
+
+      <br>
+      <br>
+      <div id="div-2" class="container-fluid" style="display: none;">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-2">
+            <h1><b>PROPÓSITO</b></h1>
+            <hr style="border-color: #1B6DC1;">
+            <div class="proposito">
+              <p>
+                Facilitarle a las personas las compras por internet, con el fin de que tengan la capacidad económica de adquirir ese producto que tanto se desea.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-2">
+            <h1><b>MISIÓN</b></h1>
+            <hr style="border-color: #1B6DC1;">
+            <div class="mision">
+              <ul>
+                <li>Sacar <b>100</b> en la clase de POO para finales del periodo.</li>
+                <li>Efectuar simulación de compras por internet</li>
+                <li>Los clientes serán personas de <b>todo el mundo</b></li>
+                <li>El éxito del proyecto se basa en obtener una buena nota :v</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-2">
+            <h1><b>VISIÓN</b></h1>
+            <hr style="border-color: #1B6DC1;">
+            <div class="vision">
+              <p>Se ve este proyecto como una plataforma 100% <b>hondureña</b>, donde los clientes de todas nacionalidades puedan efectuar compras.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <video id="presentacion" src="vid/videoBUSE.webm" height="790px" width="790px" autoplay loop style="display: none; margin-left: auto; margin-right: auto; background-color: white;"></video>
+ 
+
+      <hr style="border-color: #1B6DC1;">
+    </div> <!-- /container -->
+ 
+  </main>
+  
+  <footer class="container">
+    <p>&copy; BUSE 2020 - Todos los derechos reservados</p>
+  </footer>
+  <script src="jss/controlador.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

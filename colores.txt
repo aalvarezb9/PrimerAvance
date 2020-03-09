@@ -1,0 +1,9 @@
+azul1: #3385D9
+azul2: #1B6DC1 
+
+colores que combinan para shades:
+
+1. #124980
+2. #2491FF
+3. #092440
+4. #2083E6

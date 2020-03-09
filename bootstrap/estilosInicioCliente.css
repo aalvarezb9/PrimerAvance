@@ -1,0 +1,84 @@
+
+
+#busqueda{
+    margin-left: auto;
+    margin-right: 540px;
+}
+
+.btn-outline-success{
+    color: #1B6DC1;
+    border-color: #1B6DC1;
+    transition: all .4s ease-in-out;
+}
+
+.btn-outline-success:hover{
+    background-color: #1B6DC1;
+    color: #F8F9FA;
+    border-color: #F8F9FA;
+}
+
+#inicio:hover, #perfil:hover{
+    color: #3385D9!important; 
+}
+
+/* .menu-lateral-compreso{
+    width: 30px;
+    background-color: #3385D9;
+    height: 550px;
+    flex-direction: column;
+    transition: .2s all ease-in-out;
+} */
+
+#btn-buscar{
+    color: #1B6DC1;
+    border-color: #1B6DC1;
+}
+
+.card{
+    margin: 10px;
+}
+
+#form {
+    width: 250px;
+    margin: 0 auto;
+    height: 50px;
+  }
+  
+  #form p {
+    text-align: center;
+  }
+  
+  #form label {
+    font-size: 20px;
+  }
+  
+  input[type="radio"] {
+    display: none;
+  }
+  
+  label {
+    color: grey;
+  }
+  
+  .clasificacion {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+  }
+  
+  label:hover,
+  label:hover ~ label {
+    color: #1B6DC1;
+    cursor: pointer;
+  }
+  
+  input[type="radio"]:checked ~ label {
+    color: #1B6DC1;
+  }
+
+  form .clasificacion:hover, input[name="estrellas"]{
+      cursor: pointer;
+  }
+
+  #calificacion{
+      cursor: pointer;
+  }
