@@ -16,17 +16,7 @@
 //     console.log('clic en button');
 // }
 
-function mostrarSiguiente(){
-     document.getElementById('exampleModal').style.display = 'none';
- }
 
-function mostrarAnterior(){
-    document.getElementById('exampleModal').style.display = 'block';
-}
-
-function mostrarAnteriorEmpresa(){
-    document.getElementById('exampleModalEmpresa1').style.display = 'block';
-}
 
 // function finalizarModal(){
 //     document.getElementById('exampleModal')

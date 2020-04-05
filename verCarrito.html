@@ -67,7 +67,7 @@
             <h3>TOTAL: </h3><p>Total</p>
         </section>
         <section class="comprar">
-            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModalComprar">Comprar</button>
+            <button onclick="verificarFormaDePago()" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModalComprar">Comprar</button>
         </section>
     </div>
 
@@ -101,7 +101,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary">Finalizar</button>
+              <button onclick="efectuarCompra()" type="button" class="btn btn-primary">Finalizar</button>
             </div>
           </div>
         </div>
@@ -308,6 +308,7 @@
     <script src="bootstrap/jquery-3.2.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="jss/contenedorInicioCliente.js"></script>
+    <script src="jss/contenedorCarrito.js"></script>
 </body>
 
 </html>

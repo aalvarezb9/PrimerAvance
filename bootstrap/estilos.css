@@ -111,6 +111,55 @@ label[for="imagen"]{
     text-align: center;
 } */
 
+/*  */
+.checkboxx label{
+    display: inline-block;
+    cursor: pointer;
+    color: #1B6DC1;
+    position: relative;
+    padding: 5px 15px 5px 51px;
+    font-size: 1em;
+    border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease; 
+}
+
+.checkboxx label:hover{
+    background: rgba(45, 230, 244, 0.1); 
+}
+
+.checkboxx label:before{
+    content: "";
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    left: 15px;
+    border-radius: 50%;
+    background: none;
+    border: 3px solid #1B6DC1; 
+}
+
+.checkboxx label:before{
+    border-radius: 3px;
+ }
+
+ .checkboxx input[type="checkbox"]{
+    display: none; 
+}
+
+.checkboxx input[type="checkbox"]:checked + label:before{
+      display: none;
+}
+
+.checkboxx input[type="checkbox"]:checked + label{
+    background: #1B6DC1;
+    color: #fff;
+    padding: 5px 15px;
+}
+/*  */
+
 p#texto{
 	text-align: center;
 	color:white;
@@ -128,7 +177,7 @@ div#div_file{
     transition: all .3s ease-in-out;
 }
 
-input#btn_enviar{
+input#btn_enviar, input#btn_enviar_imagen{
 	position:absolute;
 	top:0px;
 	left:0px;
@@ -139,7 +188,7 @@ input#btn_enviar{
     opacity: 0;
 }
 
-input#btn_enviar:hover{
+input#btn_enviar:hover, input#btn_enviar_imagen:hover{
     cursor: pointer;
 }
 
