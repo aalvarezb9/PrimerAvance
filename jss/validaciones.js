@@ -1,20 +1,23 @@
 // import mandar from './contenedorInicioCliente';
 //local storage clientes
+const urlClientes = 'http://localhost/BUSE/backend/api/usuarios.php';
+const urlEmpresas = 'http://localhost/BUSE/backend/api/empresas.php';
 var localStorage = window.localStorage;
 var clientes = [];
 // var temporalClientes;
 var temporalEmpresas;
 var temporalClientes;
+var codigoEmpresa;
 
-function ingresarClienteLocalStorage(arregloClientes){
-    if(localStorage.getItem("clientes") == null){
+function ingresarClienteLocalStorage(arregloClientes) {
+    if (localStorage.getItem("clientes") == null) {
         localStorage.setItem("clientes", JSON.stringify(arregloClientes));
     }
 }
 
-function obtenerClienteLocalStorage(){
+function obtenerClienteLocalStorage() {
     var t;
-    if(localStorage.getItem("clientes") != null){
+    if (localStorage.getItem("clientes") != null) {
         t = JSON.parse(localStorage.getItem("clientes"));
     }
     return t;
@@ -164,12 +167,12 @@ function usuarioExiste() {
     var pwExiste = false;
     //var temporal = clientes.filter(client => client.email == document.getElementById('exampleInputEmail1').value);
     var temporal = obtenerClienteLocalStorage();
-     if (temporal.length != 0) {
+    if (temporal.length != 0) {
         usuarioExiste = true;
         if (temporal[0].pw == document.getElementById('exampleInputPassword1').value) {
             pwExiste = true;
         }
-    } 
+    }
 
     if (usuarioExiste == true) {
         console.log('Usuario existe');
@@ -185,10 +188,11 @@ function usuarioExiste() {
         console.log('Usuario no existe');
     }
     return usuarioPasswordCoinciden(usuarioExiste, pwExiste);
-
 }
 
-function redirigirInicioSesionCliente(temporal2){
+
+
+function redirigirInicioSesionCliente(temporal2) {
     document.getElementById('start-session-client').setAttribute("href", "inicioCliente.html");
     temporal2 = obtenerClienteLocalStorage().filter(c => c.email == document.getElementById('exampleInputEmail1').value);
 }
@@ -202,15 +206,15 @@ function usuarioPasswordCoinciden(user, password) {
 }
 
 
-function inicioCliente(json){
+function inicioCliente(json) {
     let temporal = json;
     document.getElementById('nombre-inicio-cliente').innerHTML = temporal;
 }
 
-function obtenerRutaImagenCliente(){
+function obtenerRutaImagenCliente() {
     var rutaImagenCliente = '';
     $('input[type=file]:first').change(function () {
-        rutaImagenCliente = $('#btn_cliente_img').val(); 
+        rutaImagenCliente = $('#btn_cliente_img').val();
     });
 
     return rutaImagenCliente;
@@ -308,19 +312,6 @@ function validar2Empresa() {
 
 //INICIO de modal 3 de registro de empresa
 function validar3Empresa() {
-    // var re = `([\d*6]-[\d*6])`;
-    // direccion = document.getElementById('direccion-registro');
-
-    // select.addEventListener('change',
-    //     function () {
-    //         var select = document.getElementById("pais"),
-    //         //value = select.value,
-    //         text = select.options[select.selectedIndex].innerText;
-    //         // var selectedOption = this.options[select.selectedIndex];
-    //         // empresa.country = selectedOption.text;
-    //         // console.log(selectedOption.text);
-    //     });
-
     if (document.getElementById('direccion-registro-empresa').value == '') {
         alert('Ingrese longitud y latitud');
         return false;
@@ -338,7 +329,7 @@ function validar3Empresa() {
 //FIN de modal 3 de registro de empresa
 
 function paisSeleccionado() {
-    var select = document.getElementById("pais"); 
+    var select = document.getElementById("pais");
     // var value = select.value;
     var text = select.options[select.selectedIndex].innerText;
 
@@ -448,22 +439,419 @@ function abrirModalRegistroEmpresa4() {
     document.getElementById('exampleModalEmpresa4').setAttribute('aria-hidden', 'false');
 }
 
-function obtenerRutaImagenEmpresa(){
+function obtenerRutaImagenEmpresa() {
     var rutaImagenEmpresa = '';
     $('input[type=file]').change(function () {
-        rutaImagenEmpresa = $('#btn_enviar_imagen').val(); 
+        rutaImagenEmpresa = $('#btn_enviar_imagen').val();
     });
 
     return rutaImagenEmpresa;
 }
 
-function obtenerRutaBanner(){
+function obtenerRutaBanner() {
     var rutaBanner = '';
     $('input[type=file]:last').change(function () {
-        rutaBanner = $('.banner-empresa-img').val(); 
+        rutaBanner = $('.banner-empresa-img').val();
     });
 
     return rutaBanner;
 }
 
 //FIN DE VALIDACIONES DE REGISTRO E INICIO DE SESIÓN COMO EMPRESA
+
+
+//CON PHP ------------------------------------------------------------------------------------------------->
+
+//Inicio de Modal 1 para registar cliente
+var contadorIDs = 0;
+function registrarCliente1() {
+    contadorIDs++;
+    cliente = {
+        user: '',
+        email: '',
+        pw: '',
+        gender: '',
+        carrito: [],
+        pleasures: [],
+        images: [],
+        purchases: [],
+        formaDePago: ['no ingresada', 'no ingresada', 'no ingresada', 'no ingresada']
+    };
+
+    correo = document.getElementById('email-registro');
+    usuario = document.getElementById('usuario-registro');
+    password = document.getElementById('contra-registro');
+    password2 = document.getElementById('contra-registro-repetir');
+    genero = document.querySelector('input[name="gender"]:checked');
+    if (correo.value == '' || usuario.value == '' || password.value == '' || password2.value == '') {
+        alert("Debe llenar todos los campos");
+        return false;
+    } else {
+        if (password.value != password2.value) {
+            alert('Contraseñas distintas');
+            return false;
+        } else {
+            cliente['email'] = correo.value;
+            cliente['user'] = usuario.value;
+            cliente['pw'] = password.value;
+            cliente['gender'] = obtenerGenero();
+            abrirModalRegistroCliente2();
+            document.getElementById('boton-siguiente-modal-registro-1').setAttribute('data-toggle', 'modal');
+            document.getElementById('boton-siguiente-modal-registro-1').setAttribute('data-target', '#exampleModal2');
+            document.getElementById('boton-siguiente-modal-registro-1').setAttribute('data-dismiss', 'modal');
+            document.getElementById('boton-siguiente-modal-registro-1').setAttribute('data-whatever', '@mdo');
+        }
+    }
+
+}
+
+//Fin de Modal 1 para registrar cliente
+
+//Inicio de Modal 2 para registrar cliente
+function registrarCliente2() {
+    var deporte = document.getElementById('deporte');
+    var ropa = document.getElementById('ropa');
+    var electronica = document.getElementById('electronica');
+    var electrodomesticos = document.getElementById('electrodomesticos');
+
+    if (deporte.checked == false && ropa.checked == false && electrodomesticos.checked == false && electronica.checked == false) {
+        alert("Seleccione al menos un gusto");
+        return false;
+    } else {
+        $("input[type=checkbox]:checked").each(function () {
+            cliente.pleasures.push(this.value);
+        });
+        document.getElementById('boton-fin-modal-registro-2').setAttribute('data-dismiss', 'modal');
+        cliente.images.push(obtenerRutaImagenCliente());
+        document.querySelector('input[name="gender"]:checked');
+        enviarClienteAlServidor(cliente);
+    }
+
+}
+//Fin de Modal 2 para registrar cliente
+
+//Función que carga una imagen
+function cargarImagen(){
+    
+}
+
+//Función que envía el cliente al servidor
+function enviarClienteAlServidor(cliente) {
+    // document.getElementById('boton-fin-modal-registro-2').disabled = true;
+    axios({
+        method: 'POST',
+        url: urlClientes,
+        responseType: 'json',
+        data: cliente
+    }).then(res => {
+        // console.log(JSON.parse(res.config));
+        console.log(res.config);
+        if(res.data.existeCorreo == false && res.data.existeUser == false){
+            //Usuario registrado con éxito
+            document.getElementById('exampleModalUsuarioExito').setAttribute('aria-hidden', 'false');
+            document.getElementById('titulo-user-exito').innerHTML = '¡Usuario registrado con éxito!'
+            document.getElementById('usuario-exito').innerHTML = 'Bienvenido, '+res.data.user;
+        }else{
+            //Correo o usuario ya existentes
+            document.getElementById('exampleModalUsuarioExito').setAttribute('aria-hidden', 'false');
+            document.getElementById('titulo-user-exito').innerHTML = '¡ERROR!'
+            document.getElementById('usuario-exito').innerHTML = 'Correo o usuario ya existentes';
+        }
+        // console.log('Usuario registrado con éxito: ' + res.data);
+        // document.getElementById('boton-fin-modal-registro-2').disabled = false;
+        limpiarInputs();
+    }).catch(error => {
+        // document.getElementById('boton-fin-modal-registro-2').disabled = false;
+        console.error(error);
+    });
+}
+
+//Inicio de Modal 1 para registrar empresa
+function registroEmpresa1() {
+    empresa = {
+        name: '',
+        idE: '',
+        emailEmpresa: '',
+        pwEmpresa: '',
+        country: '',
+        address: '',
+        banner: '',
+        offer: [],
+        imagesEmpresa: [],
+        officesAddress: [],
+        products: [],
+        social: []
+    };
+
+    // product = {
+    //     nombre: '',
+    //     precio: '',
+    //     categoria: '',
+    //     cantidad: '',
+    //     imagen: '',
+    //     codigoQR: ''
+    // };
+
+    correoEmpresa = document.getElementById('email-registro-empresa');
+    nombreEmpresa = document.getElementById('empresa-registro');
+    passwordEmpresa = document.getElementById('contra-registro-empresa');
+    password2Empresa = document.getElementById('contra-registro-repetir-empresa');
+
+    if (correoEmpresa.value == '' || nombreEmpresa.value == '' || passwordEmpresa.value == '' || password2Empresa.value == '') {
+        alert("Debe llenar todos los campos");
+        return false;
+    } else {
+        if (passwordEmpresa.value != password2Empresa.value) {
+            alert('Contraseñas distintas');
+            return false;
+        } else {
+            empresa['name'] = nombreEmpresa.value;
+            empresa['emailEmpresa'] = correoEmpresa.value;
+            empresa['pwEmpresa'] = passwordEmpresa.value;
+            empresa['idE'] = codigoEmpresa;
+            abrirModalRegistroEmpresa2();
+            document.getElementById('boton-registro-empresa-1').setAttribute('data-toggle', 'modal');
+            document.getElementById('boton-registro-empresa-1').setAttribute('data-target', '#exampleModalEmpresa2');
+            document.getElementById('boton-registro-empresa-1').setAttribute('data-dismiss', 'modal');
+            document.getElementById('boton-registro-empresa-1').setAttribute('data-whatever', '@mdo');
+        }
+    }
+
+}
+//Fin de Modal 1 para registrar empresa
+
+//Inicio de Modal 2 para registrar empresa
+function registroEmpresa2() {
+    var deportee = document.getElementById('deportee');
+    var ropaa = document.getElementById('ropaa');
+    var electronicaa = document.getElementById('electronicaa');
+    var electrodomesticoss = document.getElementById('electrodomesticoss');
+    var otross = document.getElementById('otross');
+
+    if (deportee.checked == false && ropaa.checked == false && electrodomesticoss.checked == false && electronicaa.checked == false && otross.checked == false) {
+        alert("Ofrezca al menos una categoría");
+        return false;
+    } else {
+        $("input[type=checkbox]:checked").each(function () {
+            empresa.offer.push(this.value);
+        });
+        empresa.imagesEmpresa.push(obtenerRutaImagenEmpresa());
+        abrirModalRegistroEmpresa3();
+        document.getElementById('boton-registro-empresa-2').setAttribute('data-toggle', 'modal');
+        document.getElementById('boton-registro-empresa-2').setAttribute('data-target', '#exampleModalEmpresa3');
+        document.getElementById('boton-registro-empresa-2').setAttribute('data-dismiss', 'modal');
+        document.getElementById('boton-registro-empresa-2').setAttribute('data-whatever', '@mdo');
+    }
+
+}
+//Fin de Modal 2 para registrar empresa
+
+//Inicio de Modal 3 para registrar empresa
+function registroEmpresa3() {
+    if (document.getElementById('direccion-registro-empresa').value == '') {
+        alert('Ingrese longitud y latitud');
+        return false;
+    } else {
+        empresa.banner = obtenerRutaBanner();
+        empresa.country = paisSeleccionado();
+        empresa.address = document.getElementById('direccion-registro-empresa').value;
+        abrirModalRegistroEmpresa4();
+        document.getElementById('boton-registro-empresa-3').setAttribute('data-toggle', 'modal');
+        document.getElementById('boton-registro-empresa-3').setAttribute('data-target', '#exampleModalEmpresa4');
+        document.getElementById('boton-registro-empresa-3').setAttribute('data-dismiss', 'modal');
+        document.getElementById('boton-registro-empresa-3').setAttribute('data-whatever', '@mdo');
+    }
+}
+//Fin de Modal 3 para registrar empresa
+
+//Inicio de Modal 4 para registrar empresa
+function registroEmpresa4() {
+    facebookk = document.getElementById('fb');
+    instagramm = document.getElementById('ig');
+    snapchatt = document.getElementById('sc');
+    youtubee = document.getElementById('yt');
+
+    if (facebookk.value == '' && instagramm.value == '' && snapchatt.value == '' && youtubee.value == '') {
+        alert("Ingresar al menos una red social");
+        return false;
+    } else {
+        empresa.social[0] = facebookk.value;
+        empresa.social[1] = snapchatt.value;
+        empresa.social[2] = instagramm.value;
+        empresa.social[3] = youtubee.value;
+        empresas.push(empresa);
+        enviarEmpresaAlServidor(empresa);
+        document.getElementById('boton-fin-empresa').setAttribute('data-dismiss', 'modal');
+    }
+    // var empresaJSON = JSON.stringify(empresa);
+    // console.log(empresas);
+
+    // limpiarInputsEmpresa();
+}
+//Fin de Modal 4 para registrar empresa
+
+//Función que envía la empresa al servidor
+function enviarEmpresaAlServidor(empresa){
+    // document.getElementById('boton-fin-empresa').disabled = true;
+    axios({
+        method: 'POST',
+        url: urlEmpresas,
+        responseType: 'json',
+        data: empresa
+    }).then(res => {
+        console.log('Empresa registrada con éxito');
+        // document.getElementById('boton-fin-empresa').disabled = false;
+        limpiarInputsEmpresa();
+    }).catch(error => {
+        // document.getElementById('boton-fin-empresa').disabled = false;
+        console.error(error);
+    });
+}
+
+//Función para obtener cliente
+function obtenerUnCliente(id){
+    axios({
+        method: 'GET',
+        url: urlClientes+'?id='+id,
+        responseType: 'json'
+    }).then(res => {
+        console.log(res.data);
+    }).catch(error => {
+        console.log(error);
+    });
+}
+
+//Función para obtener una empresa
+function obtenerUnaEmpresa(idE){
+    axios({
+        method: 'GET',
+        url: urlEmpresas+'?idE='+idE,
+        responseType: 'json'
+    }).then(res => {
+        console.log(res.data);
+    }).catch(error => {
+        console.log(error);
+    });
+}
+
+//Verificación del súper-usuario
+function superUsuarioExiste(){
+    let superUsuarioExiste;
+    axios({
+        method: 'GET',
+        url: 'http://localhost/BUSE/backend/api/super.php',
+        responseType: 'json'
+    }).then(res => {
+        if(document.getElementById('exampleInputSuperUsuario').value == res.data.usuario && document.getElementById('exampleInputPasswordSuperUsuario').value == res.data.pass){
+            superUsuarioExiste = true;
+            console.log(superUsuarioExiste);
+        }else{
+            superUsuarioExiste = false;
+            console.log(superUsuarioExiste);
+        }
+        console.log(res.data);
+    }).catch(error => {
+        console.error(error);
+    });
+    
+    return superUsuarioExiste;
+}
+
+//Función que obtiene el id de Empresa
+function obtenerCodigoDeEmpresa(){
+    axios({
+        method: 'GET',
+        url: 'http://localhost/BUSE/backend/api/ids.php?idE=get',
+        responseType: 'json'
+    }).then(res => {
+        codigoEmpresa = res.data.longitud;
+        console.log(res.data);
+        return res.data.longitud;
+        // codigoEmpresa = res.data.longitud;
+    }).catch(error => {
+        console.log(error);
+        return null;
+        // codigoEmpresa = null;
+    });
+
+}
+
+// obtenerCodigoDeEmpresa();
+
+//Función 2 que obtiene el id de Empresa
+function obtenerCodigoDeEmpresa2(){
+    var longitudE;
+    axios({
+        method: 'GET',
+        url: urlEmpresas,
+        responseType: 'json'
+    }).then(res => {
+        console.log(res.data);
+        longitudE = res.data.length;
+        console.log(longitudE);
+    }).catch(error => {
+        console.log(error);
+    });
+
+    return longitudE;
+}
+
+//Función que obtiene el id de usuario
+function obtenerCodigoDeUsuario(){
+    axios({
+        method: 'GET',
+        url: 'http://localhost/BUSE/backend/api/ids.php?id=get',
+        responseType: 'json'
+    }).then(res => {
+        console.log(res.data);
+        return res.data.longitud;
+        // codigoEmpresa = res.data.longitud;
+    }).catch(error => {
+        console.log(error);
+        return null;
+        // codigoEmpresa = null;
+    });
+
+}
+
+//Función que inicia sesión como cliente
+function iniciarSesionCliente(){
+    axios({
+        method: 'POST',
+        url: 'http://localhost/BUSE/backend/api/logins.php',
+        responseType: 'json',
+        data: {
+            email: document.getElementById('exampleInputEmail1').value,
+            pw: document.getElementById('exampleInputPassword1').value
+        }
+    }).then(res => {
+        console.log(res.data);
+        if(res.data != null)
+            window.location.href = 'inicioCliente.html';
+        else{
+            document.getElementById('exampleModal3').setAttribute('aria-hidden', 'true');
+            document.getElementById('exampleModalUsuarioExito').setAttribute('aria-hidden', 'false');
+            document.getElementById('titulo-user-exito').innerHTML = '¡ERROR!'
+            document.getElementById('usuario-exito').innerHTML = 'Credenciales inválidas';
+        }
+    }).catch(error => {
+        console.error(error);
+    });
+}
+
+//Función que inicia sesión como empresa
+function iniciarSesionEmpresa(){
+    axios({
+        method: 'POST',
+        url: 'http://localhost/BUSE/backend/api/loginsE.php',
+        responseType: 'json',
+        data: {
+            emailEmpresa: document.getElementById('exampleInputEmail1Empresa').value,
+            pwEmpresa: document.getElementById('exampleInputPassword1Empresa').value
+        }
+    }).then(res => {
+        console.log(res.data);
+    }).catch(error => {
+        console.error(error);
+    });
+}

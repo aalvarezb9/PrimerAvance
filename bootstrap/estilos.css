@@ -235,3 +235,7 @@ div#div_file:hover{
 #ayuda{
     color: #1B6DC1!important;
 }
+
+.guardando{
+    background-color: gray;;
+}

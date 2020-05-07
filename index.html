@@ -38,6 +38,8 @@
               data-whatever="@mdo">Cliente</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalEmpresa1"
               data-whatever="@mdo">Empresa</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalSuperUsuario"
+              data-whatever="@mdo">Ingresar como súper usuario</a>
           </div>
         </li>
       </ul>
@@ -133,7 +135,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button id="boton-siguiente-modal-registro-1" onclick="validar1()" type="button"
+              <button id="boton-siguiente-modal-registro-1" onclick="registrarCliente1()" type="button"
                 class="btn btn-primary">Siguiente</button>
             </div>
           </div>
@@ -190,7 +192,7 @@
               <button id="boton-atras-modal-registro-cliente-2" type="button" data-toggle="modal"
                 data-target="#exampleModal" data-whatever="@mdo" class="btn btn-secondary"
                 data-dismiss="modal">Atrás</button>
-              <a href="#"><button onclick="validar2()" id="boton-fin-modal-registro-2" type="button"
+              <a href="#"><button onclick="registrarCliente2()" id="boton-fin-modal-registro-2" type="button"
                   class="btn btn-primary">Fin</button></a>
             </div>
           </div>
@@ -222,7 +224,7 @@
                   <input type="password" class="form-control" id="exampleInputPassword1">
                 </div>
 
-                <a id="start-session-client"><button onclick="usuarioExiste(); limpiarModalInicioSesion()"
+                <a id="start-session-client"><button onclick="iniciarSesionCliente(); limpiarModalInicioSesion()"
                     id="boton-entrar-cliente" type="button" class="btn btn-primary"
                     style="width: 30%;">Entrar</button></a>
               </form>
@@ -234,6 +236,43 @@
         </div>
       </div>
       <!-- FIN DE MODAL DE INICIO DE SESIÓN -->
+
+      <!-- INICIO DE MODAL DE INICIO DE SESIÓN DE SÚPER-USUARIO -->
+      <div class="modal fade modal-inicio-sesion" id="exampleModalSuperUsuario" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Acceso privilegiado</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="contenedor3" style="padding: 45px;">
+              <form>
+                <div class="form-group">
+                  <label for="exampleInputSuperUsuario">Usuario</label>
+                  <input type="text" class="form-control" id="exampleInputSuperUsuario" aria-describedby="superUsuarioHelp">
+                  <!-- <small id="emailHelp" class="form-text text-muted">Tu correo está a salvo con nosotros.</small> -->
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPasswordSuperUsuario">Contraseña</label>
+                  <input type="password" class="form-control" id="exampleInputPasswordSuperUsuario">
+                </div>
+
+                <a id="start-session-client"><button onclick="superUsuarioExiste(); limpiarModalInicioSesion()"
+                    id="boton-entrar-super-usuario" type="button" class="btn btn-primary"
+                    style="width: 30%;" data-dismiss="modal">Entrar</button></a>
+              </form>
+            </div>
+            <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Fin</button>
+          </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- FIN DE MODAL DE INICIO DE SESIÓN DE SÚPER-USUARIO -->
+
 
       <!-- MODAL INICIO SESIÓN EMPRESA -->
       <div class="modal fade modal-inicio-sesion-empresa" id="exampleModal10" tabindex="-1" role="dialog"
@@ -258,7 +297,7 @@
                   <input type="password" class="form-control" id="exampleInputPassword1Empresa">
                 </div>
 
-                <button onclick="empresaExiste(); limpiarModalInicioSesionEmpresa(); limpiarInputsEmpresa()"
+                <button onclick="iniciarSesionEmpresa(); limpiarModalInicioSesionEmpresa(); limpiarInputsEmpresa()"
                   id="boton-entrar-empresa" type="button" class="btn btn-primary" style="width: 30%;">Entrar</button>
               </form>
             </div>
@@ -311,7 +350,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-              <button onclick="validar1Empresa()" id="boton-registro-empresa-1" type="button"
+              <button onclick="registroEmpresa1()" id="boton-registro-empresa-1" type="button"
                 class="btn btn-primary">Siguiente</button>
             </div>
           </div>
@@ -370,7 +409,7 @@
             <div class="modal-footer">
               <button type="button" data-toggle="modal" data-target="#exampleModalEmpresa1" data-whatever="@mdo"
                 class="btn btn-secondary" data-dismiss="modal">Atrás</button>
-              <button onclick="validar2Empresa()" id="boton-registro-empresa-2" type="button"
+              <button onclick="registroEmpresa2()" id="boton-registro-empresa-2" type="button"
                 class="btn btn-primary">Siguiente</button>
             </div>
           </div>
@@ -658,7 +697,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal"
                 data-target="#exampleModalEmpresa2" data-whatever="@mdo">Atrás</button>
-              <button onclick="validar3Empresa()" id="boton-registro-empresa-3" type="button"
+              <button onclick="registroEmpresa3()" id="boton-registro-empresa-3" type="button"
                 class="btn btn-primary">Siguiente</button>
             </div>
           </div>
@@ -710,7 +749,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal"
                 data-target="#exampleModalEmpresa3" data-whatever="@mdo">Atrás</button>
-              <button onclick="validar4Empresa(); limpiarInputsEmpresa()" id="boton-fin-empresa" type="button"
+              <button onclick="registroEmpresa4(); limpiarInputsEmpresa()" id="boton-fin-empresa" type="button"
                 class="btn btn-primary">Fin</button>
             </div>
           </div>
@@ -750,6 +789,37 @@
         </div>
       </div>
       <!-- FIN DE MODAL PARA VER PRODUCTOS -->
+
+      <!-- MODAL DE USUARIO REGISTRADO CON ÉXITO -->
+      <div class="modal fade modal-ver-productos" id="exampleModalUsuarioExito" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="titulo-user-exito"></h5>
+              <h4><span id="usuario-exito"></span></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="card" style="width: 18rem;">
+                
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"
+                data-target="#exampleModal" data-whatever="@mdo">Iniciar sesión</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FIN DE MODAL DE USUARIO REGISTRADO CON ÉXITO -->
+
+      <div id="error-autenticacion" style="display: none;">
+        <h4 id="mensaje-error"></h4>
+      </div>
 
       <br>
       <br>
@@ -801,12 +871,16 @@
   <footer class="container">
     <p>&copy; BUSE 2020 - Todos los derechos reservados</p>
   </footer>
-  <script src="jss/controlador.js"></script>
-  <script src="jss/validaciones.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="jss/validaciones.js"></script> -->
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script> -->
+  <script src="jss/jquery-3.3.1.min.js"></script>
   <script src="bootstrap/js/bootstrap.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <script src="jss/validaciones.js"></script>
 </body>
 
 </html>
