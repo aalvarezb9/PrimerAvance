@@ -3,7 +3,7 @@ include_once('productos/producto.php');
 include_once('social/social.php');
     class Empresa{
         private $name;
-        private $idE;
+        // private $idE;
         private $emailEmpresa;
         private $pwEmpresa;
         private $country;
@@ -11,12 +11,11 @@ include_once('social/social.php');
         private $banner;
         private $offer;
         private $imagesEmpresa;
-        private $products;
         private $social;
 
         public function __construct(
             $name,
-            $idE,
+        //     $idE,
             $emailEmpresa,
             $pwEmpresa,
             $country,
@@ -24,12 +23,11 @@ include_once('social/social.php');
             $banner,
             $offer,
             $imagesEmpresa,
-            $products,
             $social
         )
         {
             $this->name = $name; 
-            $this->idE = $idE;
+        //     $this->idE = $idE;
             $this->emailEmpresa = $emailEmpresa;     
             $this->pwEmpresa = $pwEmpresa;  
             $this->country = $country;  
@@ -37,8 +35,8 @@ include_once('social/social.php');
             $this->banner = $banner;  
             $this->offer = $offer;  
             $this->imagesEmpresa = $imagesEmpresa;  
-            //0: nombre, 1: precio, 2: categoría, 3: cantidad, 4: imagen, 5: código QR
-            $this->products = $products;//new Producto($products[0], $products[1], $products[2], $products[3], $products[4], $products[5]); //$products;
+            //0: nombre, 1: precio, 2: categoría, 3: cantidad, 4: imagen, 5: código QR, 6: descripción
+            //$this->products = $products;//new Producto($products[0], $products[1], $products[2], $products[3], $products[4], $products[5]); //$products;
             //0: facebook, 1: snapchat, 2: instagram, 3: youtube
             $this->social = new Social($social[0], $social[1], $social[2], $social[3]);  
         }
@@ -267,7 +265,7 @@ include_once('social/social.php');
         public function verificarEmpresa(){
                 $existeCorreo = null;
                 $existeName = null;
-                $contenidoArchivoEmpresas = file_get_contents('../../datos/empresas.json');
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
                 $empresas = json_decode($contenidoArchivoEmpresas, true);
                 for($contadorCorreos = 0; $contadorCorreos < sizeof($empresas); $contadorCorreos++){
                         if($this->emailEmpresa == $empresas[$contadorCorreos]['emailEmpresa']){
@@ -289,45 +287,47 @@ include_once('social/social.php');
 
 
                 if($existeCorreo == false && $existeName == false){
-                        echo json_encode(array(
-                                "existeCorreo" => $existeCorreo,
-                                "existeName" => $existeName,
-                                "mensaje" => "Sí se puede registrar"
-                        ));
+                        // echo json_encode(array(
+                        //         "existeCorreo" => $existeCorreo,
+                        //         "existeName" => $existeName,
+                        //         "mensaje" => "Sí se puede registrar"
+                        // ));
                         $this->agregarEmpresa();
-                }elseif($existeCorreo == false && $existeName == true){
-                        echo json_encode(array(
-                                "existeCorreo" => $existeCorreo,
-                                "existeName" => $existeName,
-                                "mensaje" => "NO se puede registrar, nombre ya existente"
-                        ));
-                }elseif($existeCorreo == true && $existeName == false){
-                        echo json_encode(array(
-                                "existeCorreo" => $existeCorreo,
-                                "existeName" => $existeName,
-                                "mensaje" => "NO se puede registrar, correo ya existente"
-                        ));
-                }elseif($existeCorreo == true && $existeName == true){
-                        echo json_encode(array(
-                                "existeCorreo" => $existeCorreo,
-                                "existeName" => $existeName,
-                                "mensaje" => "NO se puede registrar, correo y nombre ya existentes"
-                        ));
+                        return true;
+                // }elseif($existeCorreo == false && $existeName == true){
+                //         echo json_encode(array(
+                //                 "existeCorreo" => $existeCorreo,
+                //                 "existeName" => $existeName,
+                //                 "mensaje" => "NO se puede registrar, nombre ya existente"
+                //         ));
+                // }elseif($existeCorreo == true && $existeName == false){
+                //         echo json_encode(array(
+                //                 "existeCorreo" => $existeCorreo,
+                //                 "existeName" => $existeName,
+                //                 "mensaje" => "NO se puede registrar, correo ya existente"
+                //         ));
+                // }elseif($existeCorreo == true && $existeName == true){
+                //         echo json_encode(array(
+                //                 "existeCorreo" => $existeCorreo,
+                //                 "existeName" => $existeName,
+                //                 "mensaje" => "NO se puede registrar, correo y nombre ya existentes"
+                //         ));
                 }else{
-                        echo json_encode(array(
-                                "existeCorreo" => $existeCorreo,
-                                "existeName" => $existeName,
-                                "mensaje" => null
-                        ));
+                        return false;
+                        // echo json_encode(array(
+                        //         "existeCorreo" => $existeCorreo,
+                        //         "existeName" => $existeName,
+                        //         "mensaje" => null
+                        // ));
                 }
         }
 
         public function agregarEmpresa(){
-            $contenidoArchivoEmpresas = file_get_contents('../../datos/empresas.json');
+            $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
             $empresas = json_decode($contenidoArchivoEmpresas, true);
             $empresas[] = array(
                 "name" => $this->name,
-                "idE" => $this->idE,
+                // "idE" => $this->idE,
                 "emailEmpresa" => $this->emailEmpresa,
                 "pwEmpresa" => $this->pwEmpresa,
                 "country" => $this->country,
@@ -335,14 +335,6 @@ include_once('social/social.php');
                 "banner" => $this->banner,
                 "offer" => $this->offer,
                 "imagesEmpresa" => $this->imagesEmpresa,
-                "products" => $this->products,
-                //        "nombre" => $this->products->getNombre(),
-                //        "precio" => $this->products->getPrecio(),
-                //        "categoria" => $this->products->getCategoria(),
-                //        "cantidad" => $this->products->getCantidad(),
-                //        "imagen" => $this->products->getImagen(),
-                //        "codigoQR" => $this->products->getCodigoQR()
-                
                 "social" => array(
                     "facebook" => $this->social->getFacebook(),
                     "snapchat" => $this->social->getSnapchat(),
@@ -351,20 +343,20 @@ include_once('social/social.php');
                 )   
             );
 
-            $archivo = fopen('../../datos/empresas.json', 'w');
+            $archivo = fopen('../datos/empresas.json', 'w');
             fwrite($archivo, json_encode($empresas));
             fclose($archivo);
 
-            echo json_encode($empresas);
+        //     echo json_encode($empresas);
         }
 
         public static function obtenerEmpresas(){
-            $empresas = file_get_contents('../../datos/empresas.json');
+            $empresas = file_get_contents('../datos/empresas.json');
             echo $empresas;
         }
 
         public static function obtenerUnaEmpresa($idE){
-            $contenidoArchivoEmpresas = file_get_contents('../../datos/empresas.json');
+            $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
             $empresas = json_decode($contenidoArchivoEmpresas, true);
             $empresa = null;
             for($contadorEmpresas = 0; $contadorEmpresas < sizeof($empresas); $contadorEmpresas++){
@@ -378,7 +370,7 @@ include_once('social/social.php');
         }
 
         public static function obtenerCodigoEmpresa(){
-                $contenidoArchivoEmpresas = file_get_contents('../../datos/empresas.json');
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
                 $empresas = json_decode($contenidoArchivoEmpresas, true);
 
                 $longitud = array(
@@ -389,33 +381,74 @@ include_once('social/social.php');
         }
 
         public static function longitud(){
-                $contenidoArchivoEmpresas = file_get_contents('../../datos/empresas.json');
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
                 $empresas = json_decode($contenidoArchivoEmpresas, true);
                 echo json_encode(sizeof($empresas));
         }
 
         public static function agregarProductoAEmpresa($name, $producto){
-                $contenidoArchivoEmpresas = file_get_contents('../../datos/empresas.json');
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
                 $empresas = json_decode($contenidoArchivoEmpresas, true);
                 $empresa = null;
 
                 for($contadorEmpresas = 0; $contadorEmpresas < sizeof($empresas); $contadorEmpresas++){
                         if($empresas[$contadorEmpresas]['name'] == $name){
-                                $empresas[$contadorEmpresas]['products'][] = $producto;
+                                $empresas[$contadorEmpresas]['products'][] = array(
+                                        "nombre" => $producto['nombre'],
+                                        "precio" => $producto['precio'],
+                                        "categoria" => $producto['categoria'],
+                                        "cantidad" => $producto['cantidad'],
+                                        "imagen" => $producto['imagen'],
+                                        "codigoQR" => sha1($producto['codigoQR']),
+                                        "descripcion" => $producto['descripcion']
+                                );
                                 $empresa = $empresas[$contadorEmpresas];
                         break;
                         }
                 }
 
-                $archivo = fopen('../../datos/empresas.json', 'w');
+                $archivo = fopen('../datos/empresas.json', 'w');
                 fwrite($archivo, json_encode($empresas));
                 fclose($archivo);
                 if($empresa != null){
-                        echo json_encode($empresa);
+                        return $empresa;
                 }else{
-                        echo json_encode(array(
-                                "mensaje" => "error: Empresa no encontrada"
-                        ));
+                        return $empresa;
+                }
+        }
+
+        public static function agregarSucursalAEmpresa($name, $sucursal){
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $empresa = null;
+
+                for($contadorEmpresas = 0; $contadorEmpresas < sizeof($empresas); $contadorEmpresas++){
+                        if($empresas[$contadorEmpresas]['name'] == $name){
+                                $empresas[$contadorEmpresas]['sucursal'][] = array(
+                                        "nombre" => $sucursal['nombre'],
+                                        "latitud" => $sucursal['latitud'],
+                                        "longitud" => $sucursal['longitud'],
+                                        "codigoPostal" => $sucursal['codigoPostal']
+                                );
+                                $empresa = $empresas[$contadorEmpresas];
+                        break;
+                        }
+                }
+
+                $archivo = fopen('../datos/empresas.json', 'w');
+                fwrite($archivo, json_encode($empresas));
+                fclose($archivo);
+                if($empresa != null){
+                        // echo json_encode(array(
+                        //         "estado" => "exito"
+                        // ));
+                        return $empresa;
+                        
+                }else{
+                        // echo json_encode(array(
+                        //         "estado" => "fracaso"
+                        // ));
+                        return false;
                 }
         }
     }

@@ -3,7 +3,6 @@ header("Content-Type: application/json");
 include_once('tarjeta/tarjeta.php');
     class Usuario{
         private $user;
-        private $id;
         private $email;
         private $pw;
         private $gender;
@@ -15,7 +14,6 @@ include_once('tarjeta/tarjeta.php');
 
         public function __construct(
             $user,
-            $id,
             $email,
             $pw,
             $gender,
@@ -27,7 +25,6 @@ include_once('tarjeta/tarjeta.php');
         )
         {
             $this->user = $user;
-            $this->id = $id;
             $this->email = $email;
             $this->pw = $pw;
             $this->gender = $gender;
@@ -244,7 +241,7 @@ include_once('tarjeta/tarjeta.php');
         public function verificarUsuario(){
                 $existeCorreo = null;
                 $existeUser = null;
-                $contenidoArchivoUsuarios = file_get_contents('../../datos/usuarios.json');
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
                 $usuarios = json_decode($contenidoArchivoUsuarios, true);
                 for($contadorCorreos = 0; $contadorCorreos < sizeof($usuarios); $contadorCorreos++){
                         if($this->email == $usuarios[$contadorCorreos]['email']){
@@ -266,53 +263,54 @@ include_once('tarjeta/tarjeta.php');
 
 
                 if($existeCorreo == false && $existeUser == false){
-                        echo json_encode(array(
-                                "user" => $this->user,
-                                "existeCorreo" => $existeCorreo,
-                                "existeUser" => $existeUser,
-                                "mensaje" => "Sí se puede registrar el usuario"
-                        ));
+                        // echo json_encode(array(
+                        //         "user" => $this->user,
+                        //         "existeCorreo" => $existeCorreo,
+                        //         "existeUser" => $existeUser,
+                        //         "mensaje" => "Sí se puede registrar el usuario"
+                        // ));
                         $this->guardarUsuario();
                         return true;
-                }elseif($existeCorreo == false && $existeUser == true){
-                        echo json_encode(array(
-                                "existeCorreo" => $existeCorreo,
-                                "existeUser" => $existeUser,
-                                "mensaje" => "NO se puede registrar, usuario ya existente"
-                        ));
+                }//elseif($existeCorreo == false && $existeUser == true){
+                //         echo json_encode(array(
+                //                 "existeCorreo" => $existeCorreo,
+                //                 "existeUser" => $existeUser,
+                //                 "mensaje" => "NO se puede registrar, usuario ya existente"
+                //         ));
                         
-                }elseif($existeCorreo == true && $existeUser == false){
-                        echo json_encode(array(
-                                "existeCorreo" => $existeCorreo,
-                                "existeUser" => $existeUser,
-                                "mensaje" => "NO se puede registrar, correo ya existente"
-                        ));
+                // }elseif($existeCorreo == true && $existeUser == false){
+                //         echo json_encode(array(
+                //                 "existeCorreo" => $existeCorreo,
+                //                 "existeUser" => $existeUser,
+                //                 "mensaje" => "NO se puede registrar, correo ya existente"
+                //         ));
                         
-                }elseif($existeCorreo == true && $existeUser == true){
-                        echo json_encode(array(
-                                "existeCorreo" => $existeCorreo,
-                                "existeUser" => $existeUser,
-                                "mensaje" => "NO se puede registrar, correo y user ya existentes"
-                        ));
+                // }elseif($existeCorreo == true && $existeUser == true){
+                //         echo json_encode(array(
+                //                 "existeCorreo" => $existeCorreo,
+                //                 "existeUser" => $existeUser,
+                //                 "mensaje" => "NO se puede registrar, correo y user ya existentes"
+                //         ));
                         
-                }else{
-                        echo json_encode(array(
-                                "existeCorreo" => $existeCorreo,
-                                "existeUser" => $existeUser,
-                                "mensaje" => null
-                        ));
+                // }
+                else{
+                        return false;
+                        // echo json_encode(array(
+                        //         "existeCorreo" => $existeCorreo,
+                        //         "existeUser" => $existeUser,
+                        //         "mensaje" => null
+                        // ));
                         
                 }
         }
 
         public function guardarUsuario(){
                 $existe = null;
-                $contenidoArchivoUsuarios = file_get_contents('../../datos/usuarios.json');
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
                 $usuarios = json_decode($contenidoArchivoUsuarios, true);
 
                 $usuarios[] = array(
                     "user" => $this->user,
-                    "id" => $this->id,
                     "email" => $this->email,
                     "pw" => $this->pw,
                     "gender" => $this->gender,
@@ -328,7 +326,7 @@ include_once('tarjeta/tarjeta.php');
                     )
                 );
 
-                $archivo = fopen('../../datos/usuarios.json', 'w');
+                $archivo = fopen('../datos/usuarios.json', 'w');
                 fwrite($archivo, json_encode($usuarios));
                 fclose($archivo);
 
@@ -336,12 +334,12 @@ include_once('tarjeta/tarjeta.php');
         }
 
         public static function obtenerUsuarios(){
-            $usuarios = file_get_contents('../../datos/usuarios.json');
+            $usuarios = file_get_contents('../datos/usuarios.json');
             echo $usuarios;
         }
 
         public static function obtenerUnUsuario($id){
-            $contenidoArchivoUsuarios = file_get_contents('../../datos/usuarios.json');
+            $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
             $usuarios = json_decode($contenidoArchivoUsuarios, true);
             $usuario = null;
             for($contadorUsuarios = 0; $contadorUsuarios < sizeof($usuarios); $contadorUsuarios++){
@@ -355,13 +353,13 @@ include_once('tarjeta/tarjeta.php');
         }
 
         public static function eliminarUsuarios(){
-                $contenidoArchivoUsuarios = file_get_contents('../../datos/usuarios.json');
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
                 $usuarios = json_decode($contenidoArchivoUsuarios, true);
                 for($contadorUsuarios = 0; $contadorUsuarios < sizeof($usuarios); $contadorUsuarios++){
                         $usuarios[$contadorUsuarios] = null;
                 }
 
-                $archivo = fopen('../../usuarios.json', 'w');
+                $archivo = fopen('../datos/usuarios.json', 'w');
                 fwrite($archivo, json_encode($usuarios));
                 fclose($archivo);
 

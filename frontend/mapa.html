@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa</title>
+  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="bootstrap/estilos.css">
+  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="APImaps/v6.2.1-dist/ol.css"> -->
+  <!-- <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"> -->
+  <link rel="stylesheet" href="bootstrap/ol.css">
+  <!-- </script> -->
+  <!-- <script type="text/javascript">
+    var mapa;
+    function holaMapa() {
+      mapa = new OpenLayers.Map('capaMapa');
+      var capaWMS = new OpenLayers.Layer.WMS(
+        "OpenLayers WMS",
+        "http://vmap0.tiles.osgeo.org/wms/vmap0",
+        { layers: "basic" });
+      mapa.addLayer(capaWMS);
+      mapa.zoomToMaxExtent();
+
+      var opciones = {
+        controls: [
+          new OpenLayers.Control.Navigation(),
+          new OpenLayers.Control.KeyboardDefaults(),
+          new OpenLayers.Control.PanZoomBar(),
+          new OpenLayers.Control.Scale()
+        ]
+      };
+      mapa = new OpenLayers.Map('map', opciones);
+      var autoria = new OpenLayers.Control.Attribution();
+      mapa.addControl(autoria);
+    }
+  </script> -->
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Hola, <span id="nombre-inicio-cliente"></span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" id="inicio" href="inicioCliente.html" style="color: #1B6DC1;">Inicio <span
+              class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="perfil" href="#" style="color: #1B6DC1;">Perfil</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <img src="img/clienteSinFondo.png" width="25px" alt="">
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="verCarrito.html"><img src="img/carrito.png" alt="" width="23px;">&nbsp; Ver
+              carrito</a>
+            <a class="dropdown-item" href="#" data-toggle="modal"
+              data-target="#exampleModalPromocionesFavoritas">Promociones favoritas</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalEmpresasFavoritas">Empresas
+              favoritas</a>
+            <a class="dropdown-item" href="mapa.html">Mapa de promociones</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="index.html">Cerrar sesión</a>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+  <div id="map" class="map"></div>
+  <script src="jss/ol.js"></script>
+  <script>
+    var layer = new ol.layer.Tile({
+      source: new ol.source.OSM(),
+      noWrap: true,
+      wrapX: false
+    });
+    var london = ol.proj.transform(
+      [-0.12755, 51.507222],
+      'EPSG:4326',
+      'EPSG:3857'
+    );
+    var tgu = ol.proj.transform(
+      [-87.2167, 14.1],
+      'EPSG:4326',
+      'EPSG:3857'
+    );
+    var view = new ol.View({
+      center: tgu,
+      zoom: 12
+    });
+    var map = new ol.Map({
+      renderer: 'canvas',
+      target: 'map',
+      layers: [layer],
+      view: view
+    });
+
+    // function moveTo(location) {
+    //   map.getView().setCenter(location);
+    // }
+
+    // var checkbox = document.querySelector('#checkbox');
+
+    // checkbox.addEventListener('change', function () {
+    //   var checked = this.checked;
+    //   if (checked !== layer.getVisible()) {
+    //     layer.setVisible(checked);
+    //   }
+    // });
+
+    // layer.on('change:visible', function () {
+    //   var visible = this.getVisible();
+    //   if (visible !== checkbox.checked) {
+    //     checkbox.checked = visible;
+    //   }
+    // });
+  </script>
+  <!-- <body onload="holaMapa()">
+        <div id='capaMapa' style="top: 0px; width: 100%; height: 400px;">
+        </div>
+    </body> -->
+
+  <!-- <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <body onload="holaMapa()">
+          <div id='capaMapa' style="width: 900px; height: 900px;">
+          </div>
+        </body>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- MODAL PARA VER EMPRESAS FAVORITAS -->
+  <div class="modal fade" id="exampleModalEmpresasFavoritas" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Empresas favoritas</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-unstyled">
+            <li class="media">
+              <img src="..." class="mr-3" alt="...">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">List-based media object</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </li>
+            <li class="media my-4">
+              <img src="..." class="mr-3" alt="...">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">List-based media object</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </li>
+            <li class="media">
+              <img src="..." class="mr-3" alt="...">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">List-based media object</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN DE MODAL PARA VER EMPRESAS FAVORITAS -->
+
+  <!-- MODAL PARA VER PROMOCIONES FAVORITAS -->
+  <div class="modal fade" id="exampleModalPromocionesFavoritas" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Promociones favoritas</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-unstyled">
+            <li class="media">
+              <img src="..." class="mr-3" alt="...">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">List-based media object</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </li>
+            <li class="media my-4">
+              <img src="..." class="mr-3" alt="...">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">List-based media object</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </li>
+            <li class="media">
+              <img src="..." class="mr-3" alt="...">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">List-based media object</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN DE MODAL PARA VER PROMOCIONES FAVORITAS -->
+
+
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script> -->
+  <script src="jss/jquery-3.3.1.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>   
+  <!-- <script src="jss/contenedorMapa.js"></script>  -->
+  <!-- <script src="jss/contenedorMapa.js"></script> -->
+  <!-- <script src="APImaps/v6.2.1-dist/ol.js"></script>  -->
+</body>
+
+</html>

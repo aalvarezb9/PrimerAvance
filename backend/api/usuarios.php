@@ -3,10 +3,10 @@
     include_once('../clases/usuario.php');  
     switch($_SERVER['REQUEST_METHOD']){
         case 'POST':
+            $resultado = null;
             $_POST = json_decode(file_get_contents('php://input'), true);
             $usuario = new Usuario(
                 $_POST['user'],
-                $_POST['id'],
                 $_POST['email'],
                 sha1($_POST['pw']),
                 $_POST['gender'],
@@ -16,17 +16,25 @@
                 $_POST['purchases'],
                 $_POST['formaDePago']
             );
-            //$usuario->verificarUsuario();
-            if($usuario->verificarUsuario() == true){
-                echo json_encode(array(
-                    "existeCorreo" => false,
-                    "existeUser" => false,
+            $verificacion = $usuario->verificarUsuario();
+            if($verificacion == true){
+                $resultado = array(
+                    "estado" => true,
                     "user" => $_POST['user']
-                ));
+                );
+                // echo json_encode(array(
+                //     "existeCorreo" => false,
+                //     "existeUser" => false
+                // ));
+                echo json_encode($resultado);
             }else{
-                echo json_encode(array(
-                    "mensaje" => "error"
-                ));
+                $resultado = array(
+                    "estado" => false
+                );
+                // echo json_encode(array(
+                //     "mensaje" => "error"
+                // ));
+                echo json_encode($resultado);
             }
 
         break;
