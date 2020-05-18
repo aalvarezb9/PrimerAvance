@@ -23,13 +23,13 @@
                 setcookie("country", "", time()-1, "/");
                 setcookie("address", "", time()-1, "/");
                 for($offer = 0; $offer < sizeof($empresa["offer"]); $offer++){
-                    setcookie("offer".strval($offer+1), "", time()-1, "/");
+                    setcookie("offer[".strval($offer+1)."]", "", time()-1, "/");
                 }
                 for($images = 0; $images < sizeof($empresa["imagesEmpresa"]); $images++){
-                    setcookie("imagesEmpresa".strval($images+1), "", time()-1, "/");
+                    setcookie("imagesEmpresa[".strval($images+1)."]", "", time()-1, "/");
                 }
                 for($banner = 0; $banner < sizeof($empresa["banner"]); $banner++){
-                    setcookie("banner".strval($banner+1), "", time()-1, "/");
+                    setcookie("banner[".strval($banner+1)."]", "", time()-1, "/");
                 }
                 if($empresa["sucursal"]){
                     for($sucursal = 0; $sucursal < sizeof($empresa["sucursal"]); $sucursal++){
@@ -43,12 +43,12 @@
                 if($empresa["products"]){
                     for($products = 0; $products < sizeof($empresa["products"]); $products++){
                         setcookie("producto[nombre][".strval($products+1)."]", "", time()-1, "/");
-                        setcookie("producto[precio]".strval($products+1)."]", "", time()-1, "/");
-                        setcookie("producto[cateogoria]".strval($products+1)."]", "", time()-1, "/");
-                        setcookie("producto[cantidad]".strval($products+1)."]", "", time()-1, "/");
-                        setcookie("producto[imagen]".strval($products+1)."]", "", time()-1, "/");
-                        setcookie("producto[codigoQR]".strval($products+1)."]", "", time()-1, "/");
-                        setcookie("producto[descripcion]".strval($products+1)."]", "", time()-1, "/");
+                        setcookie("producto[precio][".strval($products+1)."]", "", time()-1, "/");
+                        setcookie("producto[cateogoria][".strval($products+1)."]", "", time()-1, "/");
+                        setcookie("producto[cantidad][".strval($products+1)."]", "", time()-1, "/");
+                        setcookie("producto[imagen][".strval($products+1)."]", "", time()-1, "/");
+                        setcookie("producto[codigoQR][".strval($products+1)."]", "", time()-1, "/");
+                        setcookie("producto[descripcion][".strval($products+1)."]", "", time()-1, "/");
                     }
                 }
                 echo json_encode($resultado);
@@ -69,13 +69,13 @@
                 setcookie("country", $empresa["country"], time()+(60*60*24*31), "/");
                 setcookie("address", $empresa["address"], time()+(60*60*24*31), "/");
                 for($offer = 0; $offer < sizeof($empresa["offer"]); $offer++){
-                    setcookie("offer".strval($offer+1), $empresa["offer"][$offer], time()+(60*60*24*31), "/");
+                    setcookie("offer[".strval($offer+1)."]", $empresa["offer"][$offer], time()+(60*60*24*31), "/");
                 }
                 for($images = 0; $images < sizeof($empresa["imagesEmpresa"]); $images++){
-                    setcookie("imagesEmpresa".strval($images+1), $empresa["imagesEmpresa"][$images], time()+(60*60*24*31), "/");
+                    setcookie("imagesEmpresa[".strval($images+1)."]", $empresa["imagesEmpresa"][$images], time()+(60*60*24*31), "/");
                 }
                 for($banner = 0; $banner < sizeof($empresa["banner"]); $banner++){
-                    setcookie("banner".strval($banner+1), $empresa["banner"][$banner], time()+(60*60*24*31), "/");
+                    setcookie("banner[".strval($banner+1)."]", $empresa["banner"][$banner], time()+(60*60*24*31), "/");
                 }
                 if($empresa["products"]){
                     for($products = 0; $products < sizeof($empresa["products"]); $products++){

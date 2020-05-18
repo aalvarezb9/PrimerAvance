@@ -119,6 +119,39 @@
                         }
                     }
                 }
+            }elseif(isset($_GET['actE'])){
+                $cadena = str_replace("+", " ", $_GET['actE'], $contador);
+                if($contador > 0){
+                    $empresa = Empresa::actualizarEmpresa($cadena, $_POST["empresa"]);
+                    if($empresa != null){
+                        echo json_encode(array(
+                            "estado" => "exito"
+                        ));
+                        
+                    }else{
+                        echo json_encode(array(
+                            "estado" => "fracaso",
+                            "-" => $empresa,
+                            "contador" => $contador
+                        ));
+                    }
+                    
+                }else{
+                    $empresa = Empresa::actualizarEmpresa($_GET['actE'], $_POST["empresa"]);
+                    if($empresa != null){
+                        echo json_encode(array(
+                            "estado" => "exito"
+                        ));
+                    }else{
+                        echo json_encode(array(
+                            "estado" => "fracaso",
+                            "--" => $empresa,
+                            "contador" => $contador
+                        ));
+                    }
+                    
+                }
+                
             }
         break;
     }

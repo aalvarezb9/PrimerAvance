@@ -29,8 +29,8 @@ precioProducto = document.getElementById('precio-registro');
 categoriaProducto = document.getElementById('categoria-producto-registro');
 cantidadProductos = document.getElementById('cantidad');
 comentarioProducto = document.getElementById('comentario-del-producto');
-// limpiarCamposProductos
-//Función que sube imagen de producto
+
+//Función que sube un producto
 function subirProducto() {
   if (camposVaciosProductos() == true) {
     alert("Por favor llene todos los campos");
@@ -45,6 +45,7 @@ function subirProducto() {
           nombre: document.getElementById('producto-registro').value,
           precio: document.getElementById('precio-registro').value,
           categoria: document.getElementById('categoria-producto-registro').value,
+          cantidad: document.getElementById('cantidad'),
           imagen: resI.data,
           codigoQR: document.getElementById('comentario-del-producto').value,
           descripcion: document.getElementById('comentario-del-producto').value
@@ -159,60 +160,65 @@ function camposVacios() {
 //Función para ver la sucursal seleccionada
 function verSucursal(indice){
   $('#ver-sucursal').modal('show');
-  document.getElementById('nombre-de-la-sucursal').value = leerCookieSucursalNombre(indice + 1);
-  document.getElementById('latitud-de-la-sucursal').value = leerCookieSucursalLatitud(indice + 1);
-  document.getElementById('longitud-de-la-sucursal').value = leerCookieSucursalLongitud(indice + 1);
-  document.getElementById('codigo-postal-de-la-sucursal').value = leerCookieSucursalCodigoPostal(indice + 1);
+  document.getElementById('nombre-de-la-sucursal').innerHTML = leerCookieSucursalNombre(indice + 1).replace("+", " ");
+  document.getElementById('latitud-de-la-sucursal').innerHTML = leerCookieSucursalLatitud(indice + 1);
+  document.getElementById('longitud-de-la-sucursal').innerHTML = leerCookieSucursalLongitud(indice + 1);
+  document.getElementById('codigo-postal-de-la-sucursal').innerHTML = leerCookieSucursalCodigoPostal(indice + 1);
 }
 
 //Función que devuelve el valor del nombre de una sucursal
 function leerCookieSucursalNombre(indice){
-  let micookie1;
-  var lista = document.cookie.split(";");
-  for (i in lista) {
-    var busca = lista[i].search(`sucursal[nombre][${indice}]`);
-    if (busca > -1) { micookie1 = lista[i] }
+  let name = `sucursal[nombre][${indice}]` + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++){
+    let c = ca[i];
+    while(c.charAt(0) == ' ') c = c.substring(1);
+    if(c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
   }
-  var igual = micookie1.indexOf("=");
-  var valor = micookie1.substring(igual + 1);
-  return valor;
+  return "";
 }
 
 //Función que devuelve el valor de la latitud de una sucursal
 function leerCookieSucursalLatitud(indice){
-  var lista = document.cookie.split(";");
-  for (i in lista) {
-    var busca = lista[i].search(`sucursal[latitud][${indice}]`);
-    if (busca > -1) { micookie2 = lista[i] }
+  let name = `sucursal[latitud][${indice}]` + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++){
+    let c = ca[i];
+    while(c.charAt(0) == ' ') c = c.substring(1);
+    if(c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
   }
-  var igual = micookie2.indexOf("=");
-  var valor = micookie2.substring(igual + 1);
-  return valor;
+  return "";
 }
 
 //Función que devuelve el valor de la longitud de una sucursal
 function leerCookieSucursalLongitud(indice){
-  var lista = document.cookie.split(";");
-  for (i in lista) {
-    var busca = lista[i].search(`sucursal[longitud][${indice}]`);
-    if (busca > -1) { micookie3 = lista[i] }
+  let name = `sucursal[longitud][${indice}]` + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++){
+    let c = ca[i];
+    while(c.charAt(0) == ' ') c = c.substring(1);
+    if(c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
   }
-  var igual = micookie3.indexOf("=");
-  var valor = micookie3.substring(igual + 1);
-  return valor;
+  return "";
 }
 
 //Función que devuelve el valor del códigoPostal de una sucursal
 function leerCookieSucursalCodigoPostal(indice){
-  var lista = document.cookie.split(";");
-  for (i in lista) {
-    var busca = lista[i].search(`sucursal[codigoPostal][${indice}]`);
-    if (busca > -1) { micookie4 = lista[i] }
+  let name = `sucursal[codigoPostal][${indice}]` + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++){
+    let c = ca[i];
+    while(c.charAt(0) == ' ') c = c.substring(1);
+    if(c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
   }
-  var igual = micookie4.indexOf("=");
-  var valor = micookie4.substring(igual + 1);
-  return valor;
+  return "";
 }
+
+//Función que visualiza las sucursales por si hay más de 10
+function verMas(){
+
+}
+
 
 //FIN del registro de sucursales
 

@@ -45,7 +45,7 @@
             <img src="img/empresaSinFondo.png" width="25px" alt="">
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="actualizarPerfilEmpresa.html">Actualizar perfil</a>
+            <a class="dropdown-item" href="actualizarPerfilEmpresa.php">Actualizar perfil</a>
             <a class="dropdown-item" href="visualizarPerfilEmpresa.html">Visualizar perfil</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Registro de sucursales</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalRegistroProductos">Registro de productos</a>
@@ -69,10 +69,10 @@
                 //   $value = htmlspecialchars($value);
                 //   echo "<a class='dropdown-item' href='#'>$value</a>";
                 // }
-                for($i = 0; $i < sizeof($_COOKIE["sucursal"]); $i++){
+                for($i = 0; $i < sizeof($_COOKIE["sucursal"]["nombre"]); $i++){
                   $value = $_COOKIE["sucursal"]["nombre"][strval($i + 1)];
                   echo "<a class='dropdown-item' href='#' onclick='verSucursal($i)'>$value</a>";
-                  if($i == 3){
+                  if($i == 10){
                     echo "<a class='dropdown-item' href='#' onclick='verMas()'>Ver más</a>";
                     $i = sizeof($_COOKIE["sucursal"]);
                   }
@@ -108,9 +108,14 @@
         <div class="modal-body">
           <div class="contenedor" style="padding: 30px;">
             <form>
+              <label for="longitud-de-la-sucursal">Longitud: </label>
               <h5 id="longitud-de-la-sucursal"></h5>
+              <hr id="separador">
+              <label for="latitud-de-la-sucursal">Latitud: </label>
               <h5 id="latitud-de-la-sucursal"></h5>
-              <h5 id="codigo-postal-de-lasucursal"></h5>
+              <hr id="separador">
+              <label for="codigo-postal-de-la-sucursal">Código postal: </label>
+              <h5 id="codigo-postal-de-la-sucursal"></h5>
             </form>
           </div>
         </div>
@@ -178,23 +183,28 @@
   </div>
   <!-- Fin de modal para registrar una sucursal -->
 
-  <!-- Modal para subir imagen de producto -->
-
-  
-  <!-- Fin de modal para subir imagen de producto -->
 
   <div class="container" style="height: 350px;">
     <div class="row">
       <div class="col-md-12 col-lg-12">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators" style="position: absolute;">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"
+              <?php 
+                if(isset($_COOKIE["banner"])){
+                  $masUno = null;
+                  for($i = 0; $i < sizeof($_COOKIE["banner"]); $i++){
+                    $masUno = $i + 1;
+                    echo "<li data-target='#carouselExampleIndicators' data-slide-to='$masUno' style='background-color: #1B6DC1'></li>";
+                  }
+                }
+              ?>
+            <!-- <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"
               style="background-color: #1B6DC1"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1" style="background-color: #1B6DC1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2" style="background-color: #1B6DC1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2" style="background-color: #1B6DC1"></li> -->
           </ol>
           <div class="carousel-inner">
-            <div class="carousel-item active">
+            <!-- <div class="carousel-item active">
               <img src="img/prueba1.jpg" style="height: 345px;" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
@@ -202,7 +212,23 @@
             </div>
             <div class="carousel-item">
               <img src="img/prueba3.jpg" style="height: 345px;" class="d-block w-100" alt="...">
-            </div>
+            </div> -->
+            <?php 
+              if(isset($_COOKIE["banner"])){
+                $rutaPrincipal = $_COOKIE["banner"][1];
+                echo "<div class='carousel-item active'>
+                        <img src='$rutaPrincipal' style='height: 345px;' class='d-block w-100' alt='...'>
+                      </div>";
+                if(sizeof($_COOKIE["banner"]) > 1){
+                  for($i = 1; $i < sizeof($_COOKIE["banner"]); $i++){
+                   $ruta = $_COOKIE["banner"][strval($i + 1)];
+                   echo "<div class='carousel-item'>
+                          <img src='$ruta' style='height: 345px;' class='d-block w-100' alt='...'>
+                        </div>";
+                  }
+                }
+              }
+            ?>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

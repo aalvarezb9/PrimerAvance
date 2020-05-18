@@ -451,6 +451,61 @@ include_once('social/social.php');
                         return false;
                 }
         }
+
+        public static function actualizarEmpresa($name, $nEmpresa){
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $empresa = null;
+                
+                for($contadorEmpresas = 0; $contadorEmpresas < sizeof($empresas); $contadorEmpresas++){
+                        if($empresas[$contadorEmpresas]['name'] == $name){
+                                $empresas[$contadorEmpresas]["imagesEmpresa"][] = $nEmpresa["imagesEmpresa"];
+                                $empresas[$contadorEmpresas]["banner"][] = $nEmpresa["banner"];
+                                $empresas[$contadorEmpresas] = array(
+                                        "name" => $nEmpresa["name"],
+                                        "emailEmpresa" => $nEmpresa["emailEmpresa"],
+                                        "pwEmpresa" => sha1($nEmpresa["pwEmpresa"]),
+                                        "country" => $nEmpresa["country"],
+                                        "address" => $nEmpresa["address"],
+                                        "imagesEmpresa" =>  $empresas[$contadorEmpresas]["imagesEmpresa"],
+                                        "banner" =>  $empresas[$contadorEmpresas]["banner"],
+                                        "social" => array(
+                                                "facebook" => $nEmpresa["social"]["facebook"],
+                                                "instagram" => $nEmpresa["social"]["instagram"],
+                                                "snapchat" => $nEmpresa["social"]["snapchat"],
+                                                "youtube" => $nEmpresa["social"]["youtube"]
+                                        ),
+                                        "products" => $empresas[$contadorEmpresas]["products"],
+                                        "sucursal" => $empresa[$contadorEmpresas]["sucursal"]
+                                );
+
+                                // $empresas[$contadorEmpresas]["name"] = $nEmpresa["name"];
+                                // $empresas[$contadorEmpresas]["emailEmpresa"] = $nEmpresa["emailEmpresa"];
+                                // $empresas[$contadorEmpresas]["pwEmpresa"] = sha1($nEmpresa["pwEmpresa"]);
+                                // $empresas[$contadorEmpresas]["country"] = $nEmpresa["country"];
+                                // $empresas[$contadorEmpresas]["address"] = $nEmpresa["address"];
+                                // $empresas[$contadorEmpresas]["banner"][] = $nEmpresa["banner"];
+                                // $empresas[$contadorEmpresas]["imagesEmpresa"][] = $nEmpresa["imagesEmpresa"];
+                                // $empresas[$contadorEmpresas]["social"]["facebook"] = $nEmpresa["social"]["facebook"];
+                                // $empresas[$contadorEmpresas]["social"]["instagram"] = $nEmpresa["social"]["instagram"];
+                                // $empresas[$contadorEmpresas]["social"]["snapchat"] = $nEmpresa["social"]["snapchat"];
+                                // $empresas[$contadorEmpresas]["social"]["youtube"] = $nEmpresa["social"]["youtube"];
+                                $empresa = $empresas[$contadorEmpresas];
+                        break;
+                        }
+                }
+
+                $archivo = fopen('../datos/empresas.json', 'w');
+                fwrite($archivo, json_encode($empresas));
+                fclose($archivo);
+
+                if($empresa != null){
+                        return $empresa;
+                }else{
+                        return $empresa;
+                }
+
+        }
     }
 
 ?>

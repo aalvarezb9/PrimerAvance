@@ -24,13 +24,13 @@
     setcookie("country", "", time()-1, "/");
     setcookie("address", "", time()-1, "/");
     for($offer = 0; $offer < sizeof($empresa["offer"]) ; $offer++){
-        setcookie("offer".strval($offer+1), "", time()-1, "/");
+        setcookie("offer[".strval($offer+1)."]", "", time()-1, "/");
     }
     for($images = 0; $images < sizeof($empresa["imagesEmpresa"]) ; $images++){
-        setcookie("imagesEmpresa".strval($images+1), "", time()-1, "/");
+        setcookie("imagesEmpresa[".strval($images+1)."]", "", time()-1, "/");
     }
     for($banner = 0; $banner < sizeof($empresa["banner"]); $banner++){
-        setcookie("banner".strval($banner+1), "", time()-1, "/");
+        setcookie("banner[".strval($banner+1)."]", "", time()-1, "/");
     }
     if($empresa["sucursal"]){
         for($sucursal = 0; $sucursal < sizeof($empresa["sucursal"]); $sucursal++){

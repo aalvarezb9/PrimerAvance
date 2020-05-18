@@ -1,3 +1,15 @@
+<?php 
+  session_start();
+  if(!isset($_SESSION["token"]))
+      header("Location: 401.html");
+
+  if(!isset($_COOKIE["token"]))
+      header("Location: 401.html");
+
+  if($_SESSION["token"] != $_COOKIE["token"])
+      header("Location: 401.html")
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +57,7 @@
             <a class="dropdown-item" href="dash.html">Dashboard administrativo</a>
             <a class="dropdown-item" href="#">Imprimir</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="index.html">Cerrar sesión</a>
+            <a class="dropdown-item" href="logoutE.php">Cerrar sesión</a>
           </div>
         </li>
         <li class="nav-item active">
@@ -53,7 +65,7 @@
               class="sr-only">(current)</span></a>
         </li>
 
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" style="color: #1B6DC1;" href="#" id="navbarDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Sucursales
@@ -62,7 +74,7 @@
             <a class="dropdown-item" href="#">Principal</a>
             <a class="dropdown-item" href="#">Sucursal 1</a>
             <a class="dropdown-item" href="#">etc</a>
-        </li>
+        </li> -->
       </ul>
 
 
@@ -119,15 +131,16 @@
             <label for="otros">Otros</label><br>
 
             <hr id="separador">
-            <div class="form-group">
-              <!-- <label for="imagen">Agregar imagen</label>
-                    <input id="imagen" type="file" src="" alt=""> -->
-              <p>¡Cambia la imagen que identifica a tu empresa!</p>
-              <div id="div_file">
-                <p id="texto">Agregar</p>
-                <input type="file" id="btn_enviar">
+            <form id="agregar-imagen-a-empresa" name="agregar-imagen-a-empresa" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <p>¡Agrega otra imagen a tu empresa!</p>
+                <div id="div_file">
+                  <p id="texto">Agregar</p>
+                  <input type="file" name="btn_enviar_imagen" id="btn_enviar_imagen"
+                        accept="image/x-png, image/gif, image/jpeg">
+                </div>
               </div>
-            </div>
+            </form>
 
           </div>
         </div>
@@ -385,17 +398,20 @@
             </select>
           </div>
           <hr>
-          <div class="form-group">
+          
+          <!-- <div class="form-group"> -->
+          <form id="agregar-banner-a-empresa" method="post" enctype="multipart/form-data">
             <div class="form-group">
-              <!-- <label for="imagen">Agregar imagen</label>
-                          <input id="imagen" type="file" src="" alt=""> -->
-              <p>Selecciona un nuevo banner</p>
+              <p>Agrega un nuevo banner</p>
               <div id="div_file">
                 <p id="texto">Agregar</p>
-                <input type="file" id="btn_enviar">
+                <input class="banner-empresa-img" type="file" name="banner-empresa-img" id="btn_enviar"
+                        accept="image/x-png, image/gif, image/jpeg">
               </div>
             </div>
-          </div>
+          </form>
+  
+          <!-- </div> -->
 
           <div class="form-group">
             <a id="redes-sociales" class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal2">Cambia de
@@ -421,8 +437,8 @@
           </button>
         </div>
         <div class="modal-body">
-          Todo atributo escogido aquí, será sustituto de la información original de la empresa. Si no se rellena algún
-          espacio, se asume que ese dato no cambia.
+          Todo atributo presente en este lugar, es su información actual. Al mdoficarla, está cambiando los datos 
+          de su empresa. Recuérdelos a la perfección.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Entendido</button>
@@ -693,6 +709,7 @@
   <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
   <script src="bootstrap/jquery-3.2.1.min.js"></script>
   <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
   <script src="jss/contenedorActualizarPerfilEmpresa.js"></script>
 </body>
 
