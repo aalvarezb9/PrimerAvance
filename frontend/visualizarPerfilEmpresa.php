@@ -34,10 +34,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" id="inicio" href="inicioEmpresa.html" style="color: #1B6DC1;">Inicio <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="perfil" href="visualizarPerfilEmpresa.html" style="color: #1B6DC1;">Perfil</a>
+          <a class="nav-link" id="perfil" href="visualizarPerfilEmpresa.php" style="color: #1B6DC1;">Perfil <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,7 +42,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="actualizarPerfilEmpresa.php">Actualizar perfil</a>
-            <a class="dropdown-item" href="visualizarPerfilEmpresa.html">Visualizar perfil</a>
+            <a class="dropdown-item" href="visualizarPerfilEmpresa.php">Visualizar perfil</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Registro de sucursales</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalRegistroProductos">Registro de productos</a>
             <a class="dropdown-item" href="#">Dashboard administrativo</a>

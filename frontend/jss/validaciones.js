@@ -1,5 +1,7 @@
 // import mandar from './contenedorInicioCliente';
 //local storage clientes
+
+//paisSeleccionado()
 var img;
 var imgB;
 var imgC;

@@ -57,8 +57,8 @@ if ($_SESSION["token"] != $_COOKIE["token"]) {
   </nav>
 
   <div class="container" style="padding: 30px;">
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-6-col-xs-12">
+    <div id="aqui-van-los-productos" class="row">
+      <!-- <div class="col-lg-4 col-md-4 col-sm-6-col-xs-12">
         <div class="card" style="width: 18rem;">
           <img src="img/pruebaproducto1.jpg" class="card-img-top" alt="..." style="width: 200px;">
           <div class="card-body">
@@ -71,12 +71,9 @@ if ($_SESSION["token"] != $_COOKIE["token"]) {
             <br><br>
             <a href="#" class="btn btn-primary" onclick="abrirModal(1)">Incrementar</a>
           </div>
-
         </div>
-      </div>
+      </div> -->
     </div>
-
-
   </div>
 
 
@@ -85,7 +82,7 @@ if ($_SESSION["token"] != $_COOKIE["token"]) {
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Aumenta tus productos</h5>
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -94,86 +91,49 @@ if ($_SESSION["token"] != $_COOKIE["token"]) {
           <div class="contenedor" style="padding: 30px;">
             <form>
               <div class="form-group">
-                <label for="producto-incrementar">Seleccione una cantidad</label>
-                <input type="number" class="form-control" id="producto-incrementar" aria-describedby="incremento-r">
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Aplicar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- FIN DE MODAL PARA INCREMENTAR PRODUCTOS -->
-
-    <!-- MODAL PARA ELIMINAR PRODUCTO -->
-    <div class="modal fade" id="exampleModalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Elimina productos</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="contenedor" style="padding: 30px;">
-              <form>
-                <div class="form-group">
-                  <label for="producto-eliminar">Seleccione una cantidad</label>
-                  <input type="number" class="form-control" id="producto-eliminar" aria-describedby="incremento-r">
+                <div class="row">
+                  <div class="col-6">
+                    <div id="qrcode" class="card" style="width: 100px; height: 100px; border: .5px solid white;">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div id="imagen-aqui" style="width: 100px; height: 100px; border: .5px solid white;"></div>
+                  </div>
                 </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal">Aplicar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- FIN DE MODAL PARA ELIMINAR PRODUCTOS -->
-
-  <!-- MODAL PARA INCREMENTAR PRODUCTO -->
-  <div class="modal fade" id="modalGeneral" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Elimina productos</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="contenedor" style="padding: 30px;">
+              </div>
+            </form>
             <form>
               <div class="form-group">
-                <label for="producto-cantidad">Seleccione una cantidad</label>
-                <input type="number" class="form-control" id="producto-cantidad" aria-describedby="incremento-r">
+                <select name="" id="num"></select>
+                <label for="num">Seleccione una cantidad <span id="depende"></span></label>
+                <!-- <input type="number" class="form-control" id="producto-incrementar" aria-describedby="incremento-r" value=""> -->
               </div>
             </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Aplicar</button>
+          <div id="botones-modal" class="modal-footer">
+            <!-- <div class="row">
+              <div class="col-md-6 col-xs-6"><button type="button" onclick="vaciar()" class="btn btn-secondary" data-dismiss="modal">Cerrar</button></div>
+              <div class="col-md-6 col-xs-6"><button type="button" class="btn btn-primary" data-dismiss="modal">Aplicar</button></div>
+            </div> -->
           </div>
         </div>
       </div>
     </div>
-    <!-- FIN DE MODAL PARA INCREMENTAR PRODUCTOS -->
+  </div>
+  <!-- FIN DE MODAL PARA INCREMENTAR PRODUCTOS -->
 
-      <footer class="container">
-        <hr style="border-color: #1B6DC1;">
-        <p>&copy; BUSE 2020 - Todos los derechos reservados</p>
-      </footer>
 
-      <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
-      <script src="bootstrap/jquery-3.2.1.min.js"></script>
-      <script src="bootstrap/js/bootstrap.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-      <script src="jss/contenedorCatalogo.js"></script>
+  <footer class="container">
+    <hr style="border-color: #1B6DC1;">
+    <p>&copy; BUSE 2020 - Todos los derechos reservados</p>
+  </footer>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+  <script src="bootstrap/jquery-3.2.1.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="jss/qrcodejs-master/qrcode.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <script src="jss/contenedorCatalogo.js"></script>
 </body>
 
 </html>

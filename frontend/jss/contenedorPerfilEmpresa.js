@@ -1,6 +1,6 @@
-const urlRegistrarSucursal = 'http://localhost/BUSE/backend/api/empresas.php?nameES=';
-const urlRegistrarProducto = 'http://localhost/BUSE/backend/api/empresas.php?nameE=';
-const urlEmpresas = 'http://localhost/BUSE/backend/api/empresas.php';
+const urlRegistrarSucursal = '../backend/api/empresas.php?nameES=';
+const urlRegistrarProducto = '../backend/api/empresas.php?nameE=';
+const urlEmpresas = '../backend/api/empresas.php';
 const nombreEmpresa = leerCookie("name");
 
 var sucursal = {
@@ -54,7 +54,7 @@ function subirProducto() {
           nombre: document.getElementById('producto-registro').value,
           precio: document.getElementById('precio-registro').value,
           categoria: document.getElementById('categoria-producto-registro').value,
-          cantidad: document.getElementById('cantidad'),
+          cantidad: document.getElementById('cantidad').value,
           imagen: resI.data,
           codigoQR: document.getElementById('comentario-del-producto').value,
           descripcion: document.getElementById('comentario-del-producto').value
@@ -71,7 +71,6 @@ function subirProducto() {
           if (res.data.estado == "exito") {
             $('#exampleModalRegistroProductos').modal('hide');
             limpiarCamposProductos();
-            sleep(100);
             $('#exampleModalProductoRegistrado').modal('show');
             verProductoRegistrado(producto.nombre, producto.descripcion, producto.imagen, producto.precio);
             makeCode(producto.descripcion);
@@ -126,7 +125,7 @@ function obtenerNombreSucursales(empresa) {
       alert("Error");
     }
   }).catch(err => {
-    alert("Error: " + err);
+    alert("Error al obtener sucursales: " + err);
   });
 }
 
@@ -173,7 +172,7 @@ function obtenerBanners(empresa) {
       alert("Error");
     }
   }).catch(err => {
-    alert("Error: " + err);
+    alert("Error al obtener banners: " + err);
   });
 }
 
@@ -282,7 +281,7 @@ function verSucursal(indice) {
       alert("Error");
     }
   }).catch(err => {
-    alert("Error: " + error);
+    alert("Error al ver sucursal: " + error);
   });
 }
 
