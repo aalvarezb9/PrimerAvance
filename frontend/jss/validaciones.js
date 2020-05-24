@@ -884,7 +884,7 @@ function iniciarSesionEmpresa() {
             pwEmpresa: document.getElementById('exampleInputPassword1Empresa').value
         }
     }).then(res => {
-        // console.log(res);
+        console.log(res);
             if(res.data == null || res.data.codigo == null || res.data.codigo == false) {
                 $('#exampleModalUsuarioExito').modal('show');
                 document.getElementById('titulo-user-exito').innerHTML = '¡ERROR!'

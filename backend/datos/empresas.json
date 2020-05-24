@@ -1,20 +1,22 @@
 [
     {
-        "name": "Empresa nueva 3",
-        "emailEmpresa": "email nuevo 3",
-        "pwEmpresa": "b343c03ba484b7682287c9e59510de77b0199d54",
+        "name": "Empresa nueva 4",
+        "emailEmpresa": "email@nuevo4.com",
+        "pwEmpresa": "a4220ed3f9dd7aed7f04cd8cf4e7b84f730a140d",
         "country": "Pa\u00eds nuevo",
         "address": "Dirreci\u00f3nNueva",
         "imagesEmpresa": [
             "imgNueva3.jpg",
+            "imgNueva4.jpg",
             "imgNueva4.jpg"
         ],
         "banner": [
             "bannerNuevo3.png",
+            "bannerNuevo4.png",
             "bannerNuevo4.png"
         ],
         "social": {
-            "facebook": "fbNuevo",
+            "facebook": "fbNuevo4",
             "instagram": "instagramNuevo",
             "snapchat": "snapchatNuevo",
             "youtube": "'Nuevo'"
@@ -30,64 +32,52 @@
                 "descripcion": "Otro rollo"
             }
         ],
-        "sucursal": null
+        "sucursal": [
+            {
+                "nombre": "Sucursal La Ceiba",
+                "latitud": "12345",
+                "longitud": "67890",
+                "codigoPostal": "2222"
+            }
+        ]
     },
     {
-        "name": "Empresa 2",
-        "emailEmpresa": "empresa2@hotmail.com",
-        "pwEmpresa": "3d0fe1fde82d51dce3113ec3bc6fdf97c08d921c",
-        "country": "Egipto",
-        "address": "983457893457",
-        "banner": [
-            "..\/backend\/datos\/img\/empresas\/banners\/MMMM.png",
-            "..\/backend\/datos\/img\/empresas\/banners\/prueba1.jpg"
-        ],
+        "name": "Empresa 22",
+        "emailEmpresa": "empresa22@hotmail.com",
+        "pwEmpresa": "16865b1d5aacda4f4f0ada5162715b409c167986",
+        "country": "Eslovenia",
+        "address": "2222222222222",
         "offer": [
             "ropaa",
-            "electrodomesticoss"
+            "electronicaa"
         ],
         "imagesEmpresa": [
-            "..\/backend\/datos\/img\/empresas\/imgs\/5.png"
+            "..\/backend\/datos\/img\/empresas\/imgs\/5.png",
+            "..\/backend\/datos\/img\/empresas\/imgs\/fullBodyx3.png",
+            "..\/backend\/datos\/img\/empresas\/imgs\/huffman2.png",
+            "",
+            ""
+        ],
+        "banner": [
+            "..\/backend\/datos\/img\/empresas\/banners\/MMMM.png",
+            "..\/backend\/datos\/img\/empresas\/banners\/prueba1.jpg",
+            "..\/backend\/datos\/img\/empresas\/banners\/MA2.png",
+            "..\/backend\/datos\/img\/empresas\/banners\/2do.png",
+            "",
+            ""
         ],
         "social": {
             "facebook": "fb",
-            "snapchat": "",
-            "instagram": "",
-            "youtube": ""
+            "instagram": "igNuevo",
+            "snapchat": "scNuevo",
+            "youtube": "ytNuevo"
         },
         "products": [
-            {
-                "nombre": "Licuadora",
-                "precio": "32432",
-                "categoria": "Cocina",
-                "cantidad": "12",
-                "imagen": "",
-                "codigoQR": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-                "descripcion": "Otro rollo"
-            },
-            {
-                "nombre": "Computadora",
-                "precio": "30000",
-                "categoria": "Electr\u00f3nica",
-                "cantidad": "1000",
-                "imagen": "",
-                "codigoQR": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-                "descripcion": "Esta es una computadora de alta gama"
-            },
-            {
-                "nombre": "TV",
-                "precio": "200000",
-                "categoria": "Casa",
-                "cantidad": "9",
-                "imagen": "",
-                "codigoQR": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-                "descripcion": "TV plasma para enjoy"
-            },
             {
                 "nombre": "Piscina",
                 "precio": "30",
                 "categoria": "Diversi\u00f3n",
-                "cantidad": null,
+                "cantidad": 200,
                 "imagen": "..\/backend\/datos\/img\/empresas\/productos\/2ejercicio.png",
                 "codigoQR": "ef27c6ffa7a206ec9ea7527ae66e4610a17b9946",
                 "descripcion": "Pa nadar beb\u00e9s"
@@ -96,7 +86,7 @@
                 "nombre": "MAC",
                 "precio": "40000",
                 "categoria": "Compus",
-                "cantidad": null,
+                "cantidad": 100,
                 "imagen": "..\/backend\/datos\/img\/empresas\/productos\/mac.jpg",
                 "codigoQR": "3e9d994f4b78a5aa171a451bcb6d26855f71e79a",
                 "descripcion": "pa chambear"
@@ -105,7 +95,7 @@
                 "nombre": "Cel",
                 "precio": "30000",
                 "categoria": "Celu",
-                "cantidad": null,
+                "cantidad": 600,
                 "imagen": "..\/backend\/datos\/img\/empresas\/productos\/1a.png",
                 "codigoQR": "4b2b79b6f371ca18f1216461cffeaddf6848a50e",
                 "descripcion": "asdasda"
@@ -159,6 +149,12 @@
                 "latitud": "1",
                 "longitud": "2",
                 "codigoPostal": "3"
+            },
+            {
+                "nombre": "Sucursal El Salvador",
+                "latitud": "10000",
+                "longitud": "20000",
+                "codigoPostal": "2222"
             }
         ]
     }

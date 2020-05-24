@@ -1,3 +1,15 @@
+<?php
+  session_start();
+  if(!isset($_SESSION["token"]))
+      header("Location: 401.html");
+
+  if(!isset($_COOKIE["token"]))
+      header("Location: 401.html");
+
+  if($_SESSION["token"] != $_COOKIE["token"])
+      header("Location: 401.html")
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -192,17 +204,19 @@
           <div class="card" style="width: 18rem;">
             <img src="img/pruebaproducto1.jpg" class="card-img-top" alt="..." style="width: 200px;">
             <div class="card-body">
-              <h5 class="card-title">Nombre</h5>
+              <h5 class="card-title" id="nombre-producto-carrito">Nombre</h5>
               <h2><b><s>PRECIO</s></b></h2>
-              <h1>Precio en oferta</h1>
-              <label for="cantidad">Seleccione la cantidad de elementos a comprar</label>
-              <input type="number" name="cantidad" id="cantidad">
+              <h1 id="precio-carrito">Precio en oferta</h1>
+              <h3 id="comentario-carrito">Este es el comentario del producto</h3>
+              <h2 id="categoria-carrito">Deporte</h2>
+              <label for="cantidad-elementos-carrito">Seleccione la cantidad de elementos a comprar</label>
+              <input type="number" name="cantidad" id="cantidad-elementos-carrito">
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button>
+          <button onclick="agregarAlCarrito()" type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button>
         </div>
       </div>
     </div>
@@ -374,8 +388,9 @@
   <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
   <script src="bootstrap/jquery-3.2.1.min.js"></script>
   <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
   <script src="jss/contenedorInicioCliente.js"></script>
-  <script src="jss/validaciones.js"></script>
+  <!-- <script src="jss/validaciones.js"></script> -->
 </body>
 
 </html>

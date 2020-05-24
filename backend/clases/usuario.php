@@ -263,44 +263,10 @@ include_once('tarjeta/tarjeta.php');
 
 
                 if($existeCorreo == false && $existeUser == false){
-                        // echo json_encode(array(
-                        //         "user" => $this->user,
-                        //         "existeCorreo" => $existeCorreo,
-                        //         "existeUser" => $existeUser,
-                        //         "mensaje" => "Sí se puede registrar el usuario"
-                        // ));
                         $this->guardarUsuario();
                         return true;
-                }//elseif($existeCorreo == false && $existeUser == true){
-                //         echo json_encode(array(
-                //                 "existeCorreo" => $existeCorreo,
-                //                 "existeUser" => $existeUser,
-                //                 "mensaje" => "NO se puede registrar, usuario ya existente"
-                //         ));
-                        
-                // }elseif($existeCorreo == true && $existeUser == false){
-                //         echo json_encode(array(
-                //                 "existeCorreo" => $existeCorreo,
-                //                 "existeUser" => $existeUser,
-                //                 "mensaje" => "NO se puede registrar, correo ya existente"
-                //         ));
-                        
-                // }elseif($existeCorreo == true && $existeUser == true){
-                //         echo json_encode(array(
-                //                 "existeCorreo" => $existeCorreo,
-                //                 "existeUser" => $existeUser,
-                //                 "mensaje" => "NO se puede registrar, correo y user ya existentes"
-                //         ));
-                        
-                // }
-                else{
+                }else{
                         return false;
-                        // echo json_encode(array(
-                        //         "existeCorreo" => $existeCorreo,
-                        //         "existeUser" => $existeUser,
-                        //         "mensaje" => null
-                        // ));
-                        
                 }
         }
 
@@ -366,8 +332,68 @@ include_once('tarjeta/tarjeta.php');
                 echo json_encode($usuarios);
         }
 
-        public function agregarAlCarrito($usuario){
+        public static function agregarAlCarrito($producto, $user){
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
+                $usuarios = json_decode($contenidoArchivoUsuarios, true);
+                $usuario = null;
+                for($contadorUsers = 0; $contadorUsers < sizeof($usuarios); $contadorUsers++){
+                        if($user == $usuarios[$contadorUsers]["user"]){
+                                $usuarios[$contadorUsers]["carrito"][] = array(
+                                        "nombre" => $producto["nombre"],
+                                        "precio" => $producto["precio"],
+                                        "categoria" => $producto["categoria"],
+                                        "imagen" => $producto["imagen"],
+                                        "descripcion" => $producto["descripcion"]
+                                );
+                                $usuario = $usuarios[$contadorUsers];
+                        break;
+                        }
+                }
 
+                $archivo = fopen('../datos/usuarios.json', 'w');
+                fwrite($archivo, json_encode($usuarios));
+                fclose($archivo);
+
+                return $usuario;
+        }
+
+        public static function obtenerDelCarrito($user, $nameC){
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
+                $usuarios = json_decode($contenidoArchivoUsuarios, true);
+                $carrito = null;
+
+                for($i = 0; $i < sizeof($usuarios); $i++){
+                        if($user == $usuarios[$i]["user"]){
+                                for($j = 0; $j < sizeof($usuarios[$i]["carrito"]); $j++){
+                                        if($nameC == $usuarios[$i]["carrito"][$j]["nombre"]){
+                                                $carrito = $usuarios[$i]["carrito"][$j];
+                                        }
+                                }
+                        break;
+                        }
+                }
+
+                echo json_encode($carrito);
+        }
+
+        public static function obtenerTodoElCarrito($user){
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
+                $usuarios = json_decode($contenidoArchivoUsuarios, true);
+                $carrito = null;
+
+                for($i = 0; $i < sizeof($usuarios); $i++){
+                        if($user == $usuarios[$i]["user"]){
+                                $carrito = $usuarios[$i]["carrito"];
+                        break;
+                        }
+                break;
+                }
+
+                echo json_encode($carrito);
+        }
+
+        public static function eliminarDelCarrito($user, $nameC){
+                
         }
 
 

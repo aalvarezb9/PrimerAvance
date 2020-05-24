@@ -4,29 +4,38 @@
     $_POST = json_decode(file_get_contents('php://input'), true);
     switch($_SERVER['REQUEST_METHOD']){
         case 'POST':
-            $empresa = new Empresa(
-                $_POST['name'],
-                // $_POST['idE'],
-                $_POST['emailEmpresa'],
-                sha1($_POST['pwEmpresa']),
-                $_POST['country'],
-                $_POST['address'],
-                $_POST['banner'],
-                $_POST['offer'],
-                $_POST['imagesEmpresa'],
-                $_POST['social']
-            );
-            // echo $_POST['user'];
-            $verificacion = $empresa->verificarEmpresa();
-            if($verificacion == true){
-                echo json_encode(array(
-                    "estado" => true,
-                    "name" => $_POST['name']
-                ));
+            if(isset($_GET['vSuc'])){
+                $cadena = str_replace("+", " ", $_GET['vSuc'], $contador);
+                if($contador > 0){
+                    Empresa::obtenerUnaSucursal($cadena, $_POST["id"]);
+                }else{
+                    Empresa::obtenerUnaSucursal($_GET['vSuc'], $_POST["id"]);
+                }
             }else{
-                echo json_encode(array(
-                    "estado" => false
-                ));
+                $empresa = new Empresa(
+                    $_POST['name'],
+                    // $_POST['idE'],
+                    $_POST['emailEmpresa'],
+                    sha1($_POST['pwEmpresa']),
+                    $_POST['country'],
+                    $_POST['address'],
+                    $_POST['banner'],
+                    $_POST['offer'],
+                    $_POST['imagesEmpresa'],
+                    $_POST['social']
+                );
+                // echo $_POST['user'];
+                $verificacion = $empresa->verificarEmpresa();
+                if($verificacion == true){
+                    echo json_encode(array(
+                        "estado" => true,
+                        "name" => $_POST['name']
+                    ));
+                }else{
+                    echo json_encode(array(
+                        "estado" => false
+                    ));
+                }
             }
         break;
         case 'GET':
@@ -39,9 +48,48 @@
             }elseif(isset($_GET['idE'])){
                 Empresa::longitud();
                 exit();
-            }else{
-                Empresa::obtenerEmpresas();
-                exit();
+            }else if(isset($_GET['offr'])){
+                $cadena = str_replace("+", " ", $_GET['offr'], $contador);
+                if($contador > 0){
+                    Empresa::obtenerOfferEmpresa($cadena);
+                }else{
+                    Empresa::obtenerOfferEmpresa($_GET['offr']);
+                }
+            }else if(isset($_GET['eml'])){
+                $cadena = str_replace("+", " ", $_GET['eml'], $contador);
+                if($contador > 0){
+                    Empresa::obtenerEmailEmpresa($cadena);
+                }else{
+                    Empresa::obtenerEmailEmpresa($_GET['eml']);
+                }
+            }else if(isset($_GET['dir'])){
+                $cadena = str_replace("+", " ", $_GET['dir'], $contador);
+                if($contador > 0){
+                    Empresa::obtenerDireccionEmpresa($cadena);
+                }else{
+                    Empresa::obtenerDireccionEmpresa($_GET['dir']);
+                }
+            }else if(isset($_GET['soc'])){
+                $cadena = str_replace("+", " ", $_GET['soc'], $contador);
+                if($contador > 0){
+                    Empresa::obtenerRedesSociales($cadena);
+                }else{
+                    Empresa::obtenerRedesSociales($_GET['soc']);
+                }
+            }else if(isset($_GET['nSuc'])){
+                $cadena = str_replace("+", " ", $_GET['nSuc'], $contador);
+                if($contador > 0){
+                    Empresa::obtenerNombreSucursales($cadena);
+                }else{
+                    Empresa::obtenerNombreSucursales($_GET['nSuc']);
+                }
+            }else if(isset($_GET['bnnr'])){
+                $cadena = str_replace("+", " ", $_GET['bnnr'], $contador);
+                if($contador > 0){
+                    Empresa::obtenerBanners($cadena);
+                }else{
+                    Empresa::obtenerBanners($_GET['bnnr']);
+                }
             }
         break;
         case 'DELETE':

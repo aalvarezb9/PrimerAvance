@@ -1,1 +1,81 @@
-[{"user":"anita_69","email":"anita69@gmail.sex","pw":"d56c82a0ab1c536999c31ae5e2c0dab85f47a331","gender":"Femenino","carrito":[],"pleasures":["deporte","ropa"],"images":["..\/backend\/datos\/img\/usuarios\/anaBanana.png"],"purchases":[],"formaDePago":{"numeroTarjeta":"no ingresada","fechaVencimiento":"no ingresada","validoHasta":"no ingresada","cvv":"no ingresada"}},{"user":"poir","email":"aksjdf@hakjasd.asd","pw":"f10e2821bbbea527ea02200352313bc059445190","gender":"Masculino","carrito":[],"pleasures":["deporte","ropa","electronica","electrodomesticos"],"images":["..\/backend\/datos\/img\/usuarios\/2ejercicio.png"],"purchases":[],"formaDePago":{"numeroTarjeta":"no ingresada","fechaVencimiento":"no ingresada","validoHasta":"no ingresada","cvv":"no ingresada"}}]
+[
+    {
+        "user": "anita_69",
+        "email": "anita69@gmail.sex",
+        "pw": "d56c82a0ab1c536999c31ae5e2c0dab85f47a331",
+        "gender": "Femenino",
+        "carrito": [
+            {
+                "nombre": "carro",
+                "precio": 120000,
+                "categoria": "otros",
+                "imagen": "imagenCarro.png",
+                "descripcion": "pa manejar bien tuani"
+            },
+            {
+                "nombre": "tv",
+                "precio": 12000,
+                "categoria": "Electr\u00f3nica",
+                "imagen": "imagenTV.png",
+                "descripcion": "pa ver tv bien tuani"
+            }
+        ],
+        "pleasures": [
+            "deporte",
+            "ropa"
+        ],
+        "images": [
+            "..\/backend\/datos\/img\/usuarios\/anaBanana.png"
+        ],
+        "purchases": [],
+        "formaDePago": {
+            "numeroTarjeta": "no ingresada",
+            "fechaVencimiento": "no ingresada",
+            "validoHasta": "no ingresada",
+            "cvv": "no ingresada"
+        }
+    },
+    {
+        "user": "poir",
+        "email": "aksjdf@hakjasd.asd",
+        "pw": "f10e2821bbbea527ea02200352313bc059445190",
+        "gender": "Masculino",
+        "carrito": [],
+        "pleasures": [
+            "deporte",
+            "ropa",
+            "electronica",
+            "electrodomesticos"
+        ],
+        "images": [
+            "..\/backend\/datos\/img\/usuarios\/2ejercicio.png"
+        ],
+        "purchases": [],
+        "formaDePago": {
+            "numeroTarjeta": "no ingresada",
+            "fechaVencimiento": "no ingresada",
+            "validoHasta": "no ingresada",
+            "cvv": "no ingresada"
+        }
+    },
+    {
+        "user": "angel_504",
+        "email": "angel@gmail.com",
+        "pw": "7e12cc76ea3bc7b09f995a2f93595c89412a997b",
+        "gender": "Masculino",
+        "carrito": [],
+        "pleasures": [
+            "deporte"
+        ],
+        "images": [
+            "..\/backend\/datos\/img\/usuarios\/SS.png"
+        ],
+        "purchases": [],
+        "formaDePago": {
+            "numeroTarjeta": "no ingresada",
+            "fechaVencimiento": "no ingresada",
+            "validoHasta": "no ingresada",
+            "cvv": "no ingresada"
+        }
+    }
+]

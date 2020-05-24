@@ -1,5 +1,7 @@
 const urlRegistrarSucursal = 'http://localhost/BUSE/backend/api/empresas.php?nameES=';
 const urlRegistrarProducto = 'http://localhost/BUSE/backend/api/empresas.php?nameE=';
+const urlEmpresas = 'http://localhost/BUSE/backend/api/empresas.php';
+const nombreEmpresa = leerCookie("name");
 
 var sucursal = {
   nombreSucursal: '',
@@ -29,6 +31,13 @@ precioProducto = document.getElementById('precio-registro');
 categoriaProducto = document.getElementById('categoria-producto-registro');
 cantidadProductos = document.getElementById('cantidad');
 comentarioProducto = document.getElementById('comentario-del-producto');
+
+function cargarAlIniciar(){
+  obtenerNombreSucursales(nombreEmpresa);
+  obtenerBanners(nombreEmpresa);
+}
+
+cargarAlIniciar();
 
 //Función que sube un producto
 function subirProducto() {
@@ -90,6 +99,101 @@ function subirProducto() {
   }
 }
 
+
+function obtenerNombreSucursales(empresa) {
+  console.log(nombreEmpresa);
+  axios({
+    method: 'GET',
+    url: urlEmpresas + '?nSuc=' + empresa,
+    responseType: 'json'
+  }).then(res => {
+    if (res.data.estado == "exito") {
+      console.log(res.data);
+      console.log(res);
+      console.log(res.data.nombreSucursales);
+      if (res.data.nombreSucursales.length == 0) {
+        document.getElementById('menu-desplegable-de-promociones').innerHTML = "<a class='dropdown-item' href='#'>No tiene sucursales registradas</a>";
+      } else {
+        for (let i = 0; i < res.data.nombreSucursales.length; i++) {
+          document.getElementById('menu-desplegable-de-promociones').innerHTML += `<a class='dropdown-item' id='${res.data.nombreSucursales[i].replace(" ", "-")}' href='#' onclick='verSucursal(${i})'>${res.data.nombreSucursales[i]}</a>`;
+          if (i == 10) {
+            "<a class='dropdown-item' href='#' onclick='verMas()'>Ver más</a>";
+            i = res.data.nombreSucursales.length;
+          }
+        }
+      }
+    } else {
+      alert("Error");
+    }
+  }).catch(err => {
+    alert("Error: " + err);
+  });
+}
+
+function obtenerBanners(empresa) {
+  axios({
+    method: 'GET',
+    url: urlEmpresas + '?bnnr=' + empresa,
+    responseType: 'json'
+  }).then(res => {
+    if (res.data.estado == "exito") {
+      console.log(res.data);
+      console.log(res.data.banner);
+      if (res.data.banner.length == 0) {
+        document.getElementById('aqui-van-los-banners').innerHTML =
+          `
+        <div class='carousel-item active'>
+          <img src='${'../backend/datos/img/empresas/banners/bnnrDefecto.png'}' style='height: 345px;' class='d-block w-100' alt='...'>
+        </div>"
+        `;
+      } else {
+        let bannerFinal = borrarElemento(res.data.banner, "");
+        document.getElementById('aqui-van-los-banners').innerHTML =
+          `
+        <div class='carousel-item active'>
+          <img src='${bannerFinal[0]}' style='height: 345px;' class='d-block w-100' alt='...'>
+        </div>"
+        `;
+        for(let j = 0; j < bannerFinal.length; j++){
+          document.getElementById('indicadores-banners').innerHTML +=
+           `
+           <li data-target='#carouselExampleIndicators' data-slide-to='${j + 1}' style='background-color: #1B6DC1'></li>
+          `;
+        }
+        for (let i = 1; i < bannerFinal.length; i++) {
+          document.getElementById('aqui-van-los-banners').innerHTML += 
+          `
+          <div class='carousel-item'>
+            <img src='${bannerFinal[i]}' style='height: 345px;' class='d-block w-100' alt='...'>
+          </div>
+          `;
+        }
+      }
+    } else {
+      alert("Error");
+    }
+  }).catch(err => {
+    alert("Error: " + err);
+  });
+}
+
+function leerCookie(namee) {
+  let name = namee + "=";
+  let ca = document.cookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') c = c.substring(1);
+    if (c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
+  }
+  return "";
+}
+
+function borrarElemento(arr, elemento) {//función que borra un elemento de un arreglo, 
+  return arr.filter(function (e) {
+    return e !== elemento;
+  });
+}
+
 //Función para obtener la cookie con el nombre:
 function leerCookieNombre() {
   var lista = document.cookie.split(";");
@@ -127,11 +231,11 @@ function validarRegistroSucursales() {
         document.getElementById('postal-registro').value = '';
         document.getElementById('sucursal-registro-latitud').value = '';
         document.getElementById('sucursal-registro-longitud').value = '';
-        
+
         $('#example-modal').modal('hide');
         alert("Sucursal registrada");
         sleep(200);
-        
+
         location.reload();
       } else {
         alert("Error");
@@ -158,64 +262,80 @@ function camposVacios() {
 }
 
 //Función para ver la sucursal seleccionada
-function verSucursal(indice){
-  $('#ver-sucursal').modal('show');
-  document.getElementById('nombre-de-la-sucursal').innerHTML = leerCookieSucursalNombre(indice + 1).replace("+", " ");
-  document.getElementById('latitud-de-la-sucursal').innerHTML = leerCookieSucursalLatitud(indice + 1);
-  document.getElementById('longitud-de-la-sucursal').innerHTML = leerCookieSucursalLongitud(indice + 1);
-  document.getElementById('codigo-postal-de-la-sucursal').innerHTML = leerCookieSucursalCodigoPostal(indice + 1);
+function verSucursal(indice) {
+  let empresa = nombreEmpresa;
+  axios({
+    url: urlEmpresas + '?vSuc=' + empresa,
+    method: 'POST',
+    responseType: 'json',
+    data: {
+      id: indice
+    }
+  }).then(res => {
+    if(res.data.estado == "exito"){
+      $('#ver-sucursal').modal('show');
+      document.getElementById('nombre-de-la-sucursal').innerHTML = res.data.sucursal.nombre;
+      document.getElementById('latitud-de-la-sucursal').innerHTML = res.data.sucursal.latitud;
+      document.getElementById('longitud-de-la-sucursal').innerHTML = res.data.sucursal.longitud;
+      document.getElementById('codigo-postal-de-la-sucursal').innerHTML = res.data.sucursal.codigoPostal;
+    }else{
+      alert("Error");
+    }
+  }).catch(err => {
+    alert("Error: " + error);
+  });
 }
 
 //Función que devuelve el valor del nombre de una sucursal
-function leerCookieSucursalNombre(indice){
+function leerCookieSucursalNombre(indice) {
   let name = `sucursal[nombre][${indice}]` + "=";
   let ca = document.cookie.split(';');
-  for(let i = 0; i < ca.length; i++){
+  for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while(c.charAt(0) == ' ') c = c.substring(1);
-    if(c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
+    while (c.charAt(0) == ' ') c = c.substring(1);
+    if (c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
   }
   return "";
 }
 
 //Función que devuelve el valor de la latitud de una sucursal
-function leerCookieSucursalLatitud(indice){
+function leerCookieSucursalLatitud(indice) {
   let name = `sucursal[latitud][${indice}]` + "=";
   let ca = document.cookie.split(';');
-  for(let i = 0; i < ca.length; i++){
+  for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while(c.charAt(0) == ' ') c = c.substring(1);
-    if(c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
+    while (c.charAt(0) == ' ') c = c.substring(1);
+    if (c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
   }
   return "";
 }
 
 //Función que devuelve el valor de la longitud de una sucursal
-function leerCookieSucursalLongitud(indice){
+function leerCookieSucursalLongitud(indice) {
   let name = `sucursal[longitud][${indice}]` + "=";
   let ca = document.cookie.split(';');
-  for(let i = 0; i < ca.length; i++){
+  for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while(c.charAt(0) == ' ') c = c.substring(1);
-    if(c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
+    while (c.charAt(0) == ' ') c = c.substring(1);
+    if (c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
   }
   return "";
 }
 
 //Función que devuelve el valor del códigoPostal de una sucursal
-function leerCookieSucursalCodigoPostal(indice){
+function leerCookieSucursalCodigoPostal(indice) {
   let name = `sucursal[codigoPostal][${indice}]` + "=";
   let ca = document.cookie.split(';');
-  for(let i = 0; i < ca.length; i++){
+  for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
-    while(c.charAt(0) == ' ') c = c.substring(1);
-    if(c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
+    while (c.charAt(0) == ' ') c = c.substring(1);
+    if (c.indexOf(name) == 0) return unescape(c.substring(name.length, c.length));
   }
   return "";
 }
 
 //Función que visualiza las sucursales por si hay más de 10
-function verMas(){
+function verMas() {
 
 }
 

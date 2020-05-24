@@ -34,11 +34,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" id="inicio" href="#" style="color: #1B6DC1;">Inicio <span
+          <a class="nav-link" id="inicio" href="#" style="color: #1B6DC1;" href="visualizarPerfil.php">Inicio <span
               class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="perfil" href="#" style="color: #1B6DC1;">Perfil</a>
+          <a class="nav-link" id="perfil" href="visualizarPerfilEmpresa.php" style="color: #1B6DC1;">Perfil</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -47,7 +47,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">Actualizar perfil</a>
-            <a class="dropdown-item" href="visualizarPerfilEmpresa.html">Visualizar perfil</a>
+            <a class="dropdown-item" href="visualizarPerfilEmpresa.php">Visualizar perfil</a>
             <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalRegistroSucursales">Registro
               de sucursales</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalRegistroProductos">Registro
@@ -104,8 +104,8 @@
 
         <div class="form-group">
           <label for="nueva-password-repetir-registro-empresa">Repita su nueva contraseña </label>
-          <input type="email" class="form-control" id="nueva-password-repetir-registro-empresa"
-            aria-describedby="n-nombre-empresa-r">
+          <input type="password" class="form-control" id="nueva-password-repetir-registro-empresa"
+            aria-describedby="n-pass-empresa-repetir">
         </div>
 
       </div>
@@ -113,22 +113,24 @@
         <div class="form-group">
           <div class="checkbox">
             <h2>Cambia de oferta</h2>
-            <input type="checkbox" id="deporte" name="deporte" value="deporte">
-            <label for="deporte">Deporte</label><br>
+
+             
+            <input type="checkbox" id="deportee" name="deportee" value="deportee">
+            <label for="deportee">Deporte</label><br>
 
 
-            <input type="checkbox" id="ropa" name="ropa" value="ropa">
-            <label for="ropa">Ropa</label><br>
+            <input type="checkbox" id="ropaa" name="ropaa" value="ropaa">
+            <label for="ropaa">Ropa</label><br>
 
 
-            <input type="checkbox" id="electronica" name="electronica" value="electronica">
-            <label for="electronica">Electrónica</label><br>
+            <input type="checkbox" id="electronicaa" name="electronicaa" value="electronicaa">
+            <label for="electronicaa">Electrónica</label><br>
 
-            <input type="checkbox" id="electrodomesticos" name="electrodomesticos" value="electrodomesticos">
-            <label for="electrodomesticos">Electrodomésticos</label><br>
+            <input type="checkbox" id="electrodomesticoss" name="electrodomesticoss" value="electrodomesticoss">
+            <label for="electrodomesticoss">Electrodomésticos</label><br>
 
-            <input type="checkbox" id="otros" name="otros" value="otros">
-            <label for="otros">Otros</label><br>
+            <input type="checkbox" id="otross" name="otross" value="otross">
+            <label for="otross">Otros</label><br>
 
             <hr id="separador">
             <form id="agregar-imagen-a-empresa" name="agregar-imagen-a-empresa" method="post" enctype="multipart/form-data">

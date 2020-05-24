@@ -1,10 +1,10 @@
 <?php 
     header("Content-Type: application/json");
     include_once('../clases/usuario.php');  
+    $_POST = json_decode(file_get_contents('php://input'), true);
     switch($_SERVER['REQUEST_METHOD']){
         case 'POST':
             $resultado = null;
-            $_POST = json_decode(file_get_contents('php://input'), true);
             $usuario = new Usuario(
                 $_POST['user'],
                 $_POST['email'],
@@ -41,8 +41,15 @@
         case 'GET':
             if(isset($_GET['id'])){
                 Usuario::obtenerUnUsuario($_GET['id']);
-            }else{
-                Usuario::obtenerUsuarios();
+                exit();
+            }
+            if(isset($_GET['carr'])){
+                Usuario::obtenerDelCarrito($_POST["user"], $_GET["carr"]);
+                exit();
+            }
+            if(isset($_GET['obtC'])){
+                Usuario::obtenerTodoElCarrito($_GET['obtC']);
+                exit();
             }
         break;
         case 'DELETE':
@@ -53,7 +60,38 @@
             }
         break;
         case 'PUT':
-            
+            if(isset($_GET['carr'])){
+                $cadena = str_replace("+", " ", $_GET['carr'], $contador);
+                if($contador > 0){
+                    $carrito = Usuario::agregarAlCarrito($_POST, $cadena);
+                    if($carrito == null){
+                        echo json_encode(array(
+                            "estado" => "fracaso"
+                        ));
+                    }else{
+                        // for($i = 0; $i < sizeof($carrito["carrito"]); $i++){
+                        //     setcookie("carrito[".strval($i + 1)."]", $carrito["carrito"][$i]["nombre"], time()+(60*24*24*31), "/");
+                        // }
+                        echo json_encode(array(
+                            "estado" => "exito"
+                        ));
+                    }
+                }else{
+                    $carrito = Usuario::agregarAlCarrito($_POST, $_GET["carr"]);
+                    if($carrito == null){
+                        echo json_encode(array(
+                            "estado" => "fracaso"
+                        ));
+                    }else{
+                        // for($i = 0; $i < sizeof($carrito["carrito"]); $i++){
+                        //     setcookie("carrito[".strval($i + 1)."]", $carrito["carrito"][$i]["nombre"], time()+(60*24*24*31), "/");
+                        // }
+                        echo json_encode(array(
+                            "estado" => "exito"
+                        ));
+                    }
+                }
+            }
         break;
     }
 ?>
