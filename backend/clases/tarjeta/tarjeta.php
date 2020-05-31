@@ -1,18 +1,18 @@
 <?php
     class Tarjeta{
         private $numeroTarjeta;
-        private $fechaVencimiento;
+        private $nombreTarjeta;
         private $validoHasta;
         private $cvv;
 
         public function __construct(
             $numeroTarjeta,
-            $fechaVencimiento,
+            $nombreTarjeta,
             $validoHasta,
             $cvv)
         {
             $this->numeroTarjeta = $numeroTarjeta;
-            $this->fechaVencimiento = $fechaVencimiento;
+            $this->nombreTarjeta = $nombreTarjeta;
             $this->validoHasta = $validoHasta;
             $this->cvv = $cvv;
         }
@@ -39,21 +39,21 @@
         }
 
         /**
-         * Get the value of fechaVencimiento
+         * Get the value of nombreTarjeta
          */ 
-        public function getFechaVencimiento()
+        public function getNombreTarjeta()
         {
-                return $this->fechaVencimiento;
+                return $this->nombreTarjeta;
         }
 
         /**
-         * Set the value of fechaVencimiento
+         * Set the value of nombreTarjeta
          *
          * @return  self
          */ 
-        public function setFechaVencimiento($fechaVencimiento)
+        public function setNombreTarjeta($nombreTarjeta)
         {
-                $this->fechaVencimiento = $fechaVencimiento;
+                $this->nombreTarjeta = $nombreTarjeta;
 
                 return $this;
         }

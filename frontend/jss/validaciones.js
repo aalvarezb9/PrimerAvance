@@ -850,6 +850,7 @@ function obtenerCodigoDeUsuario() {
 
 }
 
+//limpiarInputs()
 //Función que inicia sesión como cliente
 function iniciarSesionCliente() {
     axios({
@@ -941,6 +942,29 @@ function subirImagenCliente() {
         });
     return imgC;
 }
+
+function cargarCatalogo(){
+    document.getElementById('productos-empresa-ver').innerHTML = '';
+    axios({
+        url: urlEmpresas,
+        method: 'GET',
+        responseType: 'json'
+    }).then(res => {
+        for(let i = 0; i < res.data.length; i++){
+            document.getElementById('productos-empresa-ver').innerHTML += `
+            <div style="margin: 8px" class="card" style="width: 18rem;">
+                <img src="${res.data[i].imagen}" class="card-img-top" alt="..." style="width: 140px;">
+                <div class="card-body">
+                  <h5 class="card-title">${res.data[i].nombre}</h5>
+                  <p class="card-text">${res.data[i].descripcion}</p>
+                </div>
+            </div>
+            `;
+        }
+    }).catch(err => {
+        console.log("nada");
+    });
+} cargarCatalogo();
 
 function sleep(milliseconds) {
     var start = new Date().getTime();

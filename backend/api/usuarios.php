@@ -48,7 +48,12 @@
                 exit();
             }
             if(isset($_GET['obtC'])){
+                // echo $_GET['obtC'];
                 Usuario::obtenerTodoElCarrito($_GET['obtC']);
+                exit();
+            }
+            if(isset($_GET['trj'])){
+                Usuario::obtenerTarjeta($_GET['trj']);
                 exit();
             }
         break;
@@ -63,34 +68,12 @@
             if(isset($_GET['carr'])){
                 $cadena = str_replace("+", " ", $_GET['carr'], $contador);
                 if($contador > 0){
-                    $carrito = Usuario::agregarAlCarrito($_POST, $cadena);
-                    if($carrito == null){
-                        echo json_encode(array(
-                            "estado" => "fracaso"
-                        ));
-                    }else{
-                        // for($i = 0; $i < sizeof($carrito["carrito"]); $i++){
-                        //     setcookie("carrito[".strval($i + 1)."]", $carrito["carrito"][$i]["nombre"], time()+(60*24*24*31), "/");
-                        // }
-                        echo json_encode(array(
-                            "estado" => "exito"
-                        ));
-                    }
+                    Usuario::agregarAlCarrito2($user, $_POST['e'], $_POST['p'], $_POST['c']);
                 }else{
-                    $carrito = Usuario::agregarAlCarrito($_POST, $_GET["carr"]);
-                    if($carrito == null){
-                        echo json_encode(array(
-                            "estado" => "fracaso"
-                        ));
-                    }else{
-                        // for($i = 0; $i < sizeof($carrito["carrito"]); $i++){
-                        //     setcookie("carrito[".strval($i + 1)."]", $carrito["carrito"][$i]["nombre"], time()+(60*24*24*31), "/");
-                        // }
-                        echo json_encode(array(
-                            "estado" => "exito"
-                        ));
-                    }
+                    Usuario::agregarAlCarrito2($_GET["carr"], $_POST['e'], $_POST['p'], $_POST['c']);
                 }
+            }else if(isset($_GET['cmp'])){
+                Usuario::comprar($_GET['cmp'], $_POST["carrito"], $_POST["tarjeta"]);
             }
         break;
     }

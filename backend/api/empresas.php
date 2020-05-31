@@ -97,6 +97,10 @@
                 }else{
                     Empresa::obtenerProductos($_GET['prd']);
                 }
+            }else if(isset($_GET['prdC'])){
+                Empresa::obtenerTodosLosProductos();
+            }else{
+                Empresa::obtenerProductosInicio();
             }
         break;
         case 'DELETE':
@@ -116,16 +120,6 @@
                         echo json_encode(array(
                             "estado" => "exito"
                         ));
-                        // for($products = 0; $products < sizeof($empresa["products"]); $products++){
-                        //     setcookie("producto[nombre][".strval($products+1)."]", $empresa["products"][$products]["nombre"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[precio][".strval($products+1)."]", $empresa["products"][$products]["precio"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[categoria][".strval($products+1)."]", $empresa["products"][$products]["categoria"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[cantidad][".strval($products+1)."]", $empresa["products"][$products]["cantidad"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[imagen][".strval($products+1)."]", $empresa["products"][$products]["imagen"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[codigoQR][".strval($products+1)."]", $empresa["products"][$products]["codigoQR"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[descripcion][".strval($products+1)."]", $empresa["products"][$products]["descripcion"], time()+(60*60*24*31), "/");
-                        // }
-                        
                     }
                 }else{
                     $empresa = Empresa::agregarProductoAEmpresa($_GET['nameE'], $_POST['producto']);
@@ -133,15 +127,6 @@
                         echo json_encode(array(
                             "estado" => "exito"
                         ));
-                        // for($products = 0; $products < sizeof($empresa["products"]); $products++){
-                        //     setcookie("producto[nombre][".strval($products+1)."]", $empresa["products"][$products]["nombre"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[precio][".strval($products+1)."]", $empresa["products"][$products]["precio"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[categoria][".strval($products+1)."]", $empresa["products"][$products]["categoria"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[cantidad][".strval($products+1)."]", $empresa["products"][$products]["cantidad"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[imagen][".strval($products+1)."]", $empresa["products"][$products]["imagen"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[codigoQR][".strval($products+1)."]", $empresa["products"][$products]["codigoQR"], time()+(60*60*24*31), "/");
-                        //     setcookie("producto[descripcion][".strval($products+1)."]", $empresa["products"][$products]["descripcion"], time()+(60*60*24*31), "/");
-                        // }
                     }
                 }
             }elseif(isset($_GET['nameES'])){
@@ -152,12 +137,6 @@
                         echo json_encode(array(
                             "estado" => "exito"
                         ));
-                        for($sucursal = 0; $sucursal < sizeof($empresa["sucursal"]); $sucursal++){
-                            // setcookie("sucursal[nombre][".strval($sucursal+1)."]", $empresa["sucursal"][$sucursal]["nombre"], time()+(60*60*24*31), "/");
-                            // setcookie("sucursal[latitud][".strval($sucursal+1)."]", $empresa["sucursal"][$sucursal]["latitud"], time()+(60*60*24*31), "/");
-                            // setcookie("sucursal[longitud][".strval($sucursal+1)."]", $empresa["sucursal"][$sucursal]["longitud"], time()+(60*60*24*31), "/");
-                            // setcookie("sucursal[codigoPostal][".strval($sucursal+1)."]", $empresa["sucursal"][$sucursal]["codigoPostal"], time()+(60*60*24*31), "/");
-                        }
                     }
                 }else{
                     $empresa = Empresa::agregarSucursalAEmpresa($_GET['nameES'], $_POST['sucursal']);
@@ -165,12 +144,6 @@
                         echo json_encode(array(
                             "estado" => "exito"
                         ));
-                        // for($sucursal = 0; $sucursal < sizeof($empresa["sucursal"]); $sucursal++){
-                        //     setcookie("sucursal[nombre][".strval($sucursal+1)."]", $empresa["sucursal"][$sucursal]["nombre"], time()+(60*60*24*31), "/");
-                        //     setcookie("sucursal[latitud][".strval($sucursal+1)."]", $empresa["sucursal"][$sucursal]["latitud"], time()+(60*60*24*31), "/");
-                        //     setcookie("sucursal[longitud][".strval($sucursal+1)."]", $empresa["sucursal"][$sucursal]["longitud"], time()+(60*60*24*31), "/");
-                        //     setcookie("sucursal[codigoPostal][".strval($sucursal+1)."]", $empresa["sucursal"][$sucursal]["codigoPostal"], time()+(60*60*24*31), "/");
-                        // }
                     }
                 }
             }elseif(isset($_GET['actE'])){

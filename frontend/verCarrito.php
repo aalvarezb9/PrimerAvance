@@ -1,3 +1,15 @@
+<?php
+session_start();
+if (!isset($_SESSION["token"]))
+  header("Location: 401.html");
+
+if (!isset($_COOKIE["token"]))
+  header("Location: 401.html");
+
+if ($_SESSION["token"] != $_COOKIE["token"])
+  header("Location: 401.html")
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +25,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Hola, <span id="nombre-inicio-cliente"></span></a>
+        <a class="navbar-brand" href="#">Carrito de <span id="nombre-inicio-cliente"><?php echo $_COOKIE['user'] ?></span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,11 +33,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" id="inicio" href="inicioCliente.html" style="color: #1B6DC1;">Inicio <span
+                    <a class="nav-link" id="inicio" href="inicioCliente.php" style="color: #1B6DC1;">Inicio <span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="perfil" href="#" style="color: #1B6DC1;">Perfil</a>
+                    <a class="nav-link" id="perfil" href="#"  style="color: #1B6DC1;">Perfil</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -33,16 +45,16 @@
                         <img src="img/clienteSinFondo.png" width="25px" alt="">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="verCarrito.html"><img src="img/carrito.png" alt=""
+                        <a class="dropdown-item" href="verCarrito.php"><img src="img/carrito.png" alt=""
                                 width="23px;">&nbsp; Ver carrito</a>
                         <a class="dropdown-item" href="#" data-toggle="modal"
                             data-target="#exampleModalPromocionesFavoritas">Promociones favoritas</a>
                         <a class="dropdown-item" href="#" data-toggle="modal"
                             data-target="#exampleModalEmpresasFavoritas">Empresas favoritas</a>
                         <a class="dropdown-item" href="mapa.html">Mapa de promociones</a>
-                        <a class="dropdown-item" href="actualizarPerfil.html">Actualizar perfil</a>
+                        <a class="dropdown-item" href="actualizarPerfil.php">Actualizar perfil</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="index.html">Cerrar sesión</a>
+                        <a class="dropdown-item" href="logout.php">Cerrar sesión</a>
                     </div>
                 </li>
             </ul>
@@ -59,12 +71,12 @@
             <img src="img/carrito.png" alt="">
         </section>
         <section class="elementos.en-carrito">
-            <ul>
-                <li><img src="..." alt="" style="width: 30px;"><h5>Nombre1</h5><h4><b>Precio</b></h4></li>
-                <li><img src="..." alt="" style="width: 30px;"><h5>Nombre2</h5><h4><b>Precio</b></h4></li>
+            <ul id="aqui-va-lo-del-carrito">
+                <!-- <li><img src="..." alt="" style="width: 30px;"><h5>Nombre1</h5><h4><b>Precio</b></h4></li>
+                <li><img src="..." alt="" style="width: 30px;"><h5>Nombre2</h5><h4><b>Precio</b></h4></li> -->
             </ul>
             <hr>
-            <h3>TOTAL: </h3><p>Total</p>
+            <h3>TOTAL: <span></span></h3><p id="total-carrito"></p>
         </section>
         <section class="comprar">
             <button onclick="verificarFormaDePago()" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModalComprar">Comprar</button>
@@ -101,7 +113,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button onclick="efectuarCompra()" type="button" class="btn btn-primary">Finalizar</button>
+              <button onclick="comprar()" type="button" class="btn btn-primary">Finalizar</button>
             </div>
           </div>
         </div>
@@ -307,7 +319,8 @@
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
     <script src="bootstrap/jquery-3.2.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="jss/contenedorInicioCliente.js"></script>
+    <!-- <script src="jss/contenedorInicioCliente.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <script src="jss/contenedorCarrito.js"></script>
 </body>
 

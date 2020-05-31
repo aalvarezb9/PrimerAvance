@@ -286,7 +286,7 @@ include_once('tarjeta/tarjeta.php');
                     "purchases" => $this->purchases,
                     "formaDePago" => array(
                         "numeroTarjeta" => $this->formaDePago->getNumeroTarjeta(),
-                        "fechaVencimiento" => $this->formaDePago->getFechaVencimiento(),
+                        "nombreTarjeta" => $this->formaDePago->getNombretarjeta(),
                         "validoHasta" => $this->formaDePago->getValidoHasta(),
                         "cvv" => $this->formaDePago->getCvv()
                     )
@@ -357,6 +357,48 @@ include_once('tarjeta/tarjeta.php');
                 return $usuario;
         }
 
+        public static function agregarAlCarrito2($user, $empresa, $producto, $cantidad){
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
+                $usuarios = json_decode($contenidoArchivoUsuarios, true);
+                $usuario = null;
+
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+
+                if($cantidad > $empresas[$empresa]["products"][$producto]["cantidad"]){
+                        echo json_encode(array(
+                                "estado" => "00",
+                                "mensaje" => "La cantidad deseada excede la cantidad disponible"
+                        ));
+                }else{
+                        $empresas[$empresa]["products"][$producto]["cantidad"] = $cantidad;
+                        $empresas[$empresa]["products"][$producto]["ne"] = $empresa;
+                        for($contadorUsers = 0; $contadorUsers < sizeof($usuarios); $contadorUsers++){
+                                if($user == $usuarios[$contadorUsers]["user"]){
+                                        $usuarios[$contadorUsers]["carrito"][] = $empresas[$empresa]["products"][$producto];
+                                        $usuario = $usuarios[$contadorUsers];
+                                break;
+                                }
+                        }
+        
+                        $archivo = fopen('../datos/usuarios.json', 'w');
+                        fwrite($archivo, json_encode($usuarios));
+                        fclose($archivo);
+        
+                        if($usuario == null){
+                                echo json_encode(array(
+                                    "estado" => "fracaso"
+                                ));
+                            }else{
+                                echo json_encode(array(
+                                    "estado" => "exito"
+                                ));
+                            }
+                }
+
+
+        }
+
         public static function obtenerDelCarrito($user, $nameC){
                 $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
                 $usuarios = json_decode($contenidoArchivoUsuarios, true);
@@ -386,10 +428,159 @@ include_once('tarjeta/tarjeta.php');
                                 $carrito = $usuarios[$i]["carrito"];
                         break;
                         }
-                break;
                 }
 
-                echo json_encode($carrito);
+                if($carrito == null){
+                        echo json_encode(array(
+                                "estado" => "fracaso",
+                                "carrito" => []
+                        ));
+                }else{
+                        echo json_encode(array(
+                                "estado" => "exito",
+                                "carrito" => $carrito
+                        )); 
+                }
+        }
+
+        public static function comprar($user, $carrito, $tarjeta){
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
+                $usuarios = json_decode($contenidoArchivoUsuarios, true);
+                $compra = null;
+                $usuario = array();
+
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $empresa = null;
+
+                for($i = 0; $i < sizeof($usuarios); $i++){
+                        if($user == $usuarios[$i]["user"]){
+                                if($usuarios[$i]["formaDePago"]["nombreTarjeta"] == "no ingresada"){
+                                        $usuarios[$i]["formaDePago"]["nombreTarjeta"] = $tarjeta["nombreTarjeta"];
+                                        $usuarios[$i]["formaDePago"]["numeroTarjeta"] = $tarjeta["numeroTarjeta"];
+                                        $usuarios[$i]["formaDePago"]["validoHasta"] = $tarjeta["validoHasta"];
+                                        $usuarios[$i]["formaDePago"]["cvv"] = $tarjeta["cvv"];
+
+                                        $archivoUsuarios = fopen('../datos/usuarios.json', 'w');
+                                        fwrite($archivoUsuarios, json_encode($usuarios));
+                                        fclose($archivoUsuarios);
+                                        Usuario::hacerCompra($user, $carrito);
+                                }else{
+                                        if(
+                                                $usuarios[$i]["formaDePago"]["nombreTarjeta"] == $tarjeta["nombreTarjeta"] &&
+                                                $usuarios[$i]["formaDePago"]["numeroTarjeta"] == $tarjeta["numeroTarjeta"] &&
+                                                $usuarios[$i]["formaDePago"]["validoHasta"] == $tarjeta["validoHasta"] &&
+                                                $usuarios[$i]["formaDePago"]["cvv"] == $tarjeta["cvv"]   
+                                        ){
+                                                Usuario::hacerCompra($user, $carrito);
+                                        }else{
+                                                echo json_encode(array(
+                                                        "estado" => "fracaso",
+                                                        "mensaje" => "Credenciales inválidas"
+                                                ));
+                                        }
+                                }
+                        break;
+                        }
+                }
+                
+
+        }
+
+        public static function hacerCompra($user, $carrito){
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
+                $usuarios = json_decode($contenidoArchivoUsuarios, true);
+                $compra = null;
+                $usuario = array();
+
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $empresa = null;
+
+                for($i = 0; $i < sizeof($usuarios); $i++){
+                        // echo json_encode($usuarios[$i]);
+                        if($user == $usuarios[$i]["user"]){
+                                // $usuario[] = $usuarios[$i];
+                                for($j = 0; $j < sizeof($usuarios[$i]["carrito"]); $j++){
+                                        for($k = 0; $k < sizeof($carrito); $k++){
+                                                if($usuarios[$i]["carrito"][$j]["nombre"] == $carrito[$k]["nombre"]){
+                                                        $usuarios[$i]["purchases"][] = $carrito[$k];    
+                                                        array_splice($usuarios[$i]["carrito"], $j, 1);
+                                                        $compra = $carrito;
+                                                }
+                                        }
+                                }
+                                $usuario = $usuarios[$i];
+                        }
+                }
+
+                $num = null;
+                for($i = 0; $i < sizeof($carrito); $i++){
+                        $numEmpresa = intval($carrito[$i]["ne"]);
+                        $num[] = $numEmpresa;
+                        for($j = 0; $j < sizeof($empresas[$numEmpresa]["products"]); $j++){
+                                if($carrito[$i]["nombre"] == $empresas[$numEmpresa]["products"][$j]["nombre"]){
+                                        $empresa = true;
+                                        $empresas[$numEmpresa]["products"][$j]["cantidad"] -= $carrito[$i]["cantidad"]; 
+                                        $empresas[$numEmpresa]["ventas"][] = $carrito[$i];
+                                }
+                        }
+                }
+
+                
+
+                $archivoUsuarios = fopen('../datos/usuarios.json', 'w');
+                fwrite($archivoUsuarios, json_encode($usuarios));
+                fclose($archivoUsuarios);
+                $archivoEmpresas = fopen('../datos/empresas.json', 'w');
+                fwrite($archivoEmpresas, json_encode($empresas));
+                fclose($archivoEmpresas);
+
+                if($empresa == null && $compra == null){
+                        echo json_encode(array(
+                                "estado" => "fracaso",
+                                "mensaje" => "error"
+                        ));
+                }else if($compra != null && $empresa == null){
+                        echo json_encode(array(
+                                "estado" => "01",
+                                "mensaje" => "Se hizo la compra, pero no se actualizó en la empresa"
+                        ));
+                }else{
+                        echo json_encode(array(
+                                "estado" => "exito",
+                                "mensaje" => "Compra realizada"
+                        ));   
+                }
+        }
+
+        public static function obtenerTarjeta($user){
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
+                $usuarios = json_decode($contenidoArchivoUsuarios, true);
+                $tarjeta = null;
+
+                for($i = 0; $i < sizeof($usuarios); $i++){
+                        if($user == $usuarios[$i]["user"]){
+                                $tarjeta = $usuarios[$i]["formaDePago"];
+                        break;
+                        }
+                }
+
+                if($tarjeta == null){
+                        echo json_encode(array(
+                                "estado" => "fracaso"
+                        ));
+                }else if($tarjeta["numeroTarjeta"] == "no ingresada"){
+                        echo json_encode(array(
+                                "estado" => "00",
+                                "mensaje" => "No se ha ingresado tarjeta"
+                        ));
+                }else{
+                        echo json_encode(array(
+                                "estado" => "exito",
+                                "formaDePago" => $tarjeta
+                        ));
+                }
         }
 
         public static function eliminarDelCarrito($user, $nameC){

@@ -1,13 +1,13 @@
 <?php
-  session_start();
-  if(!isset($_SESSION["token"]))
-      header("Location: 401.html");
+session_start();
+if (!isset($_SESSION["token"]))
+  header("Location: 401.html");
 
-  if(!isset($_COOKIE["token"]))
-      header("Location: 401.html");
+if (!isset($_COOKIE["token"]))
+  header("Location: 401.html");
 
-  if($_SESSION["token"] != $_COOKIE["token"])
-      header("Location: 401.html")
+if ($_SESSION["token"] != $_COOKIE["token"])
+  header("Location: 401.html")
 ?>
 
 <!DOCTYPE html>
@@ -22,33 +22,30 @@
   <link rel="stylesheet" href="bootstrap/estilosInicioCliente.css">
   <link rel="stylesheet" href="bootstrap/estilos.css">
 </head>
+
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Hola, <?php echo $_COOKIE['user'] ?></span></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" id="inicio" href="inicioCliente.html" style="color: #1B6DC1;">Inicio <span
-              class="sr-only">(current)</span></a>
+          <a class="nav-link" id="inicio" href="inicioCliente.php" style="color: #1B6DC1;">Inicio <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="perfil" href="#" style="color: #1B6DC1;">Perfil</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="img/clienteSinFondo.png" width="25px" alt="">
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="verCarrito.html"><img src="img/carrito.png" alt="" width="23px;">&nbsp; Ver
+            <a class="dropdown-item" href="verCarrito.php"><img src="img/carrito.png" alt="" width="23px;">&nbsp; Ver
               carrito</a>
-            <a class="dropdown-item" href="#" data-toggle="modal"
-              data-target="#exampleModalPromocionesFavoritas">Promociones favoritas</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalPromocionesFavoritas">Promociones favoritas</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalEmpresasFavoritas">Empresas
               favoritas</a>
             <a class="dropdown-item" href="mapa.html">Mapa de promociones</a>
@@ -67,131 +64,13 @@
   </nav>
 
   <div class="container" style="padding: 30px;">
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <div class="card" style="width: 18rem;">
-          <img src="img/pruebaproducto1.jpg" class="card-img-top" alt="..." style="width: 200px;">
-          <div class="card-body">
-            <h5 class="card-title">Nombre</h5>
-            <a href="">
-              <h3>Empresa</h3>
-            </a>
-            <h2><b><s>PRECIO</s></b></h2>
-            <h1>Precio en oferta</h1>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam aliquid quidem
-              mollitia atque rerum deserunt provident omnis quos illo expedita!</p>
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" data-whatever="@mdo"
-              data-dismiss="modal">Agregar al carrito</a>
-          </div>
-          <div class="container-fluid" style="padding: 5px;">
-            <div class="row">
-              <div class="col-4"><a href="#" class="btn btn-primary" data-toggle="modal"
-                  data-target="#exampleModalCalificar" data-whatever="@mdo" data-dismiss="modal">Calificar</a></div>
-              <div class="col-4"><a href="#" class="btn btn-primary" data-toggle="modal"
-                  data-target="#exampleModalComentar" data-whatever="@mdo" data-dismiss="modal">Comentar</a></div>
-              <div class="col-4">
-                <input onclick="dejarAzul()" type="radio" name="estrellas" value="fav" style="background-color: grey;">
-                <label id="radioEstrella" for="radioEstrella">★</label>
-
-                <input onclick="dejarGris()" type="radio" name="estrellas" value="favG"
-                  style="background-color: #1B6DC1; display: none;">
-                <label id="radioEstrellaGris" style="display: none;" for="radioEstrellaGris">★</label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <div class="card" style="width: 18rem;">
-          <img src="img/pruebaproducto1.jpg" class="card-img-top" alt="..." style="width: 200px;">
-          <div class="card-body">
-            <h5 class="card-title">Nombre</h5>
-            <a href="">
-              <h3>Empresa</h3>
-            </a>
-            <h2><b><s>PRECIO</s></b></h2>
-            <h1>Precio en oferta</h1>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam aliquid quidem
-              mollitia atque rerum deserunt provident omnis quos illo expedita!</p>
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" data-whatever="@mdo"
-              data-dismiss="modal">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <div class="card" style="width: 18rem;">
-          <img src="img/pruebaproducto1.jpg" class="card-img-top" alt="..." style="width: 200px;">
-          <div class="card-body">
-            <h5 class="card-title">Nombre</h5>
-            <a href="">
-              <h3>Empresa</h3>
-            </a>
-            <h2><b><s>PRECIO</s></b></h2>
-            <h1>Precio en oferta</h1>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam aliquid quidem
-              mollitia atque rerum deserunt provident omnis quos illo expedita!</p>
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" data-whatever="@mdo"
-              data-dismiss="modal">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <div class="card" style="width: 18rem;">
-          <img src="img/pruebaproducto1.jpg" class="card-img-top" alt="..." style="width: 200px;">
-          <div class="card-body">
-            <h5 class="card-title">Nombre</h5>
-            <a href="">
-              <h3>Empresa</h3>
-            </a>
-            <h2><b><s>PRECIO</s></b></h2>
-            <h1>Precio en oferta</h1>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam aliquid quidem
-              mollitia atque rerum deserunt provident omnis quos illo expedita!</p>
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="exampleModal3" data-whatever="@mdo"
-              data-dismiss="modal">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <div class="card" style="width: 18rem;">
-          <img src="img/pruebaproducto1.jpg" class="card-img-top" alt="..." style="width: 200px;">
-          <div class="card-body">
-            <h5 class="card-title">Nombre</h5>
-            <h2><b><s>PRECIO</s></b></h2>
-            <h1>Precio en oferta</h1>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam aliquid quidem
-              mollitia atque rerum deserunt provident omnis quos illo expedita!</p>
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" data-whatever="@mdo"
-              data-dismiss="modal">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <div class="card" style="width: 18rem;">
-          <img src="img/pruebaproducto1.jpg" class="card-img-top" alt="..." style="width: 200px;">
-          <div class="card-body">
-            <h5 class="card-title">Nombre</h5>
-            <a href="">
-              <h3>Empresa</h3>
-            </a>
-            <h2><b><s>PRECIO</s></b></h2>
-            <h1>Precio en oferta</h1>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam aliquid quidem
-              mollitia atque rerum deserunt provident omnis quos illo expedita!</p>
-            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal3" data-whatever="@mdo"
-              data-dismiss="modal">Agregar al carrito</a>
-          </div>
-        </div>
-      </div>
+    <div id="productos-de-empresas-a-mostrar" class="row">
+      
     </div>
   </div>
 
 
-  <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -202,29 +81,27 @@
         </div>
         <div class="modal-body">
           <div class="card" style="width: 18rem;">
-            <img src="img/pruebaproducto1.jpg" class="card-img-top" alt="..." style="width: 200px;">
+          <div id="imagen-carrito" style="margin-left: auto; margin-right: auto;"></div>
             <div class="card-body">
-              <h5 class="card-title" id="nombre-producto-carrito">Nombre</h5>
-              <h2><b><s>PRECIO</s></b></h2>
-              <h1 id="precio-carrito">Precio en oferta</h1>
-              <h3 id="comentario-carrito">Este es el comentario del producto</h3>
-              <h2 id="categoria-carrito">Deporte</h2>
+              <h5 class="card-title" id="nombre-producto-carrito"></h5>
+              <h2><b><s id="precio-producto-carrito"></s> Lps</b></h2>
+              <h3 id="comentario-carrito"></h3>
+              <h2 id="categoria-carrito"></h2>
               <label for="cantidad-elementos-carrito">Seleccione la cantidad de elementos a comprar</label>
               <input type="number" name="cantidad" id="cantidad-elementos-carrito">
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button onclick="agregarAlCarrito()" type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button>
+        <div id="aqui-van-los-botones" class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button onclick="subirAlCarrito()" type="button" class="btn btn-primary" data-dismiss="modal">Agregar</button> -->
         </div>
       </div>
     </div>
   </div>
 
   <!-- MODAL PARA CALIFICAR UN PRODUCTO -->
-  <div class="modal fade" id="exampleModalCalificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="exampleModalCalificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -259,8 +136,7 @@
   <!-- FIN DE MODAL PARA CALIFICAR UN PRODUCTO -->
 
   <!-- MODAL PARA COMENTAR UN PRODUCTO -->
-  <div class="modal fade" id="exampleModalComentar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="exampleModalComentar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -285,8 +161,7 @@
   <!-- FIN DE MODAL PARA COMENTAR UN PRODUCTO -->
 
   <!-- MODAL PARA VER EMPRESAS FAVORITAS -->
-  <div class="modal fade" id="exampleModalEmpresasFavoritas" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModalEmpresasFavoritas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -335,8 +210,7 @@
   <!-- FIN DE MODAL PARA VER EMPRESAS FAVORITAS -->
 
   <!-- MODAL PARA VER PROMOCIONES FAVORITAS -->
-  <div class="modal fade" id="exampleModalPromocionesFavoritas" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModalPromocionesFavoritas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

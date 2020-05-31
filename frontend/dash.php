@@ -1,3 +1,16 @@
+<?php
+  session_start();
+  if (!isset($_SESSION["token"]))
+    {header("Location: 401.html");}
+
+  if (!isset($_COOKIE["token"]))
+    {header("Location: 401.html");}
+
+  if ($_SESSION["token"] != $_COOKIE["token"]){
+    header("Location: 401.html");
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +25,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Hola, <span id="nombre-inicio-cliente"></span></a>
+        <a class="navbar-brand" href="#">Hola, <span id="nombre-inicio-cliente"> <?php echo $_COOKIE["name"] ?> </span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>      
@@ -35,7 +48,7 @@
               </div>
             </li>
 
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" style="color: #1B6DC1;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Sucursales
               </a>
@@ -43,7 +56,7 @@
                 <a class="dropdown-item" href="#">Principal</a>
                 <a class="dropdown-item" href="#">Sucursal 1</a>
                 <a class="dropdown-item" href="#">etc</a>
-            </li>
+            </li> -->
           </ul>
           <!-- <form class="form-inline my-2 my-lg-0" id="busqueda">
             <input class="form-control mr-sm-2" type="search" placeholder="Busca algo..." aria-label="Search">

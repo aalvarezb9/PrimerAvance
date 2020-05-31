@@ -759,6 +759,56 @@ include_once('social/social.php');
                 }
         }
 
+        public static function obtenerTodosLosProductos(){
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $info = array();
+                $productos = array();
+                $venderora = null;
+
+                for($i = 0; $i < sizeof($empresas); $i++){
+                        // $info[] = array(
+                        //         "empresaVendedora" => $empresas[$i]["name"]
+                        // );
+                        for($j = 0; $j < sizeof($empresas[$i]["products"]); $j++){
+                                // $productos[] = $empresas[$i]["products"][$j];
+                                $info[$i] = array(
+                                        "name" => $empresas[$i]["name"],
+                                        "productos" => $empresas[$i]["products"]
+                                );
+                        }
+                }
+
+                // for($i = 0; $i < sizeof($empresas); $i++){
+                //         $empresas[$i]["products"] = 
+                // }
+
+                if($info == null){
+                        echo json_encode(array(
+                                "estado" => "fracaso"
+                        ));
+                }else{
+                        echo json_encode(array(
+                                "estado" => "exito",
+                                "info" => $info
+                        ));  
+                }
+        }
+
+        public static function obtenerProductosInicio(){
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $empresa = null;
+
+                for($i = 0; $i < sizeof($empresas); $i++){
+                        for($j = 0; $j < sizeof($empresas[$i]["products"]); $j++){
+                                $empresa[] = $empresas[$i]["products"][$j];
+                        }
+                }
+
+                echo json_encode($empresa);
+        }
+
         public static function actualizarEmpresa($name, $nEmpresa){
                 $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
                 $empresas = json_decode($contenidoArchivoEmpresas, true);
