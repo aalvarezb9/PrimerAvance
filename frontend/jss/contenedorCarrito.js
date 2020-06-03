@@ -150,6 +150,7 @@ function cargarTarjeta(){
         responseType: 'json'
     }).then(res => {
         if(res.data.estado == "exito"){
+            console.log(res.data);
             document.getElementById('nombre-tarjeta').value = res.data.formaDePago.nombreTarjeta;
             document.getElementById('tarjeta').value = res.data.formaDePago.numeroTarjeta;
             document.getElementById('cvv').value = res.data.formaDePago.cvv;

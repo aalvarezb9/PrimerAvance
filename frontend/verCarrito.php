@@ -79,7 +79,7 @@ if ($_SESSION["token"] != $_COOKIE["token"])
             <h3>TOTAL: <span></span></h3><p id="total-carrito"></p>
         </section>
         <section class="comprar">
-            <button onclick="verificarFormaDePago()" class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModalComprar">Comprar</button>
+            <button  class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModalComprar">Comprar</button>
         </section>
     </div>
 

@@ -6,7 +6,6 @@
 
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
         if(isset($_FILES['btn_enviar_imagen'])){
             $nombre = $_FILES['btn_enviar_imagen']['name'];
             $guardado = $_FILES['btn_enviar_imagen']['tmp_name'];
