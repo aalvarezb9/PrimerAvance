@@ -56,12 +56,13 @@
                 Usuario::obtenerTarjeta($_GET['trj']);
                 exit();
             }
+            if(isset($_GET['tds'])){
+                Usuario::obtenerUsuarios();
+            }
         break;
         case 'DELETE':
             if(isset($_GET['id'])){
-                //Eliminar ese usuario
-            }else{
-                Usuario::eliminarUsuarios();
+                Usuario::eliminarUnUsuario($_GET['id']);
             }
         break;
         case 'PUT':
@@ -74,6 +75,16 @@
                 }
             }else if(isset($_GET['cmp'])){
                 Usuario::comprar($_GET['cmp'], $_POST["carrito"], $_POST["tarjeta"]);
+            }else if(isset($_GET['com'])){
+                Usuario::comentarProducto($_GET['com'], $_POST['e'], $_POST['p'], $_POST['c']);
+            }else if(isset($_GET['cal'])){
+                Usuario::calificarProducto($_GET['cal'], $_POST['e'], $_POST['p'], $_POST['c']);
+            }else if(isset($_GET['vrp'])){
+                Usuario::verPerfilDeEmpresa($_GET['vrp'], $_POST['emp']);
+            }else if(isset($_GET['fav'])){
+                Usuario::marcarEmpresaFavorita($_GET['fav'], $_POST['empresa']);
+            }else if(isset($_GET['act'])){
+                Usuario::actualizar($_GET['act'], $_POST['cliente']);
             }
         break;
     }

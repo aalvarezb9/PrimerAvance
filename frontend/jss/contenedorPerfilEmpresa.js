@@ -114,7 +114,7 @@ function obtenerNombreSucursales(empresa) {
         document.getElementById('menu-desplegable-de-promociones').innerHTML = "<a class='dropdown-item' href='#'>No tiene sucursales registradas</a>";
       } else {
         for (let i = 0; i < res.data.nombreSucursales.length; i++) {
-          document.getElementById('menu-desplegable-de-promociones').innerHTML += `<a class='dropdown-item' id='${res.data.nombreSucursales[i].replace(" ", "-")}' href='#' onclick='verSucursal(${i})'>${res.data.nombreSucursales[i]}</a>`;
+          document.getElementById('menu-desplegable-de-promociones').innerHTML += `<a class='dropdown-item' id='${res.data.nombreSucursales[i].replace(" ", "-")}' href='#' onclick='verSucursal(${i})'>${res.data.nombreSucursales[i]}  <button style="position: right;" onclick="eliminarSucursal(${i})">X</button></a>`;
           if (i == 10) {
             "<a class='dropdown-item' href='#' onclick='verMas()'>Ver más</a>";
             i = res.data.nombreSucursales.length;
@@ -368,9 +368,24 @@ function verMas() {
 //   }
 // }
 
-//Función que obtiene las sucursales de una empresa
-function obtenerSucursales() {
-
+function eliminarCuenta(){
+  axios({
+    url: urlEmpresas + '?idE=' + nombreEmpresa,
+    method: 'DELETE',
+    responseType: 'json',
+  }).then(res => {
+    if(res.data.estado == "exito"){
+      alert("Empresa eliminada");
+      window.location.href = 'logoutE.php';
+      return false;
+    }else{
+      alert("Error");
+      return false;
+    }
+  }).catch(err => {
+    alert("Error " + err);
+    return false;
+  });
 }
 
 function esEntero(numero) {
@@ -383,48 +398,28 @@ function esEntero(numero) {
   return loEs;
 }
 
-// function validarRegistroProductos2() {
-//   if (camposVaciosProductos2() == true) {
-//     alert('Por favor llenar todos los campos');
-//     return false;
-//   } else {
-//     producto.descripcion = comentarioProducto.value;
-//     axios({
-//       url: urlRegistrarProducto + leerCookieNombre(),
-//       method: 'PUT',
-//       responseType: 'json',
-//       data: {
-//         producto: producto
-//       }
-//     }).then(res => {
-//       if(res.data.estado == "exito"){
-//         limpiarCamposProductos();
-//         $('#exampleModalRegistroProductos2').modal('hide');
-//         $('#exampleModalProductoRegistrado').modal('show');
-//         verProductoRegistrado(producto.nombre, producto.descripcion, 'img/pruebaproducto2.jpg', producto.precio);
-//         makeCode(producto.descripcion);
-//         console.log(producto);
-//       }else{
-//         $('#exampleModalRegistroProductos2').modal('hide');
-//         $('#exampleModalProductoRegistrado').modal('show');
-//         verProductoRegistrado("ERROR", "Ocurrió un error en el registro del producto", 'img/pruebaproducto2.jpg', "Intente nuevamente");
-//         makeCode(producto.descripcion);
-//       }
-//     }).catch(error => {
-//       // alert("Error del servidor "+error.data);
-//       limpiarCamposProductos();
-//         $('#exampleModalRegistroProductos2').modal('hide');
-//         $('#exampleModalProductoRegistrado').modal('show');
-//         verProductoRegistrado(producto.nombre, producto.descripcion, 'img/pruebaproducto2.jpg', producto.precio);
-//         makeCode(producto.descripcion);
-//         console.log(producto);
-//     });
-//     // document.getElementById('guardar-producto').setAttribute('data-toggle', 'modal');
-//     // document.getElementById('guardar-producto').setAttribute('data-target', '#exampleModalProductoRegistrado');
-//     // document.getElementById('guardar-producto').setAttribute('data-dismiss', 'modal');
-//     // abrirModalProductoRegistrado();
-//   }
-// }
+function eliminarSucursal(indice){
+  axios({
+    url: urlEmpresas + '?suc=' + nombreEmpresa,
+    method: 'DELETE',
+    responseType: 'json',
+    data:{
+      i: indice
+    }
+  }).then(res => {
+    if(res.data.estado == "exito"){
+      alert("Sucursal eliminada");
+      window.location.reload();
+      return false;
+    }else{
+      alert("Error");
+      return false;
+    }
+  }).catch(err => {
+    alert("Error " + err);
+    return false;
+  });
+}
 
 function camposVaciosProductos() {
   var productoVacio;
@@ -484,6 +479,8 @@ function makeCode(comentario) {
   });
   qrcode.makeCode(comentario);
 }
+
+
 
 function limpiarCamposProductos() {
   // $('#exampleModalRegistroProductos').on('hidden.bs.modal', function () {

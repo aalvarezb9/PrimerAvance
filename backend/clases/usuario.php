@@ -308,14 +308,17 @@ include_once('tarjeta/tarjeta.php');
             $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
             $usuarios = json_decode($contenidoArchivoUsuarios, true);
             $usuario = null;
+
             for($contadorUsuarios = 0; $contadorUsuarios < sizeof($usuarios); $contadorUsuarios++){
-                if($usuarios[$contadorUsuarios]['id'] == $id){
+                if($id == $usuarios[$contadorUsuarios]['user']){
                     $usuario = $usuarios[$contadorUsuarios];
                 break;
                 }
             }
 
-            echo json_encode($usuario);
+            echo json_encode(array(
+                "usuario" => $usuario
+                ));
         }
 
         public static function eliminarUsuarios(){
@@ -357,6 +360,34 @@ include_once('tarjeta/tarjeta.php');
                 return $usuario;
         }
 
+        public static function eliminarUnUsuario($user){
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
+                $usuarios = json_decode($contenidoArchivoUsuarios, true);
+                $usuario = null;
+
+                for($i = 0; $i < sizeof($usuarios); $i++){
+                        if($user == $usuarios[$i]["user"]){
+                                $usuario = $usuarios[$i];
+                                array_splice($usuarios, $i, 1);
+                        break;
+                        }
+                }
+
+                $archivo = fopen('../datos/usuarios.json', 'w');
+                fwrite($archivo, json_encode($usuarios));
+                fclose($archivo);
+
+                if($usuario == null){
+                        echo json_encode(array(
+                                "estado" => "fracaso"
+                        ));
+                }else{
+                        echo json_encode(array(
+                                "estado" => "exito"
+                        ));   
+                }
+        }
+
         public static function agregarAlCarrito2($user, $empresa, $producto, $cantidad){
                 $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
                 $usuarios = json_decode($contenidoArchivoUsuarios, true);
@@ -365,7 +396,7 @@ include_once('tarjeta/tarjeta.php');
                 $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
                 $empresas = json_decode($contenidoArchivoEmpresas, true);
 
-                if($cantidad > $empresas[$empresa]["products"][$producto]["cantidad"]){
+                if($cantidad > intval($empresas[$empresa]["products"][$producto]["cantidad"])){
                         echo json_encode(array(
                                 "estado" => "00",
                                 "mensaje" => "La cantidad deseada excede la cantidad disponible"
@@ -554,6 +585,97 @@ include_once('tarjeta/tarjeta.php');
                 }
         }
 
+        public static function comentarProducto($user, $empresa, $producto, $comentario){
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+
+                $empresas[$empresa]["products"][$producto]["comentarios"][] = array(
+                        "comentario" => $comentario,
+                        "autor" => $user
+                );
+
+                $archivoEmpresas = fopen('../datos/empresas.json', 'w');
+                fwrite($archivoEmpresas, json_encode($empresas));
+                fclose($archivoEmpresas);
+        }
+
+        public static function calificarProducto($user, $empresa, $producto, $calificacion){
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+
+                $empresas[$empresa]["products"][$producto]["calificaciones"][] = array(
+                        "calificacion" => $calificacion,
+                        "autor" => $user
+                );
+
+                $archivoEmpresas = fopen('../datos/empresas.json', 'w');
+                fwrite($archivoEmpresas, json_encode($empresas));
+                fclose($archivoEmpresas);
+        }
+
+        public static function verPerfilDeEmpresa($user, $emp){
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $empresa = null;
+
+                for($i = 0; $i < sizeof($empresas); $i++){
+                        if($emp == $empresas[$i]["name"]){
+                                if(isset($empresas[$i]["vistas"])){
+                                        $empresas[$i]["vistas"][] = array(
+                                                "vistas" => sizeof($empresas[$i]["vistas"]) + 1,
+                                                "por" => $user
+                                        );
+                                }else{
+                                        $empresas[$i]["vistas"][] = array(
+                                                "vistas" => 1,
+                                                "por" => $user
+                                        ); 
+                                }
+                                $empresa = $empresas[$i];
+                        break;
+                        }
+                }
+
+                $archivoEmpresas = fopen('../datos/empresas.json', 'w');
+                fwrite($archivoEmpresas, json_encode($empresas));
+                fclose($archivoEmpresas);
+
+                echo json_encode(array(
+                        "empresa" => $empresa
+                ));
+        }
+
+        public static function marcarEmpresaFavorita($user, $empresa){
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
+                $usuarios = json_decode($contenidoArchivoUsuarios, true);
+                $usuario = null;
+
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $empresa = null;
+
+                for($i = 0; $i < sizeof($usuarios); $i++){
+                        if($user == $usuarios[$i]["user"]){
+                                $usuarios[$i]["favoritas"][] = $empresa;
+                        break;
+                        }
+                }
+
+                for($j = 0; $j < sizeof($empresas); $j++){
+                        if($empresa == $empresas[$j]["name"]){
+                                $empresas[$j]["favoritaDe"][] = $user;
+                        break;
+                        }
+                }
+
+                $archivoUsuarios = fopen('../datos/usuarios.json', 'w');
+                fwrite($archivoUsuarios, json_encode($usuarios));
+                fclose($archivoUsuarios);
+                $archivoEmpresas = fopen('../datos/empresas.json', 'w');
+                fwrite($archivoEmpresas, json_encode($empresas));
+                fclose($archivoEmpresas);
+        }
+
         public static function obtenerTarjeta($user){
                 $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
                 $usuarios = json_decode($contenidoArchivoUsuarios, true);
@@ -583,8 +705,32 @@ include_once('tarjeta/tarjeta.php');
                 }
         }
 
-        public static function eliminarDelCarrito($user, $nameC){
-                
+        public static function actualizar($user, $nUser){
+                $contenidoArchivoUsuarios = file_get_contents('../datos/usuarios.json');
+                $usuarios = json_decode($contenidoArchivoUsuarios, true);
+                $usuario = null;
+
+                for($i = 0; $i < sizeof($usuarios); $i++){
+                        error_reporting(0);
+                        if($user == $usuarios[$i]['user']){
+                                $usuarios[$i] = array(
+                                        "user" => $nUser['user'],
+                                        "email" => $nUser['email'],
+                                        "pw" => sha1($nUser['pw']),
+                                        "pleasures" => $nUser['pleasures'],
+                                        "gender" => $usuarios[$i]["gender"],
+                                        "carrito" => $usuarios[$i]["carrito"],
+                                        "images" => $usuarios[$i]["images"],
+                                        "purchases" => $usuarios[$i]["purchases"],
+                                        "formaDePago" => $usuarios[$i]["formaDePago"],
+                                );
+                        break;
+                        }
+                }
+
+                $archivoUsuarios = fopen('../datos/usuarios.json', 'w');
+                fwrite($archivoUsuarios, json_encode($usuarios));
+                fclose($archivoUsuarios);
         }
 
 

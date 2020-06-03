@@ -21,6 +21,7 @@ if ($_SESSION["token"] != $_COOKIE["token"])
   <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="bootstrap/estilosInicioCliente.css">
   <link rel="stylesheet" href="bootstrap/estilos.css">
+  <link rel="stylesheet" href="bootstrap/font-awesome.min.css">
 </head>
 
 <body>
@@ -45,11 +46,11 @@ if ($_SESSION["token"] != $_COOKIE["token"])
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="verCarrito.php"><img src="img/carrito.png" alt="" width="23px;">&nbsp; Ver
               carrito</a>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalPromocionesFavoritas">Promociones favoritas</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalEmpresasFavoritas">Empresas
               favoritas</a>
-            <a class="dropdown-item" href="mapa.html">Mapa de promociones</a>
-            <a class="dropdown-item" href="actualizarPerfil.html">Actualizar perfil</a>
+            <a class="dropdown-item" href="#">Mapa de promociones</a>
+            <a class="dropdown-item" href="actualizarPerfil.php">Actualizar perfil</a>
+            <a class="dropdown-item" onclick="eliminarCuenta()" href="#">Eliminar cuenta</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="logout.php">Cerrar sesión</a>
           </div>
@@ -105,30 +106,16 @@ if ($_SESSION["token"] != $_COOKIE["token"])
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Calificar <span id="nombre-producto"></span></h5>
+          <h5 class="modal-title" id="exampleModalLabel">Calificar <span id="nombre-producto-calificar"></span></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form id="calificaion">
-            <p class="clasificacion">
-              <input id="radio1" type="radio" name="estrellas" value="5">
-              <label for="radio1">★</label>
-              <input id="radio2" type="radio" name="estrellas" value="4">
-              <label for="radio2">★</label>
-              <input id="radio3" type="radio" name="estrellas" value="3">
-              <label for="radio3">★</label>
-              <input id="radio4" type="radio" name="estrellas" value="2">
-              <label for="radio4">★</label>
-              <input id="radio5" type="radio" name="estrellas" value="1">
-              <label for="radio5">★</label>
-            </p>
-          </form>
+          <input type="number" name="" id="calificacion">
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" id="calificar-p" data-dismiss="modal">Calificar</button>
+        <div id="botones-calificar" class="modal-footer">
+          
         </div>
       </div>
     </div>
@@ -140,18 +127,18 @@ if ($_SESSION["token"] != $_COOKIE["token"])
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Comentar <span id="nombre-producto"></span></h5>
+          <h5 class="modal-title" id="exampleModalLabel">Comentar <span id="nombre-producto-comentar"></span></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="comentar-producto">Breve descripcion del producto</label>
+            <label for="comentar-producto">Breve comentario del producto</label>
             <textarea id="comentar-producto" name="textarea" rows="6" cols="40"></textarea>
           </div>
         </div>
-        <div class="modal-footer">
+        <div id="botones-comentario" class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
           <button type="button" class="btn btn-primary" id="comentar" data-dismiss="modal">Comentar</button>
         </div>
@@ -203,6 +190,81 @@ if ($_SESSION["token"] != $_COOKIE["token"])
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN DE MODAL PARA VER EMPRESAS FAVORITAS -->
+
+  <!-- MODAL PARA VER EMPRESAS FAVORITAS -->
+  <div class="modal fade" id="exampleModalVerEmpresa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabelT"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-unstyled">
+            <li class="media">
+              <img class="mr-3" id="imagen-ve" alt="...">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1"><b> Imagen de perfil</b></h5>
+              </div>
+            </li>
+            <li class="media">
+              <h5 id="dir"></h5>
+              <div class="media-body">
+                <h5 class="mt-0 mb-1"> <b>:Dirección</b></h5>
+              </div>
+            </li><br>
+            <hr>
+            <h3>Redes sociales</h3>
+            <hr id="separar">
+            <li class="media">
+              <h5 id="fb"></h5>
+              <div class="media-body">
+                <h5 class="mt-0 mb-1"> <i class="fab fa-facebook"></i></h5>
+              </div>
+            </li>
+            <hr>
+            <li class="media">
+              <h5 id="ig"></h5>
+              <div class="media-body">
+                <h5 class="mt-0 mb-1"> <i class="fab fa-instagram"></i></h5>
+              </div>
+            </li>
+            <hr>
+            <li class="media">
+              <h5 id="sc"></h5>
+              <div class="media-body">
+                <h5 class="mt-0 mb-1"> <i class="fab fa-snapchat"></i></h5>
+              </div>
+            </li>
+            <hr>
+            <li class="media">
+              <h5 id="yt"></h5>
+              <div class="media-body">
+                <i class="fab fa-youtube"></i>
+              </div>
+            </li>
+            <hr>
+            <h3>Comentarios de sus productos</h3>
+            <hr id="separar">
+            <div id="comments"></div>
+            <hr>
+            <h3>Calificaciones a sus productos</h3>
+            <hr id="separar">
+            <div id="calificaciones"></div>
+            <hr>
+            <div id="cal"></div>
+            <hr>
+          </ul>
+        </div>
+        <div id="botones-ver" class="modal-footer">
+    
         </div>
       </div>
     </div>

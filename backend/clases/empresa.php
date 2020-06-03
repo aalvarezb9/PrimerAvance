@@ -361,13 +361,41 @@ include_once('social/social.php');
             $empresas = json_decode($contenidoArchivoEmpresas, true);
             $empresa = null;
             for($contadorEmpresas = 0; $contadorEmpresas < sizeof($empresas); $contadorEmpresas++){
-                if($empresas[$contadorEmpresas]['idE'] == $idE){
+                if($empresas[$contadorEmpresas]['name'] == str_replace("+", " ", $idE)){
                     $empresa = $empresas[$contadorEmpresas];
                 break;
                 }
             }
 
             echo json_encode($empresa);
+        }
+
+        public static function eliminarSucursal($name, $indice){
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $empresa = null;
+
+                for($i = 0; $i < sizeof($empresas); $i++){
+                        if($name == $empresas[$i]["name"]){
+                                array_splice($empresas[$i]["sucursal"], $indice, 1);
+                                $empresa = $empresas[$i];
+                        break;
+                        }
+                }
+
+                $archivo = fopen('../datos/empresas.json', 'w');
+                fwrite($archivo, json_encode($empresas));
+                fclose($archivo);
+
+                if($empresa == null){
+                        echo json_encode(array(
+                                "estado" => "fracaso"
+                        ));
+                }else{
+                        echo json_encode(array(
+                                "estado" => "exito"
+                        ));   
+                }
         }
 
         public static function obtenerCodigoEmpresa(){
@@ -664,8 +692,9 @@ include_once('social/social.php');
                         if($name == $empresas[$i]["name"]){
                                 for($j = 0; $j < sizeof($empresas[$i]["products"]); $j++){
                                         if($nombreP == $empresas[$i]["products"][$j]["nombre"]){
-                                                if($cantidad > $empresas[$i]["products"][$j]["cantidad"]){
-                                                        $empresas[$i]["products"][$j]["cantidad"] = 0;
+                                                if($cantidad >= $empresas[$i]["products"][$j]["cantidad"]){
+                                                        // $empresas[$i]["products"][$j]["cantidad"] = 0;
+                                                        array_splice($empresas[$i]["products"], $j, 1);
                                                 }else{
                                                         $empresas[$i]["products"][$j]["cantidad"] -= $cantidad;
                                                 }
@@ -809,6 +838,69 @@ include_once('social/social.php');
                 echo json_encode($empresa);
         }
 
+        public static function paraElDash($name){
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $ventas = null;
+                for($i = 0; $i < sizeof($empresas); $i++){
+                        if($name == $empresas[$i]["name"]){
+                                if(isset($empresas[$i]["ventas"])){
+                                        $ventas = $empresas[$i]["ventas"];
+                                }else{
+                                        $ventas = array();
+                                }
+                        break;
+                        }
+                }
+
+                if(sizeof($ventas) > 0){
+                        echo json_encode(array(
+                                "estado" => "exito",
+                                "mensaje" => "ventas",
+                                "ventas" => $ventas
+                        ));
+                }else if(sizeof($ventas) == 0){
+                        echo json_encode(array(
+                                "estado" => "exito",
+                                "mensaje" => "No ventas",
+                                "ventas" => $ventas
+                        ));
+                }else{
+                        echo json_encode(array(
+                                "estado" => "fracaso",
+                                "mensaje" => "fracaso"
+                        )); 
+                }
+        }
+
+        public static function eliminarEmpresa($name){
+                $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
+                $empresas = json_decode($contenidoArchivoEmpresas, true);
+                $empresa = null;
+
+                for($i = 0; $i < sizeof($empresas); $i++){
+                        if($name == $empresas[$i]["name"]){
+                                $empresa = $empresas[$i];
+                                array_splice($empresas, $i, 1);
+                        break;
+                        }
+                }
+
+                $archivo = fopen('../datos/empresas.json', 'w');
+                fwrite($archivo, json_encode($empresas));
+                fclose($archivo);
+
+                if($empresa == null){
+                        echo json_encode(array(
+                                "estado" => "fracaso"
+                        ));
+                }else{
+                        echo json_encode(array(
+                                "estado" => "exito"
+                        ));  
+                }
+        }
+
         public static function actualizarEmpresa($name, $nEmpresa){
                 $contenidoArchivoEmpresas = file_get_contents('../datos/empresas.json');
                 $empresas = json_decode($contenidoArchivoEmpresas, true);
@@ -836,7 +928,8 @@ include_once('social/social.php');
                                         ),
                                         "products" => $empresas[$contadorEmpresas]["products"],
                                         "sucursal" => $empresas[$contadorEmpresas]["sucursal"],
-                                        "ventas" => $empresas[$contadorEmpresas]["ventas"]
+                                        "ventas" => $empresas[$contadorEmpresas]["ventas"],
+                                        "vistas" => $empresas[$contadorEmpresas]["vistas"]
                                 );
 
                                 $empresa = $empresas[$contadorEmpresas];

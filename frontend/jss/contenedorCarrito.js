@@ -121,8 +121,8 @@ function comprar(){
             tarjeta: {
                 nombreTarjeta: document.getElementById('nombre-tarjeta').value, 
                 numeroTarjeta: document.getElementById('tarjeta').value, 
-                validoHasta: document.getElementById('cvv').value,
-                cvv: document.getElementById('hasta').value
+                validoHasta: document.getElementById('hasta').value,
+                cvv: document.getElementById('cvv').value
             }
         }
     }).then(res => {

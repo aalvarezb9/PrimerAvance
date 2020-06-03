@@ -76,7 +76,7 @@ if ($_SESSION["token"] != $_COOKIE["token"]) {
     </div>
   </div>
 
-
+<!-- qrcode -->
   <!-- MODAL PARA INCREMENTAR PRODUCTO -->
   <div class="modal fade" id="exampleModalIncrementar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -122,6 +122,38 @@ if ($_SESSION["token"] != $_COOKIE["token"]) {
   </div>
   <!-- FIN DE MODAL PARA INCREMENTAR PRODUCTOS -->
 
+  <!-- MODAL PARA IMPRIMIR -->
+  <div class="modal fade" id="exampleModalImprimir" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabelT">Producto impreso</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-unstyled">
+            <li class="media">
+            <div id="qrcode1" class="card" style="width: 100px; height: 100px; border: .5px solid white;">
+            </div>
+            <img id="img-p" style="width: 100px; height: 100px;" alt="">
+              <!-- <img class="mr-3" id="imagen-ve" alt="..."> -->
+              <br>
+              <div class="media-body">
+                <h3 id="n-p"></h3>
+                <h3 id="p-p"></h3>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div id="botones-ver" class="modal-footer">
+          <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN MODAL PARA IMPRIMIR -->
 
   <footer class="container">
     <hr style="border-color: #1B6DC1;">

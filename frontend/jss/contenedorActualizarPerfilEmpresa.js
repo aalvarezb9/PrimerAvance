@@ -6,54 +6,18 @@ const nombreEmpresa = leerCookie("name");
 // const offerr = ["ropaa", "electronicaa", "electrodomesticoss", "deportee", "otross"];
 // var offer1, offer2, offer3, offer4, offer5;
 // var offerN = [];
-const urlEmpresas = 'http://localhost/BUSE/backend/api/empresas.php';
+const urlEmpresas = '../backend/api/empresas.php';
 var imagenN;
 //document.getElementById('nuevo-email-registro-empresa').value = obtenerEmailEmpresa(leerCookie("name"));//leerCookie("emailEmpresa");
 document.getElementById('nuevo-nombre-registro-empresa').value = nombreEmpresa.replace("+", " ");
-// document.getElementById('direccion-registro').value = leerCookie("address");
-// document.getElementById('fb').value = leerCookie("facebook").replace("+", " ");
-// document.getElementById('ig').value = leerCookie("instagram").replace("+", " ");
-// document.getElementById('yt').value = leerCookie("youtube").replace("+", " ");
-// document.getElementById('sc').value = leerCookie("snapchat").replace("+", " ");
 
-
-// function cargarOffer(){
-//     for(let i = 0; i < offerr.length; i++){
-//         for(let j = 0; j < offerN.length; j++){
-//             if(offerr[i] == offerN[j]){
-//                 document.getElementById(offerr[i]).setAttribute("checked", "true");
-//             }
-//         }
-//     }
-    
-// }
-// verOfferr();
-// cargarOffer();
-
-generarTodo();
-
-// function verOfferr(){
-//     offer1 = leerCookie("offer[1]");
-//     offer2 = leerCookie("offer[2]");
-//     offer3 = leerCookie("offer[3]");
-//     offer4 = leerCookie("offer[4]");
-//     offer5 = leerCookie("offer[5]");
-
-//     offerN.push(offer1);
-//     offerN.push(offer2);
-//     offerN.push(offer3);
-//     offerN.push(offer4);
-//     offerN.push(offer5);
-
-//     console.log(offerN);
-// }
 
 function generarTodo(){
     obtenerOfferEmpresa(nombreEmpresa);
     obtenerEmailEmpresa(nombreEmpresa);
     obtenerDireccionEmpresa(nombreEmpresa);
     obtenerRedesSociales(nombreEmpresa);
-}
+} generarTodo();1
 
 
 
@@ -265,23 +229,7 @@ function actualizar() {
 
 }
 
-// function obtenerRutaImagen() {
-//     var rutaImagen = '';
-//     $('input[type=file]:first').change(function () {
-//         rutaImagen = $('#btn_anviar').val();
-//     });
 
-//     return rutaImagen;
-// }
-
-// function obtenerRutaBanner() {
-//     var rutaBanner = '';
-//     $('input[type=file]:last').change(function () {
-//         rutaBanner = $('#btn_anviar').val();
-//     });
-
-//     return rutaBanner;
-// }
 
 function irInicio() {
     window.location.href = 'visualizarPerfilEmpresa.php';

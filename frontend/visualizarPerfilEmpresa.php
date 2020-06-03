@@ -45,8 +45,9 @@
             <a class="dropdown-item" href="visualizarPerfilEmpresa.php">Visualizar perfil</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">Registro de sucursales</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalRegistroProductos">Registro de productos</a>
-            <a class="dropdown-item" href="#">Dashboard administrativo</a>
-            <a class="dropdown-item" href="#">Imprimir</a>
+            <a class="dropdown-item" href="dash.php">Dashboard administrativo</a>
+            <a class="dropdown-item" href="catalogo.php">Imprimir</a>
+            <a class="dropdown-item" onclick="eliminarCuenta()" href="#">Eliminar cuenta</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="logoutE.php">Cerrar sesión</a>
           </div>
@@ -171,7 +172,7 @@
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <h2><img src="img/mapa.png" alt=""></h2>
         <p>Mira todas las sucursales de tu empresa y lleva el control geográfico </p>
-        <p><a class="btn btn-secondary" href="mapasEmpresa.html" role="button">Ver sucursales &raquo;</a></p>
+        <p><a class="btn btn-secondary" href="mapasEmpresa.php" role="button">Ver sucursales &raquo;</a></p>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <h2><img src="img/catalogo.png" alt=""></h2>

@@ -1,12 +1,12 @@
+//PHP INICIA EN LA LÍNEA 468
 // import mandar from './contenedorInicioCliente';
 //local storage clientes
-
 //paisSeleccionado()
 var img;
 var imgB;
 var imgC;
-const urlClientes = 'http://localhost/BUSE/backend/api/usuarios.php';
-const urlEmpresas = 'http://localhost/BUSE/backend/api/empresas.php';
+const urlClientes = '../backend/api/usuarios.php';
+const urlEmpresas = '../backend/api/empresas.php';
 var localStorage = window.localStorage;
 var clientes = [];
 // var temporalClientes;
@@ -588,7 +588,7 @@ function enviarClienteAlServidor(cliente) {
         console.error(error);
     });
 }
-
+//superUsuarioExiste()
 //Inicio de Modal 1 para registrar empresa
 function registroEmpresa1() {
     empresa = {
@@ -772,20 +772,26 @@ function obtenerUnaEmpresa(idE) {
 
 //Verificación del súper-usuario
 function superUsuarioExiste() {
-    let superUsuarioExiste;
+    let user = document.getElementById('exampleInputSuperUsuario').value;
+    let ps = document.getElementById('exampleInputPasswordSuperUsuario').value;
     axios({
-        method: 'GET',
-        url: 'http://localhost/BUSE/backend/api/super.php',
-        responseType: 'json'
-    }).then(res => {
-        if (document.getElementById('exampleInputSuperUsuario').value == res.data.usuario && document.getElementById('exampleInputPasswordSuperUsuario').value == res.data.pass) {
-            superUsuarioExiste = true;
-            console.log(superUsuarioExiste);
-        } else {
-            superUsuarioExiste = false;
-            console.log(superUsuarioExiste);
+        method: 'POST',
+        url: '../backend/api/super.php',
+        responseType: 'json',
+        data: {
+            usuario: user,
+            pass: ps
         }
-        console.log(res.data);
+    }).then(res => {
+        console.log(user);
+        console.log(ps);
+        console.log(res);
+        if(res.data.estado == "exito"){
+            window.location.href = 'su.php';
+        }else{
+            alert("Credenciales inválidas");
+            return false;
+        }
     }).catch(error => {
         console.error(error);
     });
@@ -973,4 +979,8 @@ function sleep(milliseconds) {
             break;
         }
     }
+}
+
+function recargar(){
+    window.location.reload();
 }

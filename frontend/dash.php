@@ -66,9 +66,15 @@
         </div>
     </nav>
     <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="chart-wrap horizontal graficas"> <!-- quitar el estilo "horizontal" para visualizar verticalmente -->
+      <div class="row" style="margin-top: 10px;">
+        <div id="length-ventas" class="col-4" style="padding: 20px; height: 300px; width: 100px; border-radius: 40px; color: white; background-color: rgba(51, 133, 217, 0.7);"><h2>Ventas hechas: <span id="c"></span></h2></div>
+        <div id="productos-vendidos" class="col-4" style="padding: 20px; height: 300px; width: 100px; border-radius: 40px; color: white; background-color: rgba(51, 133, 217, 0.7);"><h2> Cantidad de productos vendidos: <span id="v"></span></h2></div>
+        <div id="dinero" class="col-4" style="padding: 20px; height: 300px; width: 100px; border-radius: 40px; color: white; background-color: rgba(51, 133, 217, 0.7);"><h2>Cantidad de dinero vendida: <span id="d"></span></h2></div>
+        <div class="col-4" style="padding: 20px; height: 300px; width: 100px; border-radius: 40px; color: white; background-color: rgba(51, 133, 217, 0.7);"><h2>Visitas al perfil: <span id="visitas"></span></h2></div>
+        <div class="col-4" style="padding: 20px; height: 300px; width: 100px; border-radius: 40px; color: white; background-color: rgba(51, 133, 217, 0.7);"><h2> Promedio de calificaciones: <span id="calificaciones"></span></h2></div>
+        <div class="col-4" style="padding: 20px; height: 300px; width: 100px; border-radius: 40px; color: white; background-color: rgba(51, 133, 217, 0.7);"><h2>Comentarios hechos a productos: <span id="comme"></span></h2></div>
+        <!-- <div class="col-md-12">
+          <div class="chart-wrap horizontal graficas">  quitar el estilo "horizontal" para visualizar verticalmente 
 
             <div class="title">Gráfico de las ventas en el último mes</div>          
             <div class="grid">
@@ -92,7 +98,7 @@
             </div>
           
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="display: none;">
@@ -129,7 +135,9 @@
   </footer>
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
     <script src="bootstrap/jquery-3.2.1.min.js"></script>
-    <script src="jss/contenedorInicioEmpresa.js"></script>
+    <!-- <script src="jss/contenedorInicioEmpresa.js"></script> -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="jss/contenedorDash.js"></script>
 </body>
 </html>

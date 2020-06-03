@@ -99,13 +99,34 @@
                 }
             }else if(isset($_GET['prdC'])){
                 Empresa::obtenerTodosLosProductos();
+            }else if(isset($_GET['dsh'])){
+                $cadena = str_replace("+", " ", $_GET['dsh'], $contador);
+                if($contador > 0){
+                    Empresa::paraElDash($cadena);
+                }else{
+                    Empresa::paraElDash($_GET['dsh']);
+                }
+            }else if(isset($_GET['tds'])){
+                Empresa::obtenerEmpresas();
             }else{
                 Empresa::obtenerProductosInicio();
             }
         break;
         case 'DELETE':
             if(isset($_GET['idE'])){
-                //Eliminar esa empresa
+                $cadena = str_replace("+", " ", $_GET['idE'], $contador);
+                if($contador > 0){
+                    Empresa::eliminarEmpresa($cadena);
+                }else{
+                    Empresa::eliminarEmpresa($_GET['idE']);
+                }
+            }else if(isset($_GET['suc'])){
+                $cadena = str_replace("+", " ", $_GET['suc'], $contador);
+                if($contador > 0){
+                    Empresa::eliminarSucursal($cadena, $_POST['i']);
+                }else{
+                    Empresa::eliminarSucursal($_GET['suc'], $_POST['i']);
+                }
             }else{
                 // Usuario::eliminarUsuarios()
             }

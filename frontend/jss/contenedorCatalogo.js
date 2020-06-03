@@ -1,6 +1,7 @@
 
 const urlEmpresas = '../backend/api/empresas.php';
 const nombreEmpresa = leerCookie("name");
+var productos;
 
 function alCargar(){
     cargarProductos(nombreEmpresa);
@@ -96,6 +97,7 @@ function leerCookie(namee) {
 }
 
 function cargarProductos(name){
+    productos = [];
     axios({
         url: urlEmpresas + '?prd=' + name,
         method: 'GET',
@@ -104,6 +106,7 @@ function cargarProductos(name){
         console.log(res.data);
         if(res.data.estado == "exito" && res.data.products.length > 0)
         {   for(let i = 0; i < res.data.products.length; i++){
+                productos.push(res.data.products[i]);
                 document.getElementById('aqui-van-los-productos').innerHTML +=
                     `
                     <div class="col-lg-4 col-md-4 col-sm-6-col-xs-12" style="margin-bottom: 15px;">
@@ -120,6 +123,8 @@ function cargarProductos(name){
                                 <a href="#" class="btn btn-primary" onclick="abrirModal(0, '${res.data.products[i].imagen}', '${res.data.products[i].codigoQR}', '${res.data.products[i].nombre}', ${res.data.products[i].cantidad})">Eliminar</a>
                                 <br><br>
                                 <a href="#" class="btn btn-primary" onclick="abrirModal(1, '${res.data.products[i].imagen}', '${res.data.products[i].codigoQR}', '${res.data.products[i].nombre}', ${res.data.products[i].cantidad})">Incrementar</a>
+                                <br><br>
+                                <a href="#" class="btn btn-primary" onclick="imprimir(${i})">Imprimir</a>
                             </div>
                         </div>
                     </div>
@@ -127,16 +132,36 @@ function cargarProductos(name){
             }
         }else if(res.data.estado == "exito" && res.data.products.length == 0){
             alert("Error, no tiene registrado ningún producto. Diríjase a su perfil para agregar");
+            window.location.href = 'visualizarPerfilEmpresa.php';
+            return false;
         }else{
             alert("Error");
+            return false;
         }
     }).catch(err => {
         alert('Error: ' + err);
     });
 }
 
+function imprimir(indice){
+    document.getElementById('qrcode1').innerHTML = '';
+    $('#exampleModalImprimir').modal('show');
+    makeCode1(productos[indice].descripcion);
+    document.getElementById('img-p').setAttribute("src", `${productos[indice].imagen}`);
+    document.getElementById('n-p').innerHTML = productos[indice].nombre;
+    document.getElementById('p-p').innerHTML = productos[indice].precio + ' Lps';
+}
+
 function makeCode(comentario) {
     var qrcode = new QRCode(document.getElementById("qrcode"), {
+      width: 100,
+      height: 100
+    });
+    qrcode.makeCode(comentario);
+  }
+
+  function makeCode1(comentario) {
+    var qrcode = new QRCode(document.getElementById("qrcode1"), {
       width: 100,
       height: 100
     });
